@@ -26,7 +26,7 @@ Open [http://localhost:3000](http://localhost:3000).
 | Variable | Required | Purpose |
 |----------|----------|---------|
 | `HIBP_API_KEY` | No | [Have I Been Pwned](https://haveibeenpwned.com/API/Key) API key for breach lookup via `/api/hibp`. Without it, users enter breach names manually. |
-| `NEXT_PUBLIC_SITE_URL` | Recommended in production | Canonical site URL for Open Graph metadata. Without a custom domain, use your Vercel URL (e.g. `https://settlement-scan-xxx.vercel.app` — copy from the Vercel project **Domains** tab). |
+| `NEXT_PUBLIC_SITE_URL` | Recommended in production | Canonical site for Open Graph. Use a full URL (`https://your-app.vercel.app`) or **hostname only** (`your-app.vercel.app`) — the app prepends `https://` if the scheme is missing. |
 | `KV_REST_API_URL` | No* | Upstash-style **HTTP REST** (optional). With `KV_REST_API_TOKEN`, uses `@vercel/kv`. |
 | `KV_REST_API_TOKEN` | No* | Paired with the REST URL (`UPSTASH_REDIS_REST_*` also supported). |
 | `REDIS_URL` | No* | **Vercel Serverless Redis** / **Redis Cloud** — standard `redis://` or `rediss://` URL. Used when REST vars are not set. |
