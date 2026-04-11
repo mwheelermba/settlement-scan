@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SettlementScan
 
-## Getting Started
+Free, open source helper to discover class action settlements you may qualify for. Your profile stays in the browser; settlement data ships as `data/settlements.json` in this repo.
 
-First, run the development server:
+See `SettlementScan_Project_Overview.md` for the full product and architecture spec.
+
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Purpose |
+|--------|---------|
+| `npm run dev` | Next.js dev server |
+| `npm run build` / `npm start` | Production build and run |
+| `pip install -r scraper/requirements.txt` then `python scraper/scrape_settlements.py` | Scraper (stub parser until Phase 0 is finished) |
 
-## Learn More
+## Environment variables
 
-To learn more about Next.js, take a look at the following resources:
+| Variable | Required | Purpose |
+|----------|----------|---------|
+| `HIBP_API_KEY` | No | [Have I Been Pwned](https://haveibeenpwned.com/API/Key) API key for breach lookup via `/api/hibp`. Without it, users enter breach names manually. |
+| `NEXT_PUBLIC_SITE_URL` | Recommended in production | Canonical site URL for Open Graph metadata. Without a custom domain, use your Vercel URL (e.g. `https://settlement-scan-xxx.vercel.app` — copy from the Vercel project **Domains** tab). |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Repo layout
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `src/app` — Next.js App Router pages and API routes
+- `data/settlements.json` — Settlement database (committed, deployed with the app)
+- `scraper/` — Python scraper for ClassAction.org (extend `parse_stub` per Phase 0)
+- `.github/workflows/scrape.yml` — Weekly cron (opens a PR when data changes)
 
-## Deploy on Vercel
+## Contributing settlements
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Edit `data/settlements.json` and open a pull request. Use the examples in the file and the schema in `SettlementScan_Project_Overview.md`.

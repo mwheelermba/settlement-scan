@@ -1,0 +1,58 @@
+[
+  {
+    "id": "google-play-store-subscriptions-2026",
+    "title": "Google Play Store Subscriptions Class Action Settlement",
+    "defendant": "Google LLC",
+    "description": "Settlement for users who paid for at least one renewal term of a Google subscription sold through the Google Play Store between May 30, 2014 and October 27, 2019.",
+    "deadline": "2026-05-09",
+    "claim_url": "https://playstoresubscriptionsettlement.com/",
+    "source_url": "https://www.classaction.org/settlements",
+    "estimated_payout": "$5.85",
+    "proof_required": false,
+    "type": "consumer",
+    "active": true,
+    "last_verified": "2026-04-11",
+    "criteria": {
+      "states": null,
+      "services": ["Google Play Store"],
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": {
+        "after": "2014-05-30",
+        "before": "2019-10-27"
+      },
+      "qualifying_questions": [
+        {
+          "id": "gplay-renewal",
+          "text": "Did you pay for at least one renewal of a Google Play Store subscription during this period?",
+          "field": "services",
+          "required": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "example-data-breach-placeholder",
+    "title": "Example Data Breach Settlement (Sample)",
+    "defendant": "Example Corp",
+    "description": "This is a placeholder entry for development. Replace with real data from the scraper or manual contributions.",
+    "deadline": "2026-12-31",
+    "claim_url": "https://example.com/claim",
+    "source_url": "https://www.classaction.org/settlements",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "data_breach",
+    "active": true,
+    "last_verified": "2026-04-11",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": "ExampleBreach2024",
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  }
+]
