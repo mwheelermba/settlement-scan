@@ -44,7 +44,8 @@ export function ProfileBackupGuard({ children }: { children: ReactNode }) {
     const dest = pending;
     setBusy(true);
     try {
-      await backupNow(p);
+      const backedUp = await backupNow(p);
+      if (!backedUp) return;
       setPending(null);
       if (dest) router.push(dest);
     } finally {

@@ -79,7 +79,7 @@ export function ProfileBackupFloatingBar() {
       className="mb-4 flex flex-col gap-3 rounded-xl border border-amber-300/90 bg-amber-50 px-4 py-3 text-sm text-amber-950 shadow-sm dark:border-amber-700/80 dark:bg-amber-950/40 dark:text-amber-100 sm:flex-row sm:items-center sm:justify-between"
     >
       <p className="leading-snug">
-        <span className="font-semibold">Profile backup is newer than your last file save.</span> SettlementScan does not
+        <span className="font-semibold">Your current profile is newer than your last file backup.</span> SettlementScan does not
         store your personal data on our servers — keep a JSON file so you don&apos;t lose anything if this browser
         clears storage.
       </p>

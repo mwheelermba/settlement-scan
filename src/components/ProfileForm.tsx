@@ -607,7 +607,7 @@ export function ProfileForm({
         <p className="text-xs leading-relaxed text-zinc-500">
           One JSON file is your portable backup — match fields, filed claims, saved bookmarks, dismissed matches, and
           qualifying answers. Your edits already live in this browser; downloading or syncing a file protects you if
-          storage is cleared or you switch devices. Import replaces everything stored here; nothing is uploaded to
+          storage is cleared or you switch devices. Import replaces everything stored here; nothing is uploaded to{" "}
           SettlementScan.
         </p>
         <p className="text-xs leading-relaxed text-zinc-500">

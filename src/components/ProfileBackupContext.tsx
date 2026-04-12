@@ -22,7 +22,7 @@ type ProfileBackupContextValue = {
   refresh: () => void;
   markBackupComplete: (profile: UserProfile) => void;
   /** Download, or write to a chosen/synced file when supported. */
-  backupNow: (profile: UserProfile) => Promise<void>;
+  backupNow: (profile: UserProfile) => Promise<boolean>;
 };
 
 const ProfileBackupContext = createContext<ProfileBackupContextValue | null>(null);
@@ -50,9 +50,11 @@ export function ProfileBackupProvider({ children }: { children: ReactNode }) {
 
   const backupNow = useCallback(
     async (p: UserProfile) => {
-      await performProfileBackup(p);
+      const method = await performProfileBackup(p);
+      if (method === "cancelled") return false;
       persistBackupFingerprint(p);
       refresh();
+      return true;
     },
     [refresh]
   );

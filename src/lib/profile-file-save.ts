@@ -7,6 +7,8 @@ type FileHandleWithPermissions = FileSystemFileHandle & {
   requestPermission?: (options: { mode: "readwrite" }) => Promise<PermissionState>;
 };
 
+type PickerSaveResult = "saved" | "cancelled" | "unsupported";
+
 let sessionBackupHandle: FileSystemFileHandle | null = null;
 
 export function getSessionBackupFileHandle(): FileSystemFileHandle | null {
@@ -66,9 +68,9 @@ export async function writeProfileToSessionHandle(profile: UserProfile): Promise
 }
 
 /** Pick a file (or replace handle) and write — enables one-tap / auto sync for this session. */
-export async function pickFileAndSaveProfile(profile: UserProfile): Promise<boolean> {
+export async function pickFileAndSaveProfile(profile: UserProfile): Promise<PickerSaveResult> {
   const picker = getShowSaveFilePicker();
-  if (!picker) return false;
+  if (!picker) return "unsupported";
   try {
     const handle = await picker({
       suggestedName: "settlementscan-profile.json",
@@ -81,9 +83,12 @@ export async function pickFileAndSaveProfile(profile: UserProfile): Promise<bool
     });
     await writeToHandle(handle, profile);
     sessionBackupHandle = handle;
-    return true;
-  } catch {
-    return false;
+    return "saved";
+  } catch (err) {
+    if (err instanceof DOMException && err.name === "AbortError") {
+      return "cancelled";
+    }
+    return "unsupported";
   }
 }
 
@@ -103,13 +108,14 @@ export function downloadProfileJsonFile(profile: UserProfile): void {
  */
 export async function performProfileBackup(
   profile: UserProfile
-): Promise<"session_file" | "picked_file" | "download"> {
+): Promise<"session_file" | "picked_file" | "download" | "cancelled"> {
   if (await writeProfileToSessionHandle(profile)) {
     return "session_file";
   }
   if (hasShowSaveFilePicker()) {
-    const ok = await pickFileAndSaveProfile(profile);
-    if (ok) return "picked_file";
+    const result = await pickFileAndSaveProfile(profile);
+    if (result === "saved") return "picked_file";
+    if (result === "cancelled") return "cancelled";
   }
   downloadProfileJsonFile(profile);
   return "download";
