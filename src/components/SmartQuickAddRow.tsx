@@ -6,7 +6,7 @@ type Props = {
   onAdd: (value: string) => void;
 };
 
-/** Fixed grid of 5–8 suggested terms (from open/recent settlements + fallbacks). */
+/** One row of up to 8 cells — terms from the live settlement database only. */
 export function SmartQuickAddRow({ label, terms, onAdd }: Props) {
   const cells = terms.slice(0, 8);
   if (cells.length === 0) return null;
@@ -14,7 +14,7 @@ export function SmartQuickAddRow({ label, terms, onAdd }: Props) {
   return (
     <div className="pt-1">
       <p className="mb-1.5 text-[11px] font-medium uppercase tracking-wide text-zinc-500">{label}</p>
-      <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-4 lg:grid-cols-8">
         {cells.map((s) => (
           <button
             key={s}

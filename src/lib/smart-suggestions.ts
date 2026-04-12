@@ -62,12 +62,11 @@ function matchesCategory(s: Settlement, cat: ProfileQuickCategory): boolean {
 }
 
 /**
- * Terms from settlements (open first, then closed) merged with static fallbacks — for profile quick-add row.
+ * Terms from settlements only (open first, then closed) — no static merge. Used for the “smart” quick-add row.
  */
-export function getSmartQuickAddTerms(
+export function getSmartTermsFromDbOnly(
   cat: ProfileQuickCategory,
   settlements: Settlement[],
-  staticFallback: string[],
   opts?: { limit?: number }
 ): string[] {
   const limit = opts?.limit ?? 8;
@@ -89,7 +88,28 @@ export function getSmartQuickAddTerms(
   drain(open);
   drain(closed);
 
-  for (const t of staticFallback) uniquePush(out, seen, t);
+  return out.slice(0, limit);
+}
 
+/**
+ * Terms from settlements merged with static fallbacks (legacy / tests).
+ */
+export function getSmartQuickAddTerms(
+  cat: ProfileQuickCategory,
+  settlements: Settlement[],
+  staticFallback: string[],
+  opts?: { limit?: number }
+): string[] {
+  const limit = opts?.limit ?? 8;
+  const base = getSmartTermsFromDbOnly(cat, settlements, { limit });
+  const seen = new Set(base.map((t) => t.toLowerCase()));
+  const out = [...base];
+  for (const t of staticFallback) {
+    const k = t.trim().toLowerCase();
+    if (k.length < 2 || seen.has(k)) continue;
+    seen.add(k);
+    out.push(t.trim());
+    if (out.length >= limit) break;
+  }
   return out.slice(0, limit);
 }

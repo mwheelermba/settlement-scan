@@ -12,10 +12,11 @@ import {
   SUGGEST_SUBSCRIPTIONS,
 } from "@/lib/profile-suggestions";
 import { getActiveSettlements } from "@/lib/settlements";
-import { getSmartQuickAddTerms } from "@/lib/smart-suggestions";
+import { getSmartTermsFromDbOnly } from "@/lib/smart-suggestions";
 import type { UserProfile } from "@/lib/types";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { SmartQuickAddRow } from "./SmartQuickAddRow";
+import { StaticQuickAddDoubleRow } from "./StaticQuickAddDoubleRow";
 
 const US_STATES = [
   "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME",
@@ -98,13 +99,13 @@ export function ProfileForm({
   const settlementDb = useMemo(() => getActiveSettlements(), []);
   const smart = useMemo(
     () => ({
-      subscriptions: getSmartQuickAddTerms("subscriptions", settlementDb, SUGGEST_SUBSCRIPTIONS),
-      financial: getSmartQuickAddTerms("financial", settlementDb, SUGGEST_FINANCIAL),
-      employers: getSmartQuickAddTerms("employers", settlementDb, SUGGEST_EMPLOYERS),
-      retail: getSmartQuickAddTerms("retail", settlementDb, SUGGEST_RETAIL_AND_BRANDS),
-      medical: getSmartQuickAddTerms("medical", settlementDb, SUGGEST_MEDICAL),
-      products: getSmartQuickAddTerms("products", settlementDb, SUGGEST_PRODUCTS),
-      breach: getSmartQuickAddTerms("breach", settlementDb, SUGGEST_BREACH),
+      subscriptions: getSmartTermsFromDbOnly("subscriptions", settlementDb, { limit: 8 }),
+      financial: getSmartTermsFromDbOnly("financial", settlementDb, { limit: 8 }),
+      employers: getSmartTermsFromDbOnly("employers", settlementDb, { limit: 8 }),
+      retail: getSmartTermsFromDbOnly("retail", settlementDb, { limit: 8 }),
+      medical: getSmartTermsFromDbOnly("medical", settlementDb, { limit: 8 }),
+      products: getSmartTermsFromDbOnly("products", settlementDb, { limit: 8 }),
+      breach: getSmartTermsFromDbOnly("breach", settlementDb, { limit: 8 }),
     }),
     [settlementDb]
   );
@@ -274,11 +275,6 @@ export function ProfileForm({
         </p>
       </div>
 
-      <p className="rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs leading-relaxed text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900/50 dark:text-zinc-400">
-        <span className="font-medium text-zinc-800 dark:text-zinc-200">Saving:</span> text boxes update your profile when
-        you leave the field (Tab or click elsewhere). State and ZIP save immediately when you change them.
-      </p>
-
       <Section title="Location">
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="flex flex-col gap-1 text-xs font-medium text-zinc-600 dark:text-zinc-400">
@@ -332,7 +328,9 @@ export function ProfileForm({
             >
               Have I Been Pwned
             </a>{" "}
-            (if enabled) are merged into this list automatically; you can edit or add more anytime.
+            are merged into this list automatically when{" "}
+            <code className="rounded bg-zinc-100 px-1 text-[11px] dark:bg-zinc-800">HIBP_API_KEY</code> is set on the
+            server; otherwise add names by hand. You can edit or add more anytime.
           </p>
           <textarea
             rows={5}
@@ -344,8 +342,13 @@ export function ProfileForm({
             className="mt-2 w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
           />
           <SmartQuickAddRow
-            label="Suggested breach names (from database)"
+            label="From settlement database (this section)"
             terms={smart.breach}
+            onAdd={(s) => setBreachDraft((d) => appendLineIfNew(d, s))}
+          />
+          <StaticQuickAddDoubleRow
+            label="Suggested names (static list)"
+            suggestions={SUGGEST_BREACH}
             onAdd={(s) => setBreachDraft((d) => appendLineIfNew(d, s))}
           />
         </div>
@@ -356,8 +359,13 @@ export function ProfileForm({
           Paid apps, streaming, cloud storage, gaming subscriptions, etc.
         </p>
         <SmartQuickAddRow
-          label="Suggested from database (open & recent)"
+          label="From settlement database (this section)"
           terms={smart.subscriptions}
+          onAdd={(s) => setSubDraft((d) => appendLineIfNew(d, s))}
+        />
+        <StaticQuickAddDoubleRow
+          label="Suggested names (static list)"
+          suggestions={SUGGEST_SUBSCRIPTIONS}
           onAdd={(s) => setSubDraft((d) => appendLineIfNew(d, s))}
         />
         <textarea
@@ -374,8 +382,13 @@ export function ProfileForm({
           Banks, cards, fintech, credit bureaus, investment accounts you use or used.
         </p>
         <SmartQuickAddRow
-          label="Suggested from database (open & recent)"
+          label="From settlement database (this section)"
           terms={smart.financial}
+          onAdd={(s) => setFinDraft((d) => appendLineIfNew(d, s))}
+        />
+        <StaticQuickAddDoubleRow
+          label="Suggested names (static list)"
+          suggestions={SUGGEST_FINANCIAL}
           onAdd={(s) => setFinDraft((d) => appendLineIfNew(d, s))}
         />
         <textarea
@@ -392,8 +405,13 @@ export function ProfileForm({
           Companies you worked for when a settlement might name the employer (delivery, retail, gig work, etc.).
         </p>
         <SmartQuickAddRow
-          label="Suggested from database (open & recent)"
+          label="From settlement database (this section)"
           terms={smart.employers}
+          onAdd={(s) => setEmpDraft((d) => appendLineIfNew(d, s))}
+        />
+        <StaticQuickAddDoubleRow
+          label="Suggested names (static list)"
+          suggestions={SUGGEST_EMPLOYERS}
           onAdd={(s) => setEmpDraft((d) => appendLineIfNew(d, s))}
         />
         <textarea
@@ -411,8 +429,13 @@ export function ProfileForm({
           ignores small spelling differences (e.g. &quot;T Mobile&quot; vs &quot;T-Mobile&quot;).
         </p>
         <SmartQuickAddRow
-          label="Suggested from database (open & recent)"
+          label="From settlement database (this section)"
           terms={smart.retail}
+          onAdd={(s) => setRetailDraft((d) => appendLineIfNew(d, s))}
+        />
+        <StaticQuickAddDoubleRow
+          label="Suggested names (static list)"
+          suggestions={SUGGEST_RETAIL_AND_BRANDS}
           onAdd={(s) => setRetailDraft((d) => appendLineIfNew(d, s))}
         />
         <textarea
@@ -430,8 +453,13 @@ export function ProfileForm({
           matching is flexible.
         </p>
         <SmartQuickAddRow
-          label="Suggested from database (open & recent)"
+          label="From settlement database (this section)"
           terms={smart.products}
+          onAdd={(s) => setProductsDraft((d) => appendLineIfNew(d, s))}
+        />
+        <StaticQuickAddDoubleRow
+          label="Suggested names (static list)"
+          suggestions={SUGGEST_PRODUCTS}
           onAdd={(s) => setProductsDraft((d) => appendLineIfNew(d, s))}
         />
         <textarea
@@ -450,8 +478,13 @@ export function ProfileForm({
           flexible.
         </p>
         <SmartQuickAddRow
-          label="Suggested from database (open & recent)"
+          label="From settlement database (this section)"
           terms={smart.medical}
+          onAdd={(s) => setMedicalDraft((d) => appendLineIfNew(d, s))}
+        />
+        <StaticQuickAddDoubleRow
+          label="Suggested names (static list)"
+          suggestions={SUGGEST_MEDICAL}
           onAdd={(s) => setMedicalDraft((d) => appendLineIfNew(d, s))}
         />
         <textarea

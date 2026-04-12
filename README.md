@@ -64,4 +64,6 @@ Optional local testing: `vercel env pull .env.local` or paste vars into `.env.lo
 
 **Policy:** Only add rows that include a **real claim / notice URL** (typically from the scraper or a primary court or settlement-administrator site). Do not ship placeholder `example.com` links or generic agency homepages as stand-ins for a claim form. Well-known brands used only to jog memory on the profile page live in `src/lib/profile-suggestions.ts` (quick-add chips), not as fake settlement rows.
 
+**Bulk data:** The long-term plan is to **grow `data/settlements.json` from the scraper** (and optionally merge multiple sources). Good public indexes to align with include [ClassAction.org settlements](https://www.classaction.org/settlements), [ClassAction.com settlements](https://www.classaction.com/settlements/), and [OpenClassActions.com](https://openclassactions.com/settlements.php) — each row you import should still point at an **official settlement administrator** or court-approved claim site for `claim_url`, not only a news aggregator page.
+
 Edit `data/settlements.json` and open a pull request. Use the schema in `SettlementScan_Project_Overview.md`.

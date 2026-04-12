@@ -31,5 +31,74 @@
         }
       ]
     }
+  },
+  {
+    "id": "revitalash-eye-serum-2026",
+    "title": "RevitaLash / RevitaBrow Serum Class Action Settlement",
+    "defendant": "Athena Cosmetics, Inc.",
+    "description": "Settlement for purchasers of RevitaLash or RevitaBrow eyelash and eyebrow serums in the U.S. between January 1, 2017 and December 29, 2025 (Rush v. Athena Cosmetics). See official site for eligibility.",
+    "deadline": "2026-04-20",
+    "claim_url": "https://www.eyeserumsettlement.com/",
+    "source_url": "https://www.classaction.org/settlements",
+    "estimated_payout": "Varies",
+    "proof_required": false,
+    "type": "consumer",
+    "active": true,
+    "last_verified": "2026-04-11",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": ["RevitaLash", "RevitaBrow"],
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "siriusxm-tcpa-dnc-2026",
+    "title": "Sirius XM TCPA / Do Not Call Class Action Settlement",
+    "defendant": "Sirius XM Radio Inc.",
+    "description": "Proposed settlement for consumers who received more than one telemarketing call from Sirius XM within a 12-month period between April 27, 2019 and October 31, 2025 while on a do-not-call list (Campbell et al. v. Sirius XM Radio Inc.). See official notice for eligibility.",
+    "deadline": "2026-03-21",
+    "claim_url": "https://www.sxmtcpasettlement.com/",
+    "source_url": "https://www.classaction.org/settlements",
+    "estimated_payout": "Varies",
+    "proof_required": false,
+    "type": "consumer",
+    "active": true,
+    "last_verified": "2026-04-11",
+    "criteria": {
+      "states": null,
+      "services": ["Sirius XM", "SiriusXM"],
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "comcast-xfinity-breach-2026",
+    "title": "Comcast / Xfinity Data Breach Class Action Settlement",
+    "defendant": "Comcast Cable Communications LLC",
+    "description": "Settlement for U.S. residents notified of the October 2023 Comcast data breach (Hasson v. Comcast, et al.). See official site for class definition and claim options.",
+    "deadline": "2026-08-14",
+    "claim_url": "https://comcastbreachsettlement.com/",
+    "source_url": "https://www.classaction.org/settlements",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "data_breach",
+    "active": true,
+    "last_verified": "2026-04-11",
+    "criteria": {
+      "states": null,
+      "services": ["Comcast", "Xfinity"],
+      "products": null,
+      "vehicles": null,
+      "breach_name": "Comcast Xfinity 2023",
+      "date_range": null,
+      "qualifying_questions": []
+    }
   }
 ]

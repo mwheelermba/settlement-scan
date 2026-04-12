@@ -13,13 +13,18 @@ export function ProfileIntro() {
       </p>
       <p>
         Your profile is stored only in <span className="font-medium text-zinc-900 dark:text-zinc-100">this browser</span>{" "}
-        (local storage). It is not sent to our servers. Use Export at the bottom if you want a backup file.
+        (local storage). The only network use is optional: if{" "}
+        <code className="rounded bg-teal-100/80 px-1 text-xs dark:bg-teal-900/50">HIBP_API_KEY</code> is set, leaving the
+        email field sends that address to this app&apos;s API once to query Have I Been Pwned — it isn&apos;t stored.
+        Use Export at the bottom for a backup file.
       </p>
       <p>
-        Many settlements involve <span className="font-medium text-zinc-900 dark:text-zinc-100">data breaches</span>. If
-        you add email addresses, we can (when enabled) ask{" "}
-        <span className="font-medium">Have I Been Pwned</span> which breach names apply — most people forget the notices
-        they got years ago. You can also type breach names yourself. That helps match breach-type claims.
+        <span className="font-medium text-zinc-900 dark:text-zinc-100">Saving:</span> text boxes update your profile when
+        you leave the field (Tab or click elsewhere). State and ZIP save immediately when you change them.
+      </p>
+      <p>
+        Many settlements involve <span className="font-medium text-zinc-900 dark:text-zinc-100">data breaches</span>.
+        Breach names help match those claims; you can type them yourself or use the optional lookup above.
       </p>
     </div>
   );

@@ -40,16 +40,16 @@ export function Layout({ children }: { children: ReactNode }) {
             Free and open source — settlement data comes from public listings and community contributions. Not legal advice.
           </p>
           <p className="text-xs text-zinc-500 dark:text-zinc-500">
-            If this tool saved you a little time, you can{" "}
+            Like this app? Help support it by{" "}
             <a
               href="https://buymeacoffee.com/michaelwheeler9919"
               target="_blank"
               rel="noopener noreferrer"
               className="text-teal-700 underline decoration-teal-700/30 underline-offset-2 hover:decoration-teal-700 dark:text-teal-400 dark:decoration-teal-400/30"
             >
-              buy the maintainer a coffee
+              buying me a coffee
             </a>
-            — totally optional; the app stays free either way.
+            . Totally optional — the app stays free either way.
           </p>
         </div>
       </footer>
