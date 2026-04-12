@@ -37,7 +37,12 @@ export default function ProfilePage() {
           <Link href="/" className="font-medium text-teal-700 dark:text-teal-400">
             matches
           </Link>{" "}
-          after you pick a state.
+          after you pick a state. Clearing browser storage removes your profile and any filed or saved progress on this
+          device — use{" "}
+          <Link href="#profile-export" className="font-medium text-teal-700 underline dark:text-teal-400">
+            Export JSON
+          </Link>{" "}
+          to back up.
         </p>
       </div>
       <ProfileIntro />

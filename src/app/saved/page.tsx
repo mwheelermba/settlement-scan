@@ -148,6 +148,17 @@ export default function SavedPage() {
           </ul>
         )}
       </section>
+
+      <p className="text-sm font-bold text-red-700 dark:text-red-400">
+        Filed and saved lists live in the same browser storage as your profile. Clearing site data can erase them.{" "}
+        <Link
+          href="/profile#profile-export"
+          className="font-bold text-red-700 underline decoration-red-700/50 underline-offset-2 hover:text-red-800 dark:text-red-300 dark:decoration-red-400/50 dark:hover:text-red-200"
+        >
+          Export your profile JSON on the Profile page
+        </Link>{" "}
+        to keep a backup.
+      </p>
     </div>
   );
 }

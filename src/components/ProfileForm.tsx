@@ -597,10 +597,14 @@ export function ProfileForm({
         />
       </Section>
 
-      <div className="space-y-3 rounded-xl border border-dashed border-zinc-300 p-4 text-center dark:border-zinc-700">
+      <div
+        id="profile-export"
+        className="scroll-mt-24 space-y-3 rounded-xl border border-dashed border-zinc-300 p-4 text-center dark:border-zinc-700"
+      >
         <p className="text-xs leading-relaxed text-zinc-500">
-          Export saves your profile as a JSON file — use it as a backup or to move to another browser.
-          Import replaces the current profile in this browser; nothing is uploaded.
+          One JSON file is your full &quot;save&quot; — match fields, filed claims, saved bookmarks, dismissed matches,
+          and qualifying answers. Export it as a backup or to move to another browser. Import replaces everything stored
+          here; nothing is uploaded.
         </p>
         <div className="inline-flex gap-4">
           <button

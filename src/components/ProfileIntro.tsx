@@ -16,6 +16,17 @@ export function ProfileIntro() {
         — nothing is uploaded to SettlementScan. Use <span className="font-medium text-zinc-900 dark:text-zinc-100">Export</span>{" "}
         at the bottom of this page to download a backup JSON file you can re-import on another device or browser.
       </p>
+      <p className="font-bold text-red-700 dark:text-red-400">
+        Clearing site data, cookies, or &quot;everything&quot; in your browser can erase your profile — including filed
+        claims, saved bookmarks, and dismissed matches. Please{" "}
+        <Link
+          href="#profile-export"
+          className="font-bold text-red-700 underline decoration-red-700/50 underline-offset-2 hover:text-red-800 dark:text-red-300 dark:decoration-red-400/50 dark:hover:text-red-200"
+        >
+          export your JSON below
+        </Link>{" "}
+        regularly so you don&apos;t lose your progress.
+      </p>
       <p>
         If you add an email address, you can optionally run a one-time lookup to{" "}
         <span className="font-medium text-zinc-900 dark:text-zinc-100">Have I Been Pwned</span> to suggest breach names;
