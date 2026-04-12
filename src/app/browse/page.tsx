@@ -4,7 +4,7 @@ import { FilterBar } from "@/components/FilterBar";
 import { SearchBar } from "@/components/SearchBar";
 import { SettlementCard } from "@/components/SettlementCard";
 import { matchSettlement } from "@/lib/matcher";
-import { loadProfile, saveProfile } from "@/lib/profile";
+import { defaultProfile, loadProfile, saveProfile } from "@/lib/profile";
 import {
   filterSettlements,
   getActiveSettlements,
@@ -16,22 +16,6 @@ import type { SettlementType, UserProfile } from "@/lib/types";
 import { useEffect, useMemo, useState } from "react";
 
 const all = getActiveSettlements();
-
-function defaultProfile(): UserProfile {
-  return {
-    state: "",
-    emails: [],
-    services: [],
-    products: [],
-    vehicles: [],
-    companies_purchased_from: [],
-    breach_names: [],
-    qualifying_answers: {},
-    dismissed_settlements: [],
-    filed_settlements: [],
-    created_at: new Date().toISOString(),
-  };
-}
 
 export default function BrowsePage() {
   const [q, setQ] = useState("");

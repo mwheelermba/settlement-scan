@@ -1,26 +1,10 @@
 "use client";
 
 import { ProfileForm } from "@/components/ProfileForm";
-import { loadProfile, saveProfile } from "@/lib/profile";
+import { defaultProfile, loadProfile, saveProfile } from "@/lib/profile";
 import type { UserProfile } from "@/lib/types";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-function defaultProfile(): UserProfile {
-  return {
-    state: "",
-    emails: [],
-    services: [],
-    products: [],
-    vehicles: [],
-    companies_purchased_from: [],
-    breach_names: [],
-    qualifying_answers: {},
-    dismissed_settlements: [],
-    filed_settlements: [],
-    created_at: new Date().toISOString(),
-  };
-}
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState<UserProfile>(defaultProfile);

@@ -1,3 +1,4 @@
+import { matchesLoose } from "@/lib/string-match";
 import type { MatchResult, Settlement, UserProfile } from "./types";
 
 type FieldOutcome = "match" | "unknown" | "mismatch";
@@ -6,14 +7,24 @@ function norm(s: string): string {
   return s.trim().toLowerCase();
 }
 
+function servicePool(profile: UserProfile): string[] {
+  return [
+    ...(profile.subscriptions ?? []),
+    ...(profile.financial_institutions ?? []),
+    ...(profile.employers ?? []),
+    ...(profile.retail_and_brands ?? []),
+    ...(profile.services ?? []),
+    ...(profile.companies_purchased_from ?? []),
+  ];
+}
+
 function hasOverlap(
   profileVals: string[],
   criteriaVals: string[] | null
 ): FieldOutcome {
   if (criteriaVals === null || criteriaVals.length === 0) return "match";
   if (profileVals.length === 0) return "unknown";
-  const p = new Set(profileVals.map(norm));
-  const overlap = criteriaVals.some((c) => p.has(norm(c)));
+  const overlap = criteriaVals.some((c) => profileVals.some((p) => matchesLoose(p, c)));
   return overlap ? "match" : "mismatch";
 }
 
@@ -29,8 +40,7 @@ function matchBreach(
 ): FieldOutcome {
   if (criteriaBreach === null) return "match";
   if (profileBreaches.length === 0) return "unknown";
-  const p = new Set(profileBreaches.map(norm));
-  return p.has(norm(criteriaBreach)) ? "match" : "mismatch";
+  return profileBreaches.some((p) => matchesLoose(p, criteriaBreach)) ? "match" : "mismatch";
 }
 
 function vehicleMatches(
@@ -63,8 +73,7 @@ function collectOutcomes(
 
   outcomes.push(matchStates(profile.state, c.states));
 
-  const servicePool = [...profile.services, ...profile.companies_purchased_from];
-  outcomes.push(hasOverlap(servicePool, c.services));
+  outcomes.push(hasOverlap(servicePool(profile), c.services));
 
   outcomes.push(hasOverlap(profile.products, c.products));
 

@@ -58,10 +58,16 @@ export type UserProfile = {
   state: string;
   zip?: string;
   emails: string[];
+  /** @deprecated merged into retail_and_brands on load; still matched if present */
   services: string[];
+  /** @deprecated merged into retail_and_brands on load; still matched if present */
+  companies_purchased_from: string[];
+  subscriptions: string[];
+  financial_institutions: string[];
+  employers: string[];
+  retail_and_brands: string[];
   products: string[];
   vehicles: ProfileVehicle[];
-  companies_purchased_from: string[];
   breach_names: string[];
   qualifying_answers: Record<string, boolean | string>;
   dismissed_settlements: string[];
