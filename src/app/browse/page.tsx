@@ -8,6 +8,7 @@ import { defaultProfile, loadProfile, saveProfile } from "@/lib/profile";
 import {
   filterSettlements,
   getActiveSettlements,
+  getListingsForBrowse,
   searchSettlements,
   sortSettlements,
   type BrowseFilters,
@@ -15,15 +16,17 @@ import {
 import type { SettlementType, UserProfile } from "@/lib/types";
 import { useEffect, useMemo, useState } from "react";
 
-const all = getActiveSettlements();
-
 export default function BrowsePage() {
   const [q, setQ] = useState("");
   const [type, setType] = useState<SettlementType | "">("");
   const [stateFilter, setStateFilter] = useState("");
   const [noProofOnly, setNoProofOnly] = useState(false);
+  const [includePastDeadlines, setIncludePastDeadlines] = useState(false);
   const [sort, setSort] = useState<"deadline" | "payout" | "newest" | "match" | "title">("deadline");
   const [profile, setProfile] = useState<UserProfile | null>(null);
+
+  const all = useMemo(() => getListingsForBrowse(includePastDeadlines), [includePastDeadlines]);
+  const totalActive = useMemo(() => getActiveSettlements().length, []);
 
   useEffect(() => {
     queueMicrotask(() => setProfile(loadProfile()));
@@ -42,7 +45,7 @@ export default function BrowsePage() {
       matchMap.set(s.id, matchSettlement(s, p).score);
     }
     return sortSettlements(list, sort, matchMap);
-  }, [q, type, stateFilter, noProofOnly, sort, profile]);
+  }, [q, type, stateFilter, noProofOnly, sort, profile, all]);
 
   const results = useMemo(() => {
     const p = profile ?? defaultProfile();
@@ -54,8 +57,24 @@ export default function BrowsePage() {
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Browse settlements</h1>
         <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-          Search and filter all active settlements. Match scores use your saved profile when available.
+          By default only listings with a claim deadline that has not passed (or unknown) are shown — the full set can be
+          large. Match scores use your saved profile when available.
         </p>
+        <p className="mt-2 text-sm font-medium text-zinc-700 dark:text-zinc-300">
+          Showing {filtered.length} of {all.length} listings
+          {!includePastDeadlines && totalActive > all.length ? (
+            <span className="font-normal text-zinc-500"> ({totalActive - all.length} past deadline hidden)</span>
+          ) : null}
+        </p>
+        <label className="mt-3 flex cursor-pointer items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
+          <input
+            type="checkbox"
+            checked={includePastDeadlines}
+            onChange={(e) => setIncludePastDeadlines(e.target.checked)}
+            className="rounded border-zinc-300"
+          />
+          Include settlements whose claim deadline has passed (history / research)
+        </label>
       </div>
 
       <SearchBar value={q} onChange={setQ} />
@@ -93,6 +112,7 @@ export default function BrowsePage() {
                 setProfile(p);
                 saveProfile(p);
               }}
+              linkFrom="browse"
             />
           </li>
         ))}

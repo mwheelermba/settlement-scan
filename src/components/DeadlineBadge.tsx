@@ -1,10 +1,18 @@
 import { deadlineUrgency } from "@/lib/matcher";
+import { todayIsoUtc } from "@/lib/settlements";
 
 export function DeadlineBadge({ deadline }: { deadline: string | null }) {
   if (!deadline) {
     return (
       <span className="rounded-full bg-zinc-100 px-2.5 py-1 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
         Deadline varies
+      </span>
+    );
+  }
+  if (deadline < todayIsoUtc()) {
+    return (
+      <span className="rounded-full bg-zinc-200 px-2.5 py-1 text-xs font-semibold text-zinc-700 dark:bg-zinc-700 dark:text-zinc-200">
+        Claim period ended ({deadline})
       </span>
     );
   }

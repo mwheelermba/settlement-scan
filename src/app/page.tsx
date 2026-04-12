@@ -1,14 +1,14 @@
 "use client";
 
 import { SettlementCard } from "@/components/SettlementCard";
-import { getActiveSettlements } from "@/lib/settlements";
+import { getOpenSettlements } from "@/lib/settlements";
 import { hasMinimumProfile, loadProfile, saveProfile } from "@/lib/profile";
 import { rankMatches } from "@/lib/matcher";
 import type { UserProfile } from "@/lib/types";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
-const settlements = getActiveSettlements();
+const settlements = getOpenSettlements();
 
 export default function HomePage() {
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -90,7 +90,7 @@ export default function HomePage() {
         <ul className="space-y-4">
           {ranked.map((r) => (
             <li key={r.settlement.id}>
-              <SettlementCard result={r} profile={profile} onProfileChange={persist} />
+              <SettlementCard result={r} profile={profile} onProfileChange={persist} linkFrom="matches" />
             </li>
           ))}
         </ul>

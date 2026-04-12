@@ -20,6 +20,7 @@ export function matchesLoose(profileTerm: string, criteriaTerm: string): boolean
   if (!p || !c) return false;
   if (p.toLowerCase() === c.toLowerCase()) return true;
 
+  // Fuzzy: spacing, hyphens, case, and many partial overlaps (e.g. "Citi" vs "Citibank" via substring / token overlap).
   const pf = fold(p);
   const cf = fold(c);
   if (pf.length >= 2 && cf.length >= 2 && pf === cf) return true;

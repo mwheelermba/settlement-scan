@@ -6,7 +6,9 @@ const nav = [
   { href: "/", label: "Matches" },
   { href: "/profile", label: "Profile" },
   { href: "/browse", label: "Browse" },
+  { href: "/saved", label: "Saved" },
   { href: "/dashboard", label: "Community" },
+  { href: "/report", label: "Report" },
 ];
 
 export function Layout({ children }: { children: ReactNode }) {
@@ -35,8 +37,19 @@ export function Layout({ children }: { children: ReactNode }) {
         <div className="mx-auto flex max-w-5xl flex-col gap-3 px-4 text-center text-sm text-zinc-600 dark:text-zinc-400">
           <PrivacyBadge />
           <p className="text-xs">
-            Settlement data is sourced from public listings (e.g. ClassAction.org) and community contributions. Not legal
-            advice.
+            Free and open source — settlement data comes from public listings and community contributions. Not legal advice.
+          </p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-500">
+            If this tool saved you a little time, you can{" "}
+            <a
+              href="https://buymeacoffee.com/michaelwheeler9919"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-teal-700 underline decoration-teal-700/30 underline-offset-2 hover:decoration-teal-700 dark:text-teal-400 dark:decoration-teal-400/30"
+            >
+              buy the maintainer a coffee
+            </a>
+            — totally optional; the app stays free either way.
           </p>
         </div>
       </footer>

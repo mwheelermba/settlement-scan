@@ -66,12 +66,16 @@ export type UserProfile = {
   financial_institutions: string[];
   employers: string[];
   retail_and_brands: string[];
+  /** Insurance, hospitals, health apps, pharma — merged into service matching */
+  medical_and_health: string[];
   products: string[];
   vehicles: ProfileVehicle[];
   breach_names: string[];
   qualifying_answers: Record<string, boolean | string>;
   dismissed_settlements: string[];
   filed_settlements: string[];
+  /** Bookmarked settlement IDs (browse/detail); local only */
+  saved_settlement_ids: string[];
   created_at: string;
 };
 

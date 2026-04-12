@@ -7,8 +7,34 @@ export function getSettlements(): Settlement[] {
   return settlements;
 }
 
+/** YYYY-MM-DD in UTC for comparing to deadline strings in JSON. */
+export function todayIsoUtc(): string {
+  return new Date().toISOString().slice(0, 10);
+}
+
+/**
+ * True if the claim filing deadline has not passed (or is unknown).
+ * Browse and matches use this so "active" rows with past deadlines do not look like open claims.
+ */
+export function isClaimDeadlineOpen(s: Settlement): boolean {
+  if (!s.deadline) return true;
+  return s.deadline >= todayIsoUtc();
+}
+
+/** Active listings the user can still file (typical default for matches + browse). */
+export function getOpenSettlements(): Settlement[] {
+  return settlements.filter((s) => s.active && isClaimDeadlineOpen(s));
+}
+
 export function getActiveSettlements(): Settlement[] {
   return settlements.filter((s) => s.active);
+}
+
+/** Browse: all active rows, optionally including claim periods that have ended. */
+export function getListingsForBrowse(includePastDeadlines: boolean): Settlement[] {
+  const base = getActiveSettlements();
+  if (includePastDeadlines) return base;
+  return base.filter((s) => isClaimDeadlineOpen(s));
 }
 
 export function getSettlementById(id: string): Settlement | undefined {

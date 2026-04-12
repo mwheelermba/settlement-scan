@@ -1,3 +1,6 @@
+import { SettlementBackLink } from "@/components/SettlementBackLink";
+import { SettlementDetailActions } from "@/components/SettlementDetailActions";
+import { SettlementViewTracker } from "@/components/SettlementViewTracker";
 import { ShareButton } from "@/components/ShareButton";
 import { DeadlineBadge } from "@/components/DeadlineBadge";
 import { ProofBadge } from "@/components/ProofBadge";
@@ -5,6 +8,7 @@ import { getActiveSettlements, getSettlementById } from "@/lib/settlements";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -39,9 +43,16 @@ export default async function ShareSettlementPage({ params }: Props) {
 
   return (
     <div className="space-y-6">
-      <Link href="/browse" className="text-sm font-medium text-teal-700 dark:text-teal-400">
-        ← All settlements
-      </Link>
+      <SettlementViewTracker />
+      <Suspense
+        fallback={
+          <Link href="/browse" className="text-sm font-medium text-teal-700 dark:text-teal-400">
+            ← Browse all settlements
+          </Link>
+        }
+      >
+        <SettlementBackLink />
+      </Suspense>
       <header className="space-y-3">
         <h1 className="text-2xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">{s.title}</h1>
         <p className="text-zinc-600 dark:text-zinc-400">{s.defendant}</p>
@@ -52,6 +63,7 @@ export default async function ShareSettlementPage({ params }: Props) {
         </div>
       </header>
       <p className="leading-relaxed text-zinc-700 dark:text-zinc-300">{s.description}</p>
+      <SettlementDetailActions settlement={s} />
       <div className="flex flex-wrap gap-3">
         <a
           href={s.claim_url}

@@ -4,6 +4,7 @@ import type { MatchResult } from "@/lib/types";
 import type { UserProfile } from "@/lib/types";
 import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
+import { mergeSettlementIntoProfile } from "@/lib/settlement-to-profile";
 import { DeadlineBadge } from "./DeadlineBadge";
 import { MatchScoreRing } from "./MatchScoreRing";
 import { ProofBadge } from "./ProofBadge";
@@ -15,14 +16,18 @@ export function SettlementCard({
   result,
   profile,
   onProfileChange,
+  linkFrom,
 }: {
   result: MatchResult;
   profile: UserProfile;
   onProfileChange: (p: UserProfile) => void;
+  linkFrom?: "matches" | "browse";
 }) {
   const { settlement: s, score } = result;
   const [open, setOpen] = useState(false);
   const filed = profile.filed_settlements.includes(s.id);
+  const saved = (profile.saved_settlement_ids ?? []).includes(s.id);
+  const detailHref = linkFrom ? `/s/${s.id}?from=${linkFrom}` : `/s/${s.id}`;
 
   function markFiled() {
     if (filed) return;
@@ -39,6 +44,17 @@ export function SettlementCard({
     });
   }
 
+  function toggleSaved() {
+    const cur = new Set(profile.saved_settlement_ids ?? []);
+    if (cur.has(s.id)) cur.delete(s.id);
+    else cur.add(s.id);
+    onProfileChange({ ...profile, saved_settlement_ids: [...cur] });
+  }
+
+  function addTermsToProfile() {
+    onProfileChange(mergeSettlementIntoProfile(profile, s));
+  }
+
   return (
     <article className="rounded-2xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-950/40">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
@@ -47,7 +63,7 @@ export function SettlementCard({
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
               <h2 className="text-lg font-semibold leading-snug text-zinc-900 dark:text-zinc-50">
-                <Link href={`/s/${s.id}`} className="hover:underline">
+                <Link href={detailHref} className="hover:underline">
                   {s.title}
                 </Link>
               </h2>
@@ -66,13 +82,30 @@ export function SettlementCard({
             {result.matchCount} of {result.evaluableCount} criteria matched · {result.needsInputCount} need your input
             · {result.mismatchCount} mismatches
           </p>
-          <button
-            type="button"
-            onClick={() => setOpen(!open)}
-            className="text-sm font-medium text-teal-700 hover:underline dark:text-teal-400"
-          >
-            {open ? "Hide details" : "Show details"}
-          </button>
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setOpen(!open)}
+              className="text-sm font-medium text-teal-700 hover:underline dark:text-teal-400"
+            >
+              {open ? "Hide details" : "Show details"}
+            </button>
+            <span className="text-zinc-300 dark:text-zinc-600">|</span>
+            <button
+              type="button"
+              onClick={toggleSaved}
+              className="text-sm font-medium text-zinc-700 hover:underline dark:text-zinc-300"
+            >
+              {saved ? "Saved for later" : "Save for later"}
+            </button>
+            <button
+              type="button"
+              onClick={addTermsToProfile}
+              className="text-sm font-medium text-zinc-700 hover:underline dark:text-zinc-300"
+            >
+              Add match terms to profile
+            </button>
+          </div>
         </div>
       </div>
 

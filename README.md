@@ -2,6 +2,8 @@
 
 Free, open source helper to discover class action settlements you may qualify for. Your profile stays in the browser; settlement data ships as `data/settlements.json` in this repo.
 
+If you find the project useful, you can support maintenance (totally optional) via [Buy Me a Coffee](https://buymeacoffee.com/michaelwheeler9919).
+
 See `SettlementScan_Project_Overview.md` for the full product and architecture spec.
 
 ## Local development
@@ -30,6 +32,11 @@ Open [http://localhost:3000](http://localhost:3000).
 | `KV_REST_API_URL` | No* | Upstash-style **HTTP REST** (optional). With `KV_REST_API_TOKEN`, uses `@vercel/kv`. |
 | `KV_REST_API_TOKEN` | No* | Paired with the REST URL (`UPSTASH_REDIS_REST_*` also supported). |
 | `REDIS_URL` | No* | **Vercel Serverless Redis** / **Redis Cloud** — standard `redis://` or `rediss://` URL. Used when REST vars are not set. |
+| `RESEND_API_KEY` | No | [Resend](https://resend.com) API key for `POST /api/report` (problem reports). |
+| `REPORT_EMAIL_TO` | No | Where reports are delivered — **any** address works, including **Gmail** (`you@gmail.com`). This value is server-only and never exposed to the browser. |
+| `REPORT_EMAIL_FROM` | No | **From** address Resend will use. Free tier often requires a **verified domain** for production sends; until then you can use Resend’s onboarding sender for testing. Receiving at Gmail is fine; the usual constraint is *sending from* a verified domain, not *sending to* Gmail. |
+
+**Problem reports:** set `REPORT_EMAIL_TO` to your personal inbox. **Match-notification emails** (future feature) would need user opt-in, stored email (or a provider link), and a scheduled job — not implemented yet.
 
 \*Vercel usually injects one style automatically when you link Storage. You do **not** need both REST and `REDIS_URL`.
 
@@ -55,4 +62,6 @@ Optional local testing: `vercel env pull .env.local` or paste vars into `.env.lo
 
 ## Contributing settlements
 
-Edit `data/settlements.json` and open a pull request. Use the examples in the file and the schema in `SettlementScan_Project_Overview.md`.
+**Policy:** Only add rows that include a **real claim / notice URL** (typically from the scraper or a primary court or settlement-administrator site). Do not ship placeholder `example.com` links or generic agency homepages as stand-ins for a claim form. Well-known brands used only to jog memory on the profile page live in `src/lib/profile-suggestions.ts` (quick-add chips), not as fake settlement rows.
+
+Edit `data/settlements.json` and open a pull request. Use the schema in `SettlementScan_Project_Overview.md`.

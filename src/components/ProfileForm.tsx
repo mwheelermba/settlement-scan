@@ -3,15 +3,19 @@
 import { lookupBreachesForEmail } from "@/lib/hibp";
 import { importProfileJson } from "@/lib/profile";
 import {
+  SUGGEST_BREACH,
   SUGGEST_EMPLOYERS,
   SUGGEST_FINANCIAL,
+  SUGGEST_MEDICAL,
   SUGGEST_PRODUCTS,
   SUGGEST_RETAIL_AND_BRANDS,
   SUGGEST_SUBSCRIPTIONS,
 } from "@/lib/profile-suggestions";
+import { getActiveSettlements } from "@/lib/settlements";
+import { getSmartQuickAddTerms } from "@/lib/smart-suggestions";
 import type { UserProfile } from "@/lib/types";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { SuggestionChips } from "./SuggestionChips";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { SmartQuickAddRow } from "./SmartQuickAddRow";
 
 const US_STATES = [
   "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME",
@@ -31,6 +35,26 @@ function appendLineIfNew(draft: string, line: string): string {
   if (cur.some((x) => x.toLowerCase() === line.trim().toLowerCase())) return draft;
   const t = draft.trim();
   return t ? `${t}\n${line}` : line;
+}
+
+/** One line per vehicle: Make Model Year — year must be last token; incomplete lines ignored on save. */
+function parseVehicleLines(raw: string): { make: string; model: string; year: number }[] {
+  const lines = raw
+    .split("\n")
+    .map((l) => l.trim())
+    .filter(Boolean);
+  const maxYear = new Date().getFullYear() + 1;
+  const out: { make: string; model: string; year: number }[] = [];
+  for (const line of lines) {
+    const parts = line.split(/\s+/);
+    if (parts.length < 2) continue;
+    const year = parseInt(parts[parts.length - 1] ?? "", 10);
+    if (!Number.isFinite(year) || year < 1900 || year > maxYear) continue;
+    const make = parts[0] ?? "";
+    const model = parts.slice(1, -1).join(" ");
+    out.push({ make, model, year });
+  }
+  return out;
 }
 
 function Section({
@@ -69,6 +93,21 @@ export function ProfileForm({
   const [hibpNote, setHibpNote] = useState<string | null>(null);
 
   const flashTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const skipVehicleDraftSync = useRef(false);
+
+  const settlementDb = useMemo(() => getActiveSettlements(), []);
+  const smart = useMemo(
+    () => ({
+      subscriptions: getSmartQuickAddTerms("subscriptions", settlementDb, SUGGEST_SUBSCRIPTIONS),
+      financial: getSmartQuickAddTerms("financial", settlementDb, SUGGEST_FINANCIAL),
+      employers: getSmartQuickAddTerms("employers", settlementDb, SUGGEST_EMPLOYERS),
+      retail: getSmartQuickAddTerms("retail", settlementDb, SUGGEST_RETAIL_AND_BRANDS),
+      medical: getSmartQuickAddTerms("medical", settlementDb, SUGGEST_MEDICAL),
+      products: getSmartQuickAddTerms("products", settlementDb, SUGGEST_PRODUCTS),
+      breach: getSmartQuickAddTerms("breach", settlementDb, SUGGEST_BREACH),
+    }),
+    [settlementDb]
+  );
 
   const scheduleSaveFlash = useCallback(() => {
     if (flashTimerRef.current) clearTimeout(flashTimerRef.current);
@@ -112,6 +151,10 @@ export function ProfileForm({
   const [retailDraft, setRetailDraft] = useState(() => (profile.retail_and_brands ?? []).join("\n"));
   const [productsDraft, setProductsDraft] = useState(() => profile.products.join("\n"));
   const [breachDraft, setBreachDraft] = useState(() => profile.breach_names.join("\n"));
+  const [vehicleDraft, setVehicleDraft] = useState(() =>
+    profile.vehicles.map((v) => `${v.make} ${v.model} ${v.year}`.trim()).join("\n")
+  );
+  const [medicalDraft, setMedicalDraft] = useState(() => (profile.medical_and_health ?? []).join("\n"));
 
   const emailsKey = profile.emails.join("|");
   useEffect(() => {
@@ -123,6 +166,7 @@ export function ProfileForm({
     (profile.financial_institutions ?? []).join("|"),
     (profile.employers ?? []).join("|"),
     (profile.retail_and_brands ?? []).join("|"),
+    (profile.medical_and_health ?? []).join("|"),
   ].join("::");
   useEffect(() => {
     queueMicrotask(() => {
@@ -130,8 +174,20 @@ export function ProfileForm({
       setFinDraft((profile.financial_institutions ?? []).join("\n"));
       setEmpDraft((profile.employers ?? []).join("\n"));
       setRetailDraft((profile.retail_and_brands ?? []).join("\n"));
+      setMedicalDraft((profile.medical_and_health ?? []).join("\n"));
     });
   }, [splitKey]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const vehiclesKey = profile.vehicles.map((v) => `${v.make}|${v.model}|${v.year}`).join("||");
+  useEffect(() => {
+    if (skipVehicleDraftSync.current) {
+      skipVehicleDraftSync.current = false;
+      return;
+    }
+    queueMicrotask(() =>
+      setVehicleDraft(profile.vehicles.map((v) => `${v.make} ${v.model} ${v.year}`.trim()).join("\n"))
+    );
+  }, [vehiclesKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const productsKey = profile.products.join("|");
   useEffect(() => {
@@ -194,6 +250,15 @@ export function ProfileForm({
   }
   function commitBreaches() {
     save({ ...profile, breach_names: parseListFlexible(breachDraft) });
+  }
+
+  function commitVehicles() {
+    skipVehicleDraftSync.current = true;
+    save({ ...profile, vehicles: parseVehicleLines(vehicleDraft) });
+  }
+
+  function commitMedical() {
+    save({ ...profile, medical_and_health: parseListFlexible(medicalDraft) });
   }
 
   return (
@@ -278,6 +343,11 @@ export function ProfileForm({
             spellCheck={false}
             className="mt-2 w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
           />
+          <SmartQuickAddRow
+            label="Suggested breach names (from database)"
+            terms={smart.breach}
+            onAdd={(s) => setBreachDraft((d) => appendLineIfNew(d, s))}
+          />
         </div>
       </Section>
 
@@ -285,9 +355,9 @@ export function ProfileForm({
         <p className="mb-2 text-xs leading-relaxed text-zinc-500">
           Paid apps, streaming, cloud storage, gaming subscriptions, etc.
         </p>
-        <SuggestionChips
-          label="Quick add"
-          suggestions={SUGGEST_SUBSCRIPTIONS}
+        <SmartQuickAddRow
+          label="Suggested from database (open & recent)"
+          terms={smart.subscriptions}
           onAdd={(s) => setSubDraft((d) => appendLineIfNew(d, s))}
         />
         <textarea
@@ -303,9 +373,9 @@ export function ProfileForm({
         <p className="mb-2 text-xs leading-relaxed text-zinc-500">
           Banks, cards, fintech, credit bureaus, investment accounts you use or used.
         </p>
-        <SuggestionChips
-          label="Quick add"
-          suggestions={SUGGEST_FINANCIAL}
+        <SmartQuickAddRow
+          label="Suggested from database (open & recent)"
+          terms={smart.financial}
           onAdd={(s) => setFinDraft((d) => appendLineIfNew(d, s))}
         />
         <textarea
@@ -321,9 +391,9 @@ export function ProfileForm({
         <p className="mb-2 text-xs leading-relaxed text-zinc-500">
           Companies you worked for when a settlement might name the employer (delivery, retail, gig work, etc.).
         </p>
-        <SuggestionChips
-          label="Quick add"
-          suggestions={SUGGEST_EMPLOYERS}
+        <SmartQuickAddRow
+          label="Suggested from database (open & recent)"
+          terms={smart.employers}
           onAdd={(s) => setEmpDraft((d) => appendLineIfNew(d, s))}
         />
         <textarea
@@ -340,9 +410,9 @@ export function ProfileForm({
           Phone/internet carriers, big retailers, brands you shop with, and anything else that did not fit above. Matching
           ignores small spelling differences (e.g. &quot;T Mobile&quot; vs &quot;T-Mobile&quot;).
         </p>
-        <SuggestionChips
-          label="Quick add"
-          suggestions={SUGGEST_RETAIL_AND_BRANDS}
+        <SmartQuickAddRow
+          label="Suggested from database (open & recent)"
+          terms={smart.retail}
           onAdd={(s) => setRetailDraft((d) => appendLineIfNew(d, s))}
         />
         <textarea
@@ -359,9 +429,9 @@ export function ProfileForm({
           Specific products (supplements, devices, model names) if a settlement names them. Short phrases are OK;
           matching is flexible.
         </p>
-        <SuggestionChips
-          label="Quick add"
-          suggestions={SUGGEST_PRODUCTS}
+        <SmartQuickAddRow
+          label="Suggested from database (open & recent)"
+          terms={smart.products}
           onAdd={(s) => setProductsDraft((d) => appendLineIfNew(d, s))}
         />
         <textarea
@@ -373,25 +443,38 @@ export function ProfileForm({
         />
       </Section>
 
-      <Section title="Vehicles">
-        <p className="mb-2 text-xs text-zinc-500">Add as: Make Model Year (one per line), e.g. Kia Optima 2015</p>
+      <Section title="Medical & health">
+        <p className="mb-2 text-xs leading-relaxed text-zinc-500">
+          Insurers, hospital networks, patient portals (e.g. MyChart), pharmacies, and health or fitness apps that hold
+          sensitive data. Helps match HIPAA-related and health-tech claims — list anything relevant; matching is
+          flexible.
+        </p>
+        <SmartQuickAddRow
+          label="Suggested from database (open & recent)"
+          terms={smart.medical}
+          onAdd={(s) => setMedicalDraft((d) => appendLineIfNew(d, s))}
+        />
         <textarea
           rows={3}
-          value={profile.vehicles.map((v) => `${v.make} ${v.model} ${v.year}`).join("\n")}
-          onChange={(e) => {
-            const vehicles = e.target.value
-              .split("\n")
-              .map((line) => line.trim())
-              .filter(Boolean)
-              .map((line) => {
-                const parts = line.split(/\s+/);
-                const year = parseInt(parts[parts.length - 1] ?? "", 10);
-                const make = parts[0] ?? "";
-                const model = parts.slice(1, -1).join(" ");
-                return { make, model, year: Number.isFinite(year) ? year : new Date().getFullYear() };
-              });
-            save({ ...profile, vehicles });
-          }}
+          value={medicalDraft}
+          onChange={(e) => setMedicalDraft(e.target.value)}
+          onBlur={commitMedical}
+          className="mt-2 w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+        />
+      </Section>
+
+      <Section title="Vehicles">
+        <p className="mb-2 text-xs text-zinc-500">
+          One vehicle per line: <span className="font-medium">Make Model Year</span> (year last), e.g.{" "}
+          <span className="font-mono">Kia Optima 2015</span>. Lines without a valid year at the end are kept in the box
+          but not saved until you finish the line; your typing is saved when you leave this field.
+        </p>
+        <textarea
+          rows={3}
+          value={vehicleDraft}
+          onChange={(e) => setVehicleDraft(e.target.value)}
+          onBlur={commitVehicles}
+          spellCheck={false}
           className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm font-mono dark:border-zinc-700 dark:bg-zinc-900"
         />
       </Section>

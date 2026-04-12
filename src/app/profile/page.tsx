@@ -1,5 +1,6 @@
 "use client";
 
+import { ProfileIntro } from "@/components/ProfileIntro";
 import { ProfileForm } from "@/components/ProfileForm";
 import { defaultProfile, loadProfile, saveProfile } from "@/lib/profile";
 import type { UserProfile } from "@/lib/types";
@@ -39,6 +40,7 @@ export default function ProfilePage() {
           after you pick a state.
         </p>
       </div>
+      <ProfileIntro />
       <ProfileForm profile={profile} onChange={persist} />
     </div>
   );

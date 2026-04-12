@@ -12,12 +12,14 @@ export function defaultProfile(): UserProfile {
     financial_institutions: [],
     employers: [],
     retail_and_brands: [],
+    medical_and_health: [],
     products: [],
     vehicles: [],
     breach_names: [],
     qualifying_answers: {},
     dismissed_settlements: [],
     filed_settlements: [],
+    saved_settlement_ids: [],
     created_at: new Date().toISOString(),
   };
 }
@@ -72,9 +74,11 @@ export function loadProfile(): UserProfile | null {
     const merged = {
       ...defaultProfile(),
       ...parsed,
+      medical_and_health: parsed.medical_and_health ?? [],
       qualifying_answers: parsed.qualifying_answers ?? {},
       dismissed_settlements: parsed.dismissed_settlements ?? [],
       filed_settlements: parsed.filed_settlements ?? [],
+      saved_settlement_ids: parsed.saved_settlement_ids ?? [],
     };
     return normalizeProfile(merged);
   } catch {
@@ -101,9 +105,11 @@ export function importProfileJson(json: string): UserProfile {
   const merged = {
     ...defaultProfile(),
     ...parsed,
+    medical_and_health: parsed.medical_and_health ?? [],
     qualifying_answers: parsed.qualifying_answers ?? {},
     dismissed_settlements: parsed.dismissed_settlements ?? [],
     filed_settlements: parsed.filed_settlements ?? [],
+    saved_settlement_ids: parsed.saved_settlement_ids ?? [],
   };
   return normalizeProfile(merged);
 }

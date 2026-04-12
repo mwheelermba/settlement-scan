@@ -13,6 +13,7 @@ function servicePool(profile: UserProfile): string[] {
     ...(profile.financial_institutions ?? []),
     ...(profile.employers ?? []),
     ...(profile.retail_and_brands ?? []),
+    ...(profile.medical_and_health ?? []),
     ...(profile.services ?? []),
     ...(profile.companies_purchased_from ?? []),
   ];

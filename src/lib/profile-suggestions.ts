@@ -1,5 +1,17 @@
 /** Short lists to jog memory — not exhaustive; users can type anything. */
 
+/** Banks & fintech + many well-known brands (Plaid, Visa, …) — quick-add only; DB rows need real claim URLs from the scraper. */
+
+export const SUGGEST_BREACH = [
+  "LinkedIn",
+  "Adobe",
+  "Equifax",
+  "Yahoo",
+  "Facebook",
+  "MyFitnessPal",
+  "T-Mobile",
+];
+
 export const SUGGEST_SUBSCRIPTIONS = [
   "Netflix",
   "Spotify",
@@ -16,12 +28,14 @@ export const SUGGEST_SUBSCRIPTIONS = [
   "iCloud",
   "Xbox Game Pass",
   "PlayStation Plus",
+  "ChatGPT",
 ];
 
 export const SUGGEST_FINANCIAL = [
   "Chase",
   "Bank of America",
   "Wells Fargo",
+  "Citi",
   "Citibank",
   "Capital One",
   "American Express",
@@ -35,6 +49,40 @@ export const SUGGEST_FINANCIAL = [
   "Vanguard",
   "Robinhood",
   "Coinbase",
+  "Plaid",
+  "Visa",
+  "Mastercard",
+  "Affirm",
+  "Kraken",
+  "Gemini",
+  "Binance.US",
+  "Crypto.com",
+];
+
+/** Insurance, portals, hospitals, health apps — HIPAA-adjacent; users can type anything. */
+export const SUGGEST_MEDICAL = [
+  "UnitedHealthcare",
+  "Anthem",
+  "Blue Cross",
+  "Aetna",
+  "Cigna",
+  "Humana",
+  "Kaiser",
+  "MyChart",
+  "Epic",
+  "Cerner",
+  "CVS Caremark",
+  "Walgreens",
+  "GoodRx",
+  "Samsung Health",
+  "Apple Health",
+  "Google Fit",
+  "MyFitnessPal",
+  "Fitbit",
+  "Oura",
+  "Whoop",
+  "Sleep Number",
+  "23andMe",
 ];
 
 export const SUGGEST_EMPLOYERS = [
@@ -58,6 +106,15 @@ export const SUGGEST_RETAIL_AND_BRANDS = [
   "Costco",
   "Home Depot",
   "Best Buy",
+  "eBay",
+  "Bumble",
+  "JUUL",
+  "Yahoo",
+  "Instagram",
+  "Airbnb",
+  "Tinder",
+  "ChatGPT",
+  "OpenAI",
   "T-Mobile",
   "Verizon",
   "AT&T",
