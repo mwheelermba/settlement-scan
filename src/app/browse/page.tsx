@@ -21,6 +21,7 @@ export default function BrowsePage() {
   const [type, setType] = useState<SettlementType | "">("");
   const [stateFilter, setStateFilter] = useState("");
   const [noProofOnly, setNoProofOnly] = useState(false);
+  const [excludeNationwide, setExcludeNationwide] = useState(false);
   const [includePastDeadlines, setIncludePastDeadlines] = useState(false);
   const [sort, setSort] = useState<"deadline" | "payout" | "newest" | "match" | "title">("deadline");
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -37,6 +38,7 @@ export default function BrowsePage() {
     if (type) filters.types = [type];
     if (stateFilter.length === 2) filters.state = stateFilter;
     if (noProofOnly) filters.noProofOnly = true;
+    if (excludeNationwide) filters.excludeNationwide = true;
     let list = filterSettlements(all, filters);
     list = searchSettlements(list, q);
     const matchMap = new Map<string, number>();
@@ -45,7 +47,7 @@ export default function BrowsePage() {
       matchMap.set(s.id, matchSettlement(s, p).score);
     }
     return sortSettlements(list, sort, matchMap);
-  }, [q, type, stateFilter, noProofOnly, sort, profile, all]);
+  }, [q, type, stateFilter, noProofOnly, excludeNationwide, sort, profile, all]);
 
   const results = useMemo(() => {
     const p = profile ?? defaultProfile();
@@ -84,6 +86,8 @@ export default function BrowsePage() {
         onState={setStateFilter}
         noProofOnly={noProofOnly}
         onNoProofOnly={setNoProofOnly}
+        excludeNationwide={excludeNationwide}
+        onExcludeNationwide={setExcludeNationwide}
       />
 
       <label className="flex flex-col gap-1 text-xs font-medium text-zinc-600 dark:text-zinc-400">

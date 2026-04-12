@@ -52,6 +52,8 @@ export type BrowseFilters = {
   deadlineAfter?: string;
   deadlineBefore?: string;
   noProofOnly?: boolean;
+  /** When true, exclude settlements with no state list (nationwide / not geographically limited in data). */
+  excludeNationwide?: boolean;
 };
 
 export function filterSettlements(
@@ -61,6 +63,12 @@ export function filterSettlements(
   return list.filter((s) => {
     if (filters.types?.length && !filters.types.includes(s.type)) {
       return false;
+    }
+    if (filters.excludeNationwide) {
+      const st = s.criteria.states;
+      if (st === null || st.length === 0) {
+        return false;
+      }
     }
     if (filters.state) {
       const st = s.criteria.states;

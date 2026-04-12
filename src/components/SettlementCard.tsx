@@ -243,7 +243,7 @@ export function SettlementCard({
                 </button>
               )}
             </div>
-            <ShareButton settlementId={s.id} title={s.title} />
+            <ShareButton settlementId={s.id} title={s.title} variant="compact" />
           </div>
         </div>
       )}

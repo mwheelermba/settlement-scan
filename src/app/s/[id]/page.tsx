@@ -63,7 +63,6 @@ export default async function ShareSettlementPage({ params }: Props) {
         </div>
       </header>
       <p className="leading-relaxed text-zinc-700 dark:text-zinc-300">{s.description}</p>
-      <SettlementDetailActions settlement={s} />
       <a
         href={s.claim_url}
         target="_blank"
@@ -72,7 +71,8 @@ export default async function ShareSettlementPage({ params }: Props) {
       >
         Open claim site
       </a>
-      <ShareButton settlementId={s.id} title={s.title} />
+      <SettlementDetailActions settlement={s} />
+      <ShareButton settlementId={s.id} title={s.title} variant="compact" />
     </div>
   );
 }

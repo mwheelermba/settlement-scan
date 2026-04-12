@@ -48,11 +48,17 @@ export function SettlementDetailActions({ settlement: s }: { settlement: Settlem
     <div className="space-y-3 rounded-xl border border-zinc-200 bg-zinc-50/80 px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900/40">
       <p className="text-sm text-zinc-700 dark:text-zinc-300">
         <span className="font-medium text-zinc-900 dark:text-zinc-100">Save for later</span> bookmarks this case on
-        this device.{" "}
-        <span className="font-medium text-zinc-900 dark:text-zinc-100">Add match terms to profile</span> copies
-        defendant and criteria into your profile so it can show up under Matches.
+        this device. You can also{" "}
+        <button
+          type="button"
+          onClick={addTerms}
+          className="cursor-pointer font-medium text-zinc-600 underline decoration-zinc-400/80 underline-offset-2 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200"
+        >
+          add match terms to your profile
+        </button>{" "}
+        so similar cases can surface under Matches.
       </p>
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap items-center gap-3">
         <button
           type="button"
           onClick={toggleSaved}
@@ -64,17 +70,10 @@ export function SettlementDetailActions({ settlement: s }: { settlement: Settlem
         >
           {saved ? "Remove from saved" : "Save for later"}
         </button>
-        <button
-          type="button"
-          onClick={addTerms}
-          className="cursor-pointer rounded-xl bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-teal-700"
-        >
-          Add match terms to profile
-        </button>
-        <Link href="/profile" className="self-center text-sm font-medium text-teal-700 underline dark:text-teal-400">
+        <Link href="/profile" className="text-sm font-medium text-teal-700 underline dark:text-teal-400">
           Edit profile
         </Link>
-        <Link href="/saved" className="self-center text-sm font-medium text-teal-700 underline dark:text-teal-400">
+        <Link href="/saved" className="text-sm font-medium text-teal-700 underline dark:text-teal-400">
           View saved
         </Link>
       </div>
