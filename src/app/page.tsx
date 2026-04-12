@@ -5,6 +5,7 @@ import { getOpenSettlements } from "@/lib/settlements";
 import { hasMinimumProfile, loadProfile, saveProfile } from "@/lib/profile";
 import { MIN_HOME_MATCH_SCORE, rankMatches } from "@/lib/matcher";
 import type { UserProfile } from "@/lib/types";
+import { trackEvent } from "@/lib/analytics";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
@@ -55,6 +56,7 @@ export default function HomePage() {
         </div>
         <Link
           href="/profile"
+          onClick={() => void trackEvent({ type: "profile_build" })}
           className="inline-flex rounded-xl bg-teal-600 px-5 py-3 text-sm font-semibold text-white hover:bg-teal-700"
         >
           Build your profile

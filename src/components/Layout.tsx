@@ -3,7 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { ProfileBackupAutoWriter, ProfileBackupProvider } from "./ProfileBackupContext";
+import { ProfileBackupFloatingBar } from "./ProfileBackupFloatingBar";
 import { PrivacyBadge } from "./PrivacyBadge";
+import { VisitorPing } from "./VisitorPing";
 
 const nav = [
   { href: "/", label: "Matches" },
@@ -23,6 +26,8 @@ export function Layout({ children }: { children: ReactNode }) {
   }
 
   return (
+    <ProfileBackupProvider>
+      <ProfileBackupAutoWriter />
     <div className="flex min-h-full flex-col">
       <header className="border-b border-zinc-200 bg-white/80 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/80">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-4">
@@ -46,7 +51,11 @@ export function Layout({ children }: { children: ReactNode }) {
           </nav>
         </div>
       </header>
-      <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-4 py-8">{children}</main>
+      <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-4 py-8">
+        <VisitorPing />
+        <ProfileBackupFloatingBar />
+        {children}
+      </main>
       <footer className="border-t border-zinc-200 bg-zinc-50/80 py-6 dark:border-zinc-800 dark:bg-zinc-950/50">
         <div className="mx-auto flex max-w-5xl flex-col gap-3 px-4 text-center text-sm text-zinc-600 dark:text-zinc-400">
           <PrivacyBadge />
@@ -68,5 +77,6 @@ export function Layout({ children }: { children: ReactNode }) {
         </div>
       </footer>
     </div>
+    </ProfileBackupProvider>
   );
 }

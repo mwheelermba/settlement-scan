@@ -155,7 +155,7 @@ export default function SavedPage() {
           href="/profile#profile-export"
           className="font-bold text-red-700 underline decoration-red-700/50 underline-offset-2 hover:text-red-800 dark:text-red-300 dark:decoration-red-400/50 dark:hover:text-red-200"
         >
-          Export your profile JSON on the Profile page
+          Save a JSON backup on the Profile page
         </Link>{" "}
         to keep a backup.
       </p>

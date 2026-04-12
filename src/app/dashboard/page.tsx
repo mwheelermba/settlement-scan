@@ -21,6 +21,8 @@ export default async function DashboardPage() {
 
   const claimLabel = stats.kvEnabled ? stats.claims : "—";
   const shareLabel = stats.kvEnabled ? stats.shares : "—";
+  const profileBuildLabel = stats.kvEnabled ? stats.profileBuild : "—";
+  const visitorLabel = stats.kvEnabled ? stats.visitorSessions : "—";
 
   return (
     <div className="space-y-8">
@@ -38,12 +40,17 @@ export default async function DashboardPage() {
 
       <section className="space-y-4">
         <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Everyone</h2>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">Anonymous totals from all users.</p>
+        <p className="text-sm text-zinc-600 dark:text-zinc-400">
+          Anonymous totals from all users. Session and profile counts are approximate (one ping per tab session; profile
+          when someone taps Build your profile).
+        </p>
         <div className="grid gap-4 sm:grid-cols-2">
           <StatCard label="Settlements in the list" value={settlements.length} />
           <StatCard label="Closing this week (approx.)" value={closingThisWeek} />
           <StatCard label="Claim links opened (all users)" value={claimLabel} />
           <StatCard label="Shares generated (all users)" value={shareLabel} />
+          <StatCard label="Build profile clicks (all users)" value={profileBuildLabel} />
+          <StatCard label="Browser sessions (approx.)" value={visitorLabel} />
         </div>
       </section>
     </div>

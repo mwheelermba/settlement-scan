@@ -68,12 +68,20 @@ function toNum(v: unknown): number {
 const KEYS = {
   totalClaims: "ss:total:claims",
   totalShares: "ss:total:shares",
+  totalProfileBuild: "ss:total:profile_build",
+  totalVisitorSessions: "ss:total:visitor_sessions",
   claimFor: (settlementId: string) => `ss:c:${settlementId}`,
   shareFor: (settlementId: string) => `ss:s:${settlementId}`,
 } as const;
 
+export type ServerEventType =
+  | "claim_click"
+  | "share"
+  | "profile_build"
+  | "visitor_session";
+
 export async function incrementEvent(
-  type: "claim_click" | "share",
+  type: ServerEventType,
   settlementId?: string
 ): Promise<{ persisted: boolean }> {
   const rest = getRestClient();
@@ -82,9 +90,13 @@ export async function incrementEvent(
       if (type === "claim_click") {
         await rest.incr(KEYS.totalClaims);
         if (settlementId) await rest.incr(KEYS.claimFor(settlementId));
-      } else {
+      } else if (type === "share") {
         await rest.incr(KEYS.totalShares);
         if (settlementId) await rest.incr(KEYS.shareFor(settlementId));
+      } else if (type === "profile_build") {
+        await rest.incr(KEYS.totalProfileBuild);
+      } else {
+        await rest.incr(KEYS.totalVisitorSessions);
       }
       return { persisted: true };
     } catch {
@@ -98,9 +110,13 @@ export async function incrementEvent(
     if (type === "claim_click") {
       await tcp.incr(KEYS.totalClaims);
       if (settlementId) await tcp.incr(KEYS.claimFor(settlementId));
-    } else {
+    } else if (type === "share") {
       await tcp.incr(KEYS.totalShares);
       if (settlementId) await tcp.incr(KEYS.shareFor(settlementId));
+    } else if (type === "profile_build") {
+      await tcp.incr(KEYS.totalProfileBuild);
+    } else {
+      await tcp.incr(KEYS.totalVisitorSessions);
     }
     return { persisted: true };
   } catch {
@@ -111,6 +127,8 @@ export async function incrementEvent(
 export type CommunityStats = {
   claims: number;
   shares: number;
+  profileBuild: number;
+  visitorSessions: number;
   kvEnabled: boolean;
 };
 
@@ -118,29 +136,43 @@ export async function getCommunityStats(): Promise<CommunityStats> {
   const rest = getRestClient();
   if (rest) {
     try {
-      const [c, s] = await Promise.all([rest.get(KEYS.totalClaims), rest.get(KEYS.totalShares)]);
+      const [c, s, pb, vs] = await Promise.all([
+        rest.get(KEYS.totalClaims),
+        rest.get(KEYS.totalShares),
+        rest.get(KEYS.totalProfileBuild),
+        rest.get(KEYS.totalVisitorSessions),
+      ]);
       return {
         claims: toNum(c),
         shares: toNum(s),
+        profileBuild: toNum(pb),
+        visitorSessions: toNum(vs),
         kvEnabled: true,
       };
     } catch {
-      return { claims: 0, shares: 0, kvEnabled: false };
+      return { claims: 0, shares: 0, profileBuild: 0, visitorSessions: 0, kvEnabled: false };
     }
   }
 
   const tcp = await getTcpClient();
   if (!tcp) {
-    return { claims: 0, shares: 0, kvEnabled: false };
+    return { claims: 0, shares: 0, profileBuild: 0, visitorSessions: 0, kvEnabled: false };
   }
   try {
-    const [c, s] = await Promise.all([tcp.get(KEYS.totalClaims), tcp.get(KEYS.totalShares)]);
+    const [c, s, pb, vs] = await Promise.all([
+      tcp.get(KEYS.totalClaims),
+      tcp.get(KEYS.totalShares),
+      tcp.get(KEYS.totalProfileBuild),
+      tcp.get(KEYS.totalVisitorSessions),
+    ]);
     return {
       claims: toNum(c),
       shares: toNum(s),
+      profileBuild: toNum(pb),
+      visitorSessions: toNum(vs),
       kvEnabled: true,
     };
   } catch {
-    return { claims: 0, shares: 0, kvEnabled: false };
+    return { claims: 0, shares: 0, profileBuild: 0, visitorSessions: 0, kvEnabled: false };
   }
 }

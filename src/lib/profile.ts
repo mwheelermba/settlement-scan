@@ -91,6 +91,11 @@ export function loadProfile(): UserProfile | null {
 export function saveProfile(profile: UserProfile): void {
   if (typeof window === "undefined") return;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(profile));
+  try {
+    window.dispatchEvent(new CustomEvent("settlementscan-profile-saved", { detail: { profile } }));
+  } catch {
+    /* ignore */
+  }
 }
 
 export function clearProfile(): void {

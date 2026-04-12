@@ -236,15 +236,6 @@ export function SettlementCard({
               >
                 {filed ? "Unmark as filed" : "Mark as filed"}
               </button>
-              {linkFrom !== "matches" && (
-                <button
-                  type="button"
-                  onClick={dismiss}
-                  className="cursor-pointer text-xs text-zinc-500 hover:text-zinc-800 hover:underline dark:hover:text-zinc-200"
-                >
-                  Dismiss
-                </button>
-              )}
             </div>
 
             {/* Share row — visually separated */}

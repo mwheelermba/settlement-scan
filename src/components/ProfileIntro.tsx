@@ -9,12 +9,22 @@ export function ProfileIntro() {
         <Link href="/browse" className="font-medium text-teal-800 underline dark:text-teal-400">
           browse every active settlement
         </Link>{" "}
-        with search and filters, even with a minimal profile.
+        with search and filters, even with a minimal profile. Optional email breach suggestions use{" "}
+        <a
+          href="https://haveibeenpwned.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-teal-800 underline dark:text-teal-400"
+        >
+          Have I Been Pwned
+        </a>{" "}
+        (details below).
       </p>
       <p>
         Your profile is stored only in <span className="font-medium text-zinc-900 dark:text-zinc-100">this browser</span>{" "}
-        — nothing is uploaded to SettlementScan. Use <span className="font-medium text-zinc-900 dark:text-zinc-100">Export</span>{" "}
-        at the bottom of this page to download a backup JSON file you can re-import on another device or browser.
+        — we do not keep your personal data on our servers. Use{" "}
+        <span className="font-medium text-zinc-900 dark:text-zinc-100">Save backup</span> at the bottom of this page to
+        download or sync a JSON file you can re-import on another device or browser.
       </p>
       <p className="font-bold text-red-700 dark:text-red-400">
         Clearing site data, cookies, or &quot;everything&quot; in your browser can erase your profile — including filed
@@ -23,7 +33,7 @@ export function ProfileIntro() {
           href="#profile-export"
           className="font-bold text-red-700 underline decoration-red-700/50 underline-offset-2 hover:text-red-800 dark:text-red-300 dark:decoration-red-400/50 dark:hover:text-red-200"
         >
-          export your JSON below
+          save a JSON backup below
         </Link>{" "}
         regularly so you don&apos;t lose your progress.
       </p>

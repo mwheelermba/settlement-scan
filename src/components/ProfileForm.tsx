@@ -1,5 +1,6 @@
 "use client";
 
+import { useProfileBackup } from "@/components/ProfileBackupContext";
 import { lookupBreachesForEmail } from "@/lib/hibp";
 import { importProfileJson } from "@/lib/profile";
 import {
@@ -102,6 +103,8 @@ export function ProfileForm({
   profile: UserProfile;
   onChange: (p: UserProfile) => void;
 }) {
+  const { backupNow, markBackupComplete } = useProfileBackup();
+  const [backupBusy, setBackupBusy] = useState(false);
   const [savedFlash, setSavedFlash] = useState(false);
   const [hibpNote, setHibpNote] = useState<string | null>(null);
 
@@ -602,26 +605,29 @@ export function ProfileForm({
         className="scroll-mt-24 space-y-3 rounded-xl border border-dashed border-zinc-300 p-4 text-center dark:border-zinc-700"
       >
         <p className="text-xs leading-relaxed text-zinc-500">
-          One JSON file is your full &quot;save&quot; — match fields, filed claims, saved bookmarks, dismissed matches,
-          and qualifying answers. Export it as a backup or to move to another browser. Import replaces everything stored
-          here; nothing is uploaded.
+          One JSON file is your portable backup — match fields, filed claims, saved bookmarks, dismissed matches, and
+          qualifying answers. Your edits already live in this browser; downloading or syncing a file protects you if
+          storage is cleared or you switch devices. Import replaces everything stored here; nothing is uploaded to
+          SettlementScan.
         </p>
-        <div className="inline-flex gap-4">
+        <p className="text-xs leading-relaxed text-zinc-500">
+          <span className="font-medium text-zinc-700 dark:text-zinc-300">Tip:</span> In Chrome or Edge you can save to a
+          file once — we&apos;ll keep updating that same file automatically for the rest of this browsing session when
+          your profile changes (after a short delay). Other browsers get a normal download each time you tap Save backup.
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-3">
           <button
             type="button"
-            className="cursor-pointer text-sm font-medium text-teal-700 hover:underline dark:text-teal-400"
+            disabled={backupBusy}
+            className="cursor-pointer rounded-lg bg-teal-600 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-700 disabled:opacity-60 dark:bg-teal-700 dark:hover:bg-teal-600"
             onClick={() => {
-              const blob = new Blob([JSON.stringify(profile, null, 2)], { type: "application/json" });
-              const a = document.createElement("a");
-              a.href = URL.createObjectURL(blob);
-              a.download = "settlementscan-profile.json";
-              a.click();
-              URL.revokeObjectURL(a.href);
+              setBackupBusy(true);
+              void backupNow(profile).finally(() => setBackupBusy(false));
             }}
           >
-            Export JSON
+            {backupBusy ? "Saving…" : "Save backup"}
           </button>
-          <label className="cursor-pointer text-sm font-medium text-teal-700 hover:underline dark:text-teal-400">
+          <label className="cursor-pointer rounded-lg border border-zinc-300 px-4 py-2 text-sm font-medium text-teal-700 hover:bg-zinc-50 dark:border-zinc-600 dark:text-teal-400 dark:hover:bg-zinc-800/80">
             Import JSON
             <input
               type="file"
@@ -633,12 +639,15 @@ export function ProfileForm({
                 const r = new FileReader();
                 r.onload = () => {
                   try {
-                    onChange(importProfileJson(String(r.result)));
+                    const next = importProfileJson(String(r.result));
+                    onChange(next);
+                    markBackupComplete(next);
                   } catch {
                     /* ignore */
                   }
                 };
                 r.readAsText(f);
+                e.target.value = "";
               }}
             />
           </label>

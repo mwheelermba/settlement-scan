@@ -1,14 +1,16 @@
-import { getCommunityStats, incrementEvent } from "@/lib/kv-stats";
+import { type ServerEventType, getCommunityStats, incrementEvent } from "@/lib/kv-stats";
 import { NextResponse } from "next/server";
 
+const ALLOWED: ServerEventType[] = ["claim_click", "share", "profile_build", "visitor_session"];
+
 /**
- * POST: increment anonymous counters (claim clicks, shares).
+ * POST: increment anonymous counters (claim clicks, shares, profile CTA, session pings).
  * GET: read aggregate totals (for dashboard / debugging).
  */
 export async function POST(req: Request) {
   try {
     const body = (await req.json()) as { type?: string; settlementId?: string };
-    if (body.type !== "claim_click" && body.type !== "share") {
+    if (!body.type || !ALLOWED.includes(body.type as ServerEventType)) {
       return NextResponse.json({ error: "Invalid or missing type" }, { status: 400 });
     }
 
@@ -17,7 +19,7 @@ export async function POST(req: Request) {
         ? body.settlementId.slice(0, 200)
         : undefined;
 
-    const { persisted } = await incrementEvent(body.type, settlementId);
+    const { persisted } = await incrementEvent(body.type as ServerEventType, settlementId);
     return NextResponse.json({ ok: true, persisted });
   } catch {
     return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });

@@ -34,11 +34,15 @@ Open [http://localhost:3000](http://localhost:3000).
 | `REDIS_URL` | No* | **Vercel Serverless Redis** / **Redis Cloud** — standard `redis://` or `rediss://` URL. Used when REST vars are not set. |
 | `RESEND_API_KEY` | No | [Resend](https://resend.com) API key for `POST /api/report` (problem reports). |
 | `REPORT_EMAIL_TO` | No | Where reports are delivered — **any** address works, including **Gmail** (`you@gmail.com`). This value is server-only and never exposed to the browser. |
-| `REPORT_EMAIL_FROM` | No | **From** address Resend will use. Free tier often requires a **verified domain** for production sends; until then you can use Resend’s onboarding sender for testing. Receiving at Gmail is fine; the usual constraint is *sending from* a verified domain, not *sending to* Gmail. |
+| `REPORT_EMAIL_FROM` | No | **From** address for problem reports (Resend or SMTP). Free Resend tier often requires a **verified domain** for production sends; until then you can use Resend’s onboarding sender for testing. |
+| `SMTP_HOST` | No | If you are **not** using Resend, set `SMTP_*` + `REPORT_EMAIL_TO` so `/api/report` can send via SMTP (same idea as GitHub Actions mail). |
+| `SMTP_PORT` | No | Usually `587` (TLS) or `465` (SSL). |
+| `SMTP_USER` | No | SMTP login (e.g. Gmail address with an [App Password](https://support.google.com/accounts/answer/185833)). |
+| `SMTP_PASSWORD` | No | SMTP password or app password. |
 
-**Scraper email alerts (GitHub Actions):** add **repository secrets** `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, and `NOTIFY_EMAIL` (e.g. Gmail with an [App Password](https://support.google.com/accounts/answer/185833)). The weekly workflow emails you when a source fails partially or fully. Test locally after setting the same env vars: `python -m scraper.test_notify`.
+**Scraper email alerts (GitHub Actions):** add **repository secrets** `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, and `NOTIFY_EMAIL` (e.g. Gmail with an App Password). The weekly workflow emails you when a source fails partially or fully. Test locally after setting the same env vars: `python -m scraper.test_notify`.
 
-**Problem reports:** set `REPORT_EMAIL_TO` to your personal inbox. **Match-notification emails** (future feature) would need user opt-in, stored email (or a provider link), and a scheduled job — not implemented yet.
+**Problem reports (in-app “Report a problem”):** these hit your **deployed** app (`POST /api/report`). Configure **Vercel** (or your host) — **GitHub repository secrets do not apply** to the live site. Either **`RESEND_API_KEY` + `REPORT_EMAIL_TO`**, or **`REPORT_EMAIL_TO` + the same `SMTP_*` credentials** you use for Actions (duplicate them under Project → Environment Variables and redeploy). **Match-notification emails** (future feature) would need user opt-in, stored email (or a provider link), and a scheduled job — not implemented yet.
 
 \*Vercel usually injects one style automatically when you link Storage. You do **not** need both REST and `REDIS_URL`.
 

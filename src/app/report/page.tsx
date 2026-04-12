@@ -25,7 +25,11 @@ export default function ReportPage() {
       const data = (await res.json()) as { ok?: boolean; error?: string; hint?: string };
       if (!res.ok) {
         setStatus("err");
-        setErrDetail(data.error === "reporting_not_configured" ? "The host has not enabled email reports yet." : data.error ?? "unknown");
+        if (data.error === "reporting_not_configured" && data.hint) {
+          setErrDetail(`${data.hint}`);
+        } else {
+          setErrDetail(data.error === "reporting_not_configured" ? "Email reporting is not configured on the server." : data.error ?? "unknown");
+        }
         return;
       }
       setStatus("ok");
