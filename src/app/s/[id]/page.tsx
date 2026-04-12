@@ -1,4 +1,5 @@
 import { SettlementBackLink } from "@/components/SettlementBackLink";
+import { SettlementDetailClaimActions } from "@/components/SettlementDetailClaimActions";
 import { SettlementDetailActions } from "@/components/SettlementDetailActions";
 import { SettlementViewTracker } from "@/components/SettlementViewTracker";
 import { ShareButton } from "@/components/ShareButton";
@@ -63,14 +64,7 @@ export default async function ShareSettlementPage({ params }: Props) {
         </div>
       </header>
       <p className="leading-relaxed text-zinc-700 dark:text-zinc-300">{s.description}</p>
-      <a
-        href={s.claim_url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex cursor-pointer rounded-xl bg-teal-600 px-5 py-3 text-sm font-semibold text-white hover:bg-teal-700"
-      >
-        Open claim site
-      </a>
+      <SettlementDetailClaimActions settlement={s} />
       <SettlementDetailActions settlement={s} />
       <ShareButton settlementId={s.id} title={s.title} variant="compact" />
     </div>

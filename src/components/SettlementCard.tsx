@@ -228,7 +228,11 @@ export function SettlementCard({
                 type="button"
                 onClick={toggleFiled}
                 title={filed ? "Remove this reminder" : "Remember that you submitted a claim"}
-                className="cursor-pointer text-xs font-medium text-zinc-600 hover:text-zinc-900 hover:underline dark:text-zinc-400 dark:hover:text-zinc-200"
+                className={`cursor-pointer text-xs font-medium hover:underline ${
+                  filed
+                    ? "text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                    : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200"
+                }`}
               >
                 {filed ? "Unmark as filed" : "Mark as filed"}
               </button>

@@ -43,7 +43,7 @@ function FiledClaimRow({
         <button
           type="button"
           onClick={onUnmark}
-          className="cursor-pointer text-xs text-zinc-500 hover:text-zinc-800 hover:underline dark:hover:text-zinc-200"
+          className="cursor-pointer text-xs font-medium text-red-600 hover:text-red-700 hover:underline dark:text-red-400 dark:hover:text-red-300"
         >
           Unmark
         </button>
