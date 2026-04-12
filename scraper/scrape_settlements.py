@@ -28,6 +28,7 @@ from scraper.classify import enrich
 from scraper.config import DATA_PATH, MIN_PRIMARY_ROWS
 from scraper.dedup import deduplicate
 from scraper.notify import ScrapeReport, send_notification
+from scraper.prune import prune_stale_inactive
 from scraper.sources.classaction_org import scrape as scrape_primary
 from scraper.sources.openclassactions import scrape as scrape_supplementary
 
@@ -170,16 +171,20 @@ def main() -> int:
     existing = load_existing()
     merged, new_n, upd_n, deact_n = merge(existing, enriched)
 
+    # ── Step 6b: Drop inactive rows older than ~1 year (last_verified) ───
+    final_rows, pruned_n = prune_stale_inactive(merged)
+
     report.new_settlements = new_n
     report.updated_settlements = upd_n
     report.deactivated_settlements = deact_n
-    report.total_settlements = len(merged)
+    report.pruned_inactive_stale = pruned_n
+    report.total_settlements = len(final_rows)
 
     # ── Step 7: Write output ────────────────────────────────────────────
-    save(merged)
+    save(final_rows)
     print(
         f"\nDone: +{new_n} new, ~{upd_n} updated, "
-        f"-{deact_n} deactivated => {len(merged)} total."
+        f"-{deact_n} deactivated, x{pruned_n} pruned (inactive stale) => {len(final_rows)} total."
     )
 
     # ── Step 8: Send notification ───────────────────────────────────────

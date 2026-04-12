@@ -74,9 +74,8 @@ export default function BrowsePage() {
             className="mt-0.5 rounded border-zinc-300"
           />
           <span>
-            Include listings whose claim deadline has passed. Only what&apos;s still in this app&apos;s database (not a
-            full historical archive). Old rows stay in the JSON when the weekly scraper marks them inactive — they
-            don&apos;t disappear from the file.
+            Include archived settlements whose claim deadline has passed. Archived settlements will be removed from
+            history after 1 year.
           </span>
         </label>
       </div>

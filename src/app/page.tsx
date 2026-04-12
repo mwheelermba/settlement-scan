@@ -69,15 +69,18 @@ export default function HomePage() {
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Your matches</h1>
           <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-            Ranked by fit and deadline (home shows {MIN_HOME_MATCH_SCORE}%+; browse shows everything with scores). Update
-            your{" "}
+            Ranked by fit and deadline.{" "}
             <Link href="/profile" className="font-medium text-teal-700 underline dark:text-teal-400">
-              profile
+              Update your profile
             </Link>{" "}
             anytime.
           </p>
           <p className="mt-2 text-sm font-medium text-zinc-700 dark:text-zinc-300">
             {ranked.length} match{ranked.length === 1 ? "" : "es"}
+          </p>
+          <p className="mt-1 max-w-xl text-xs text-zinc-500 dark:text-zinc-400">
+            Use <span className="font-medium text-zinc-600 dark:text-zinc-300">Remove from matches</span> on a card to
+            clear it from this list. It remains in Browse; your profile stores the choice on this device only.
           </p>
         </div>
         <Link href="/browse" className="text-sm font-medium text-teal-700 dark:text-teal-400">

@@ -1,7 +1,6 @@
 "use client";
 
-import type { MatchResult } from "@/lib/types";
-import type { UserProfile } from "@/lib/types";
+import type { MatchDimensionOutcome, MatchResult, UserProfile } from "@/lib/types";
 import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
 import { mergeSettlementIntoProfile } from "@/lib/settlement-to-profile";
@@ -11,6 +10,28 @@ import { ProofBadge } from "./ProofBadge";
 import { QualifyingQuestions } from "./QualifyingQuestions";
 import { ShareButton } from "./ShareButton";
 import { useState } from "react";
+
+function OutcomePill({ outcome }: { outcome: MatchDimensionOutcome }) {
+  const label =
+    outcome === "match"
+      ? "Strong"
+      : outcome === "weak"
+        ? "Partial"
+        : outcome === "unknown"
+          ? "Unknown"
+          : "No match";
+  const cls =
+    outcome === "match"
+      ? "bg-emerald-100 text-emerald-900 dark:bg-emerald-950/60 dark:text-emerald-200"
+      : outcome === "weak"
+        ? "bg-amber-100 text-amber-900 dark:bg-amber-950/50 dark:text-amber-200"
+        : outcome === "unknown"
+          ? "bg-zinc-200 text-zinc-800 dark:bg-zinc-700 dark:text-zinc-200"
+          : "bg-rose-100 text-rose-900 dark:bg-rose-950/50 dark:text-rose-200";
+  return (
+    <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${cls}`}>{label}</span>
+  );
+}
 
 export function SettlementCard({
   result,
@@ -25,6 +46,7 @@ export function SettlementCard({
 }) {
   const { settlement: s, score } = result;
   const [open, setOpen] = useState(false);
+  const [breakdownOpen, setBreakdownOpen] = useState(false);
   const filed = profile.filed_settlements.includes(s.id);
   const saved = (profile.saved_settlement_ids ?? []).includes(s.id);
   const detailHref = linkFrom ? `/s/${s.id}?from=${linkFrom}` : `/s/${s.id}`;
@@ -83,6 +105,30 @@ export function SettlementCard({
             {result.weakMatchCount > 0 ? ` · ${result.weakMatchCount} partial (e.g. nationwide)` : ""} ·{" "}
             {result.needsInputCount} unknown · {result.mismatchCount} mismatches (of {result.evaluableCount} dimensions)
           </p>
+          <div className="rounded-lg border border-zinc-100 bg-zinc-50/60 dark:border-zinc-800 dark:bg-zinc-900/30">
+            <button
+              type="button"
+              aria-expanded={breakdownOpen}
+              onClick={() => setBreakdownOpen(!breakdownOpen)}
+              className="flex w-full items-center justify-between px-3 py-2 text-left text-xs font-medium text-zinc-700 hover:bg-zinc-100/80 dark:text-zinc-300 dark:hover:bg-zinc-800/60"
+            >
+              <span>Match criteria</span>
+              <span className="text-zinc-400">{breakdownOpen ? "−" : "+"}</span>
+            </button>
+            {breakdownOpen && (
+              <ul className="space-y-2 border-t border-zinc-100 px-3 pb-3 pt-2 dark:border-zinc-800">
+                {result.breakdown.map((row) => (
+                  <li key={row.key} className="text-xs">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="font-medium text-zinc-800 dark:text-zinc-200">{row.label}</span>
+                      <OutcomePill outcome={row.outcome} />
+                    </div>
+                    <p className="mt-0.5 text-zinc-500 dark:text-zinc-400">Settlement data: {row.settlementSide}</p>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
           <div className="flex flex-wrap items-center gap-3">
             <button
               type="button"
@@ -91,6 +137,19 @@ export function SettlementCard({
             >
               {open ? "Hide details" : "Show details"}
             </button>
+            {linkFrom === "matches" && (
+              <>
+                <span className="text-zinc-300 dark:text-zinc-600">|</span>
+                <button
+                  type="button"
+                  onClick={dismiss}
+                  title="Hide from Your matches. You can still open it from Browse."
+                  className="text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:underline dark:text-zinc-400 dark:hover:text-zinc-100"
+                >
+                  Remove from matches
+                </button>
+              </>
+            )}
             <span className="text-zinc-300 dark:text-zinc-600">|</span>
             <button
               type="button"
@@ -137,13 +196,15 @@ export function SettlementCard({
             >
               {filed ? "Marked filed" : "Mark as filed"}
             </button>
-            <button
-              type="button"
-              onClick={dismiss}
-              className="rounded-xl px-4 py-2.5 text-sm text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
-            >
-              Dismiss
-            </button>
+            {linkFrom !== "matches" && (
+              <button
+                type="button"
+                onClick={dismiss}
+                className="rounded-xl px-4 py-2.5 text-sm text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
+              >
+                Dismiss
+              </button>
+            )}
           </div>
           <ShareButton settlementId={s.id} title={s.title} />
         </div>

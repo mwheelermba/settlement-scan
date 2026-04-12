@@ -76,4 +76,8 @@ On the profile page, the teal chips are built from **current `settlements.json`*
 
 ## Data retention in `settlements.json`
 
-The weekly scraper **merges** into the JSON: new rows are added, existing IDs are updated, and settlements that disappear from sources are set to **`active: false`** — they are **not deleted**, so the file grows slowly over time. That is why “include past deadlines” in Browse can show older rows that are still in the file. At a few hundred rows, size is negligible in the browser and repo; if the dataset ever grew very large, you could add pruning (e.g. drop inactive rows older than N years) in the scraper — not required today.
+The weekly scraper **merges** into the JSON: new rows are added, existing IDs are updated, and settlements that disappear from sources are set to **`active: false`** with a fresh **`last_verified`**.
+
+**Pruning:** inactive rows are **removed entirely** after the **`last_verified`** date is older than **365 days** (`INACTIVE_RETENTION_DAYS` in `scraper/config.py`). That clock starts when the scraper last marked them inactive (or any other `last_verified` on an inactive row). Inactive rows without a parseable `last_verified` are kept. Active rows are never deleted by this step.
+
+“Include past deadlines” in Browse only shows rows still present in the file before they age out.

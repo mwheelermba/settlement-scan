@@ -35,6 +35,7 @@ class ScrapeReport:
     new_settlements: int = 0
     updated_settlements: int = 0
     deactivated_settlements: int = 0
+    pruned_inactive_stale: int = 0
     total_settlements: int = 0
 
     warnings: list[str] = field(default_factory=list)
@@ -67,6 +68,8 @@ class ScrapeReport:
         lines.append(f"  + {self.new_settlements} new")
         lines.append(f"  ~ {self.updated_settlements} updated")
         lines.append(f"  - {self.deactivated_settlements} deactivated")
+        if self.pruned_inactive_stale:
+            lines.append(f"  x {self.pruned_inactive_stale} pruned (inactive >1y since last_verified)")
         lines.append(f"  = {self.total_settlements} total in settlements.json")
         lines.append("")
 

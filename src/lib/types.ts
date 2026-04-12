@@ -79,6 +79,16 @@ export type UserProfile = {
   created_at: string;
 };
 
+export type MatchDimensionOutcome = "match" | "weak" | "unknown" | "mismatch";
+
+export type MatchDimensionRow = {
+  key: string;
+  label: string;
+  outcome: MatchDimensionOutcome;
+  /** What this settlement lists (or "Nationwide", "Not specified", etc.). */
+  settlementSide: string;
+};
+
 export type MatchResult = {
   settlement: Settlement;
   score: number;
@@ -89,4 +99,6 @@ export type MatchResult = {
   evaluableCount: number;
   needsInputCount: number;
   mismatchCount: number;
+  /** Per-dimension outcomes for UI (same order as scoring). */
+  breakdown: MatchDimensionRow[];
 };

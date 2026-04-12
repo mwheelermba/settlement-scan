@@ -33,3 +33,6 @@ NOTIFY_EMAIL = os.environ.get("NOTIFY_EMAIL", "")
 
 # Dedup thresholds
 TITLE_SIMILARITY_THRESHOLD = 0.75
+
+# Remove inactive rows whose last_verified is older than this many days (approx. 1 year).
+INACTIVE_RETENTION_DAYS = 365

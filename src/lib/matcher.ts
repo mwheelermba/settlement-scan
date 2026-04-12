@@ -1,5 +1,10 @@
 import { matchesLoose } from "@/lib/string-match";
-import type { MatchResult, Settlement, UserProfile } from "./types";
+import type {
+  MatchDimensionRow,
+  MatchResult,
+  Settlement,
+  UserProfile,
+} from "./types";
 
 /**
  * Per-dimension outcome. `weak` is used for nationwide (no state filter) when the
@@ -8,7 +13,13 @@ import type { MatchResult, Settlement, UserProfile } from "./types";
 type FieldOutcome = "match" | "weak" | "unknown" | "mismatch";
 
 /** Minimum match % to show on the home "Your matches" list (browse shows all). */
-export const MIN_HOME_MATCH_SCORE = 10;
+export const MIN_HOME_MATCH_SCORE = 40;
+
+function _shortenDetail(s: string, max = 96): string {
+  const t = s.trim();
+  if (t.length <= max) return t;
+  return `${t.slice(0, max - 1)}…`;
+}
 
 function norm(s: string): string {
   return s.trim().toLowerCase();
@@ -89,24 +100,54 @@ function vehicleMatches(
   return "mismatch";
 }
 
-function collectOutcomes(
+function collectBreakdownRows(
   settlement: Settlement,
   profile: UserProfile
-): FieldOutcome[] {
+): MatchDimensionRow[] {
   const c = settlement.criteria;
-  const outcomes: FieldOutcome[] = [];
 
-  outcomes.push(matchStates(profile.state, c.states));
+  const stateOutcome = matchStates(profile.state, c.states);
+  const stateSide = !c.states?.length
+    ? "Nationwide"
+    : _shortenDetail(c.states.join(", "));
 
-  outcomes.push(hasOverlap(servicePool(profile), c.services));
+  const svcOutcome = hasOverlap(servicePool(profile), c.services);
+  const svcSide = !c.services?.length ? "Not specified" : _shortenDetail(c.services.join(", "));
 
-  outcomes.push(hasOverlap(productMatchPool(profile), c.products));
+  const prodOutcome = hasOverlap(productMatchPool(profile), c.products);
+  const prodSide = !c.products?.length ? "Not specified" : _shortenDetail(c.products.join(", "));
 
-  outcomes.push(vehicleMatches(profile, c));
+  const vehOutcome = vehicleMatches(profile, c);
+  let vehSide = "Not specified";
+  if (c.vehicles?.length) {
+    vehSide = _shortenDetail(
+      c.vehicles
+        .map((v) => {
+          const yr =
+            v.yearMin !== undefined && v.yearMax !== undefined
+              ? `${v.yearMin}–${v.yearMax}`
+              : "";
+          return [v.make, v.model, yr].filter(Boolean).join(" ");
+        })
+        .join("; ")
+    );
+  }
 
-  outcomes.push(matchBreach(profile.breach_names, c.breach_name));
+  const breachOutcome = matchBreach(profile.breach_names, c.breach_name);
+  const breachSide = c.breach_name ? _shortenDetail(c.breach_name) : "Not specified";
 
-  return outcomes;
+  return [
+    { key: "state", label: "State", outcome: stateOutcome, settlementSide: stateSide },
+    {
+      key: "services",
+      label: "Services & brands",
+      outcome: svcOutcome,
+      settlementSide: svcSide,
+    },
+    { key: "products", label: "Products", outcome: prodOutcome, settlementSide: prodSide },
+    { key: "vehicles", label: "Vehicles", outcome: vehOutcome, settlementSide: vehSide },
+    { key: "breach", label: "Data breach", outcome: breachOutcome, settlementSide: breachSide },
+  ];
 }
 
 function scoreFromOutcomes(outcomes: FieldOutcome[]): {
@@ -175,7 +216,8 @@ export function matchSettlement(
   settlement: Settlement,
   profile: UserProfile
 ): MatchResult {
-  const outcomes = collectOutcomes(settlement, profile);
+  const breakdown = collectBreakdownRows(settlement, profile);
+  const outcomes = breakdown.map((b) => b.outcome) as FieldOutcome[];
   const base = scoreFromOutcomes(outcomes);
   const score = applyQualifyingQuestions(settlement, profile, base);
   return {
@@ -186,6 +228,7 @@ export function matchSettlement(
     evaluableCount: base.evaluableCount,
     needsInputCount: base.needsInputCount,
     mismatchCount: base.mismatchCount,
+    breakdown,
   };
 }
 
