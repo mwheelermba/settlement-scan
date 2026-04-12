@@ -13,10 +13,13 @@ export function ProfileIntro() {
       </p>
       <p>
         Your profile is stored only in <span className="font-medium text-zinc-900 dark:text-zinc-100">this browser</span>{" "}
-        (local storage). The only network use is optional: if{" "}
-        <code className="rounded bg-teal-100/80 px-1 text-xs dark:bg-teal-900/50">HIBP_API_KEY</code> is set, leaving the
-        email field sends that address to this app&apos;s API once to query Have I Been Pwned — it isn&apos;t stored.
-        Use Export at the bottom for a backup file.
+        — nothing is uploaded to SettlementScan. Use <span className="font-medium text-zinc-900 dark:text-zinc-100">Export</span>{" "}
+        at the bottom of this page to download a backup JSON file you can re-import on another device or browser.
+      </p>
+      <p>
+        If you add an email address, you can optionally run a one-time lookup to{" "}
+        <span className="font-medium text-zinc-900 dark:text-zinc-100">Have I Been Pwned</span> to suggest breach names;
+        that address is not stored on our servers. You can skip that and type breach names yourself.
       </p>
       <p>
         <span className="font-medium text-zinc-900 dark:text-zinc-100">Saving:</span> text boxes update your profile when

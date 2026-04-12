@@ -9,7 +9,7 @@ import { MatchScoreRing } from "./MatchScoreRing";
 import { ProofBadge } from "./ProofBadge";
 import { QualifyingQuestions } from "./QualifyingQuestions";
 import { ShareButton } from "./ShareButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function OutcomePill({ outcome }: { outcome: MatchDimensionOutcome }) {
   const label =
@@ -47,16 +47,29 @@ export function SettlementCard({
   const { settlement: s, score } = result;
   const [open, setOpen] = useState(false);
   const [breakdownOpen, setBreakdownOpen] = useState(false);
+  const [termsAddedFlash, setTermsAddedFlash] = useState(false);
   const filed = profile.filed_settlements.includes(s.id);
   const saved = (profile.saved_settlement_ids ?? []).includes(s.id);
   const detailHref = linkFrom ? `/s/${s.id}?from=${linkFrom}` : `/s/${s.id}`;
 
-  function markFiled() {
-    if (filed) return;
-    onProfileChange({
-      ...profile,
-      filed_settlements: [...profile.filed_settlements, s.id],
-    });
+  useEffect(() => {
+    if (!termsAddedFlash) return;
+    const id = window.setTimeout(() => setTermsAddedFlash(false), 2800);
+    return () => window.clearTimeout(id);
+  }, [termsAddedFlash]);
+
+  function toggleFiled() {
+    if (filed) {
+      onProfileChange({
+        ...profile,
+        filed_settlements: profile.filed_settlements.filter((id) => id !== s.id),
+      });
+    } else {
+      onProfileChange({
+        ...profile,
+        filed_settlements: [...profile.filed_settlements, s.id],
+      });
+    }
   }
 
   function dismiss() {
@@ -75,6 +88,7 @@ export function SettlementCard({
 
   function addTermsToProfile() {
     onProfileChange(mergeSettlementIntoProfile(profile, s));
+    setTermsAddedFlash(true);
   }
 
   return (
@@ -83,15 +97,15 @@ export function SettlementCard({
         <MatchScoreRing score={score} />
         <div className="min-w-0 flex-1 space-y-2">
           <div className="flex flex-wrap items-start justify-between gap-2">
-            <div>
-              <h2 className="text-lg font-semibold leading-snug text-zinc-900 dark:text-zinc-50">
+            <div className="min-w-0 max-w-full flex-1">
+              <h2 className="text-lg font-semibold leading-snug text-zinc-900 [overflow-wrap:anywhere] dark:text-zinc-50">
                 <Link href={detailHref} className="hover:underline">
                   {s.title}
                 </Link>
               </h2>
               <p className="text-sm text-zinc-600 dark:text-zinc-400">{s.defendant}</p>
             </div>
-            <div className="flex flex-col items-end gap-2">
+            <div className="flex shrink-0 flex-col items-end gap-2">
               <DeadlineBadge deadline={s.deadline} />
               <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{s.estimated_payout}</p>
               <ProofBadge proofRequired={s.proof_required} />
@@ -105,18 +119,22 @@ export function SettlementCard({
             {result.weakMatchCount > 0 ? ` · ${result.weakMatchCount} partial (e.g. nationwide)` : ""} ·{" "}
             {result.needsInputCount} unknown · {result.mismatchCount} mismatches (of {result.evaluableCount} dimensions)
           </p>
-          <div className="rounded-lg border border-zinc-100 bg-zinc-50/60 dark:border-zinc-800 dark:bg-zinc-900/30">
+          <div
+            className={`rounded-lg border border-zinc-100 dark:border-zinc-800 ${
+              breakdownOpen ? "bg-zinc-100/90 dark:bg-zinc-900/60" : "bg-zinc-50/60 dark:bg-zinc-900/30"
+            }`}
+          >
             <button
               type="button"
               aria-expanded={breakdownOpen}
               onClick={() => setBreakdownOpen(!breakdownOpen)}
-              className="flex w-full items-center justify-between px-3 py-2 text-left text-xs font-medium text-zinc-700 hover:bg-zinc-100/80 dark:text-zinc-300 dark:hover:bg-zinc-800/60"
+              className="flex w-full cursor-pointer items-center justify-between px-3 py-2 text-left text-xs font-medium text-zinc-700 hover:bg-zinc-100/80 dark:text-zinc-300 dark:hover:bg-zinc-800/60"
             >
               <span>Match criteria</span>
               <span className="text-zinc-400">{breakdownOpen ? "−" : "+"}</span>
             </button>
             {breakdownOpen && (
-              <ul className="space-y-2 border-t border-zinc-100 px-3 pb-3 pt-2 dark:border-zinc-800">
+              <ul className="space-y-2 border-t border-zinc-200/80 px-3 pb-3 pt-2 dark:border-zinc-700/80">
                 {result.breakdown.map((row) => (
                   <li key={row.key} className="text-xs">
                     <div className="flex flex-wrap items-center gap-2">
@@ -129,84 +147,105 @@ export function SettlementCard({
               </ul>
             )}
           </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <button
-              type="button"
-              onClick={() => setOpen(!open)}
-              className="text-sm font-medium text-teal-700 hover:underline dark:text-teal-400"
-            >
-              {open ? "Hide details" : "Show details"}
-            </button>
-            {linkFrom === "matches" && (
-              <>
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 sm:gap-x-3">
+                <button
+                  type="button"
+                  onClick={() => setOpen(!open)}
+                  className="cursor-pointer text-sm font-medium text-teal-700 hover:underline dark:text-teal-400"
+                >
+                  {open ? "Hide details" : "Show details"}
+                </button>
                 <span className="text-zinc-300 dark:text-zinc-600">|</span>
+                <button
+                  type="button"
+                  onClick={toggleSaved}
+                  className={`cursor-pointer text-sm font-medium hover:underline ${
+                    saved
+                      ? "text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+                      : "text-zinc-700 dark:text-zinc-300"
+                  }`}
+                >
+                  {saved ? "Remove from saved" : "Save for later"}
+                </button>
+                <span className="text-zinc-300 dark:text-zinc-600">|</span>
+                <button
+                  type="button"
+                  onClick={addTermsToProfile}
+                  className="cursor-pointer text-sm font-medium text-zinc-700 hover:underline dark:text-zinc-300"
+                >
+                  Add match terms to profile
+                </button>
+              </div>
+              {linkFrom === "matches" && (
                 <button
                   type="button"
                   onClick={dismiss}
                   title="Hide from Your matches. You can still open it from Browse."
-                  className="text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:underline dark:text-zinc-400 dark:hover:text-zinc-100"
+                  className="cursor-pointer self-start text-sm font-medium text-zinc-600 hover:text-zinc-900 hover:underline sm:self-auto dark:text-zinc-400 dark:hover:text-zinc-100"
                 >
                   Remove from matches
                 </button>
-              </>
-            )}
-            <span className="text-zinc-300 dark:text-zinc-600">|</span>
-            <button
-              type="button"
-              onClick={toggleSaved}
-              className="text-sm font-medium text-zinc-700 hover:underline dark:text-zinc-300"
+              )}
+            </div>
+            <p
+              className={`text-xs font-medium text-emerald-700 transition-opacity duration-200 dark:text-emerald-400 ${
+                termsAddedFlash ? "opacity-100" : "opacity-0"
+              }`}
+              aria-live="polite"
             >
-              {saved ? "Saved for later" : "Save for later"}
-            </button>
-            <button
-              type="button"
-              onClick={addTermsToProfile}
-              className="text-sm font-medium text-zinc-700 hover:underline dark:text-zinc-300"
-            >
-              Add match terms to profile
-            </button>
+              Match terms merged into your profile — open Your profile to review or edit.
+            </p>
           </div>
         </div>
       </div>
 
       {open && (
-        <div className="mt-4 space-y-4 border-t border-zinc-100 pt-4 dark:border-zinc-800">
-          <p className="text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">{s.description}</p>
-          <QualifyingQuestions
-            settlementId={s.id}
-            questions={s.criteria.qualifying_questions}
-            profile={profile}
-            onChange={onProfileChange}
-          />
-          <div className="flex flex-wrap gap-3">
-            <a
-              href={s.claim_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => void trackEvent({ type: "claim_click", settlementId: s.id })}
-              className="inline-flex items-center justify-center rounded-xl bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-700"
-            >
-              File claim
-            </a>
-            <button
-              type="button"
-              onClick={markFiled}
-              disabled={filed}
-              className="rounded-xl border border-zinc-200 px-4 py-2.5 text-sm font-medium text-zinc-800 disabled:opacity-50 dark:border-zinc-700 dark:text-zinc-200"
-            >
-              {filed ? "Marked filed" : "Mark as filed"}
-            </button>
-            {linkFrom !== "matches" && (
+        <div className="mt-4 rounded-xl border border-zinc-200/90 bg-zinc-50/95 p-4 dark:border-zinc-700/90 dark:bg-zinc-900/55">
+          <div className="space-y-4">
+            <p className="text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">{s.description}</p>
+            <QualifyingQuestions
+              settlementId={s.id}
+              questions={s.criteria.qualifying_questions}
+              profile={profile}
+              onChange={onProfileChange}
+            />
+            <p className="text-xs text-zinc-500 dark:text-zinc-400">
+              <span className="font-medium text-zinc-700 dark:text-zinc-300">Mark as filed</span> is only a reminder for
+              you on this device — it does not file a claim or notify anyone. Click again to unmark if you tapped it by
+              mistake.
+            </p>
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              <a
+                href={s.claim_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => void trackEvent({ type: "claim_click", settlementId: s.id })}
+                className="inline-flex min-h-[44px] cursor-pointer items-center justify-center rounded-xl bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-700"
+              >
+                File claim
+              </a>
               <button
                 type="button"
-                onClick={dismiss}
-                className="rounded-xl px-4 py-2.5 text-sm text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
+                onClick={toggleFiled}
+                title={filed ? "Remove this reminder" : "Remember that you submitted a claim"}
+                className="min-h-[44px] cursor-pointer rounded-xl border border-zinc-200 px-4 py-2.5 text-sm font-medium text-zinc-800 hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-800/80"
               >
-                Dismiss
+                {filed ? "Unmark as filed" : "Mark as filed"}
               </button>
-            )}
+              {linkFrom !== "matches" && (
+                <button
+                  type="button"
+                  onClick={dismiss}
+                  className="min-h-[44px] cursor-pointer rounded-xl px-4 py-2.5 text-sm text-zinc-500 hover:bg-zinc-100/80 hover:text-zinc-800 dark:hover:bg-zinc-800/60 dark:hover:text-zinc-200 sm:col-span-2"
+                >
+                  Dismiss
+                </button>
+              )}
+            </div>
+            <ShareButton settlementId={s.id} title={s.title} />
           </div>
-          <ShareButton settlementId={s.id} title={s.title} />
         </div>
       )}
     </article>

@@ -20,9 +20,12 @@ export function SmartQuickAddRow({ label, terms, onAdd }: Props) {
             key={s}
             type="button"
             onClick={() => onAdd(s)}
-            className="rounded-lg border border-teal-200/80 bg-teal-50/80 px-2 py-1.5 text-left text-xs font-medium text-teal-900 hover:bg-teal-100/90 dark:border-teal-900/50 dark:bg-teal-950/40 dark:text-teal-100 dark:hover:bg-teal-900/50"
+            className="flex min-h-[2.75rem] items-start gap-1 rounded-lg border border-teal-200/80 bg-teal-50/80 px-2 py-1.5 text-left text-xs font-medium text-teal-900 hover:bg-teal-100/90 dark:border-teal-900/50 dark:bg-teal-950/40 dark:text-teal-100 dark:hover:bg-teal-900/50"
           >
-            + {s}
+            <span className="shrink-0 select-none" aria-hidden>
+              +
+            </span>
+            <span className="min-w-0 flex-1 leading-snug">{s}</span>
           </button>
         ))}
       </div>

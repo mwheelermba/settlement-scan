@@ -61,13 +61,25 @@ function hasOverlap(
   return overlap ? "match" : "mismatch";
 }
 
-function matchStates(profileState: string, criteriaStates: string[] | null): FieldOutcome {
+function profileStateCodes(profile: UserProfile): string[] {
+  const codes = new Set<string>();
+  if (profile.state?.trim()) codes.add(profile.state.trim().toUpperCase());
+  for (const s of profile.additional_states ?? []) {
+    const t = s?.trim();
+    if (t) codes.add(t.toUpperCase());
+  }
+  return [...codes];
+}
+
+function matchStates(profile: UserProfile, criteriaStates: string[] | null): FieldOutcome {
+  const codes = profileStateCodes(profile);
   if (criteriaStates === null || criteriaStates.length === 0) {
-    if (!profileState?.trim()) return "unknown";
+    if (codes.length === 0) return "unknown";
     return "weak";
   }
-  if (!profileState?.trim()) return "unknown";
-  return criteriaStates.includes(profileState.toUpperCase()) ? "match" : "mismatch";
+  if (codes.length === 0) return "unknown";
+  const crit = criteriaStates.map((c) => c.toUpperCase());
+  return codes.some((code) => crit.includes(code)) ? "match" : "mismatch";
 }
 
 function matchBreach(
@@ -106,7 +118,7 @@ function collectBreakdownRows(
 ): MatchDimensionRow[] {
   const c = settlement.criteria;
 
-  const stateOutcome = matchStates(profile.state, c.states);
+  const stateOutcome = matchStates(profile, c.states);
   const stateSide = !c.states?.length
     ? "Nationwide"
     : _shortenDetail(c.states.join(", "));

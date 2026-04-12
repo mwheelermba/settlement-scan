@@ -37,16 +37,8 @@ export default async function DashboardPage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Everyone (approximate)</h2>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400">
-          Anonymous totals from all users when optional server storage is enabled. If you see “—”, totals are not
-          available yet.
-        </p>
-        {!stats.kvEnabled && (
-          <p className="text-sm text-amber-800 dark:text-amber-200/90">
-            Server totals are not configured. Claim and share counts below show “—” until the host enables storage.
-          </p>
-        )}
+        <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">Everyone</h2>
+        <p className="text-sm text-zinc-600 dark:text-zinc-400">Anonymous totals from all users.</p>
         <div className="grid gap-4 sm:grid-cols-2">
           <StatCard label="Settlements in the list" value={settlements.length} />
           <StatCard label="Closing this week (approx.)" value={closingThisWeek} />

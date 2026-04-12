@@ -38,6 +38,18 @@ function appendLineIfNew(draft: string, line: string): string {
   return t ? `${t}\n${line}` : line;
 }
 
+function parseAdditionalStateCodes(raw: string, primary: string): string[] {
+  const primaryUp = primary?.trim().toUpperCase() ?? "";
+  const seen = new Set<string>();
+  for (const part of raw.split(/[\n,;]+/)) {
+    const t = part.trim().toUpperCase();
+    if (t.length !== 2 || !US_STATES.includes(t)) continue;
+    if (t === primaryUp) continue;
+    seen.add(t);
+  }
+  return [...seen].sort();
+}
+
 /** One line per vehicle: Make Model Year — year must be last token; incomplete lines ignored on save. */
 function parseVehicleLines(raw: string): { make: string; model: string; year: number }[] {
   const lines = raw
@@ -156,6 +168,9 @@ export function ProfileForm({
     profile.vehicles.map((v) => `${v.make} ${v.model} ${v.year}`.trim()).join("\n")
   );
   const [medicalDraft, setMedicalDraft] = useState(() => (profile.medical_and_health ?? []).join("\n"));
+  const [additionalStatesDraft, setAdditionalStatesDraft] = useState(() =>
+    (profile.additional_states ?? []).join("\n")
+  );
 
   const emailsKey = profile.emails.join("|");
   useEffect(() => {
@@ -199,6 +214,11 @@ export function ProfileForm({
   useEffect(() => {
     queueMicrotask(() => setBreachDraft(profile.breach_names.join("\n")));
   }, [breachKey]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const additionalStatesKey = (profile.additional_states ?? []).join("|");
+  useEffect(() => {
+    queueMicrotask(() => setAdditionalStatesDraft((profile.additional_states ?? []).join("\n")));
+  }, [additionalStatesKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function commitEmailsAndMaybeHibp() {
     const emails = parseListFlexible(emailDraft);
@@ -262,6 +282,10 @@ export function ProfileForm({
     save({ ...profile, medical_and_health: parseListFlexible(medicalDraft) });
   }
 
+  function commitAdditionalStates() {
+    save({ ...profile, additional_states: parseAdditionalStateCodes(additionalStatesDraft, profile.state) });
+  }
+
   return (
     <div className="space-y-4">
       <div className="min-h-[2.25rem]">
@@ -275,13 +299,24 @@ export function ProfileForm({
         </p>
       </div>
 
+      <p className="text-xs leading-relaxed text-zinc-500">
+        Across the text fields below, matching ignores small spelling differences (spacing, hyphens, and letter case) so
+        similar names still line up with settlement data.
+      </p>
+
       <Section title="Location">
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="flex flex-col gap-1 text-xs font-medium text-zinc-600 dark:text-zinc-400">
             State
             <select
               value={profile.state}
-              onChange={(e) => save({ ...profile, state: e.target.value })}
+              onChange={(e) =>
+                save({
+                  ...profile,
+                  state: e.target.value,
+                  additional_states: parseAdditionalStateCodes(additionalStatesDraft, e.target.value),
+                })
+              }
               className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
             >
               <option value="">Select…</option>
@@ -301,10 +336,26 @@ export function ProfileForm({
             />
           </label>
         </div>
+        <label className="mt-4 flex flex-col gap-1 text-xs font-medium text-zinc-600 dark:text-zinc-400">
+          Other states (optional)
+          <span className="font-normal text-zinc-500">
+            One two-letter code per line (e.g. OR) — used for matching when a settlement is limited to certain states,
+            such as a previous home state. Comma-separated codes still work if you paste them.
+          </span>
+          <textarea
+            rows={2}
+            value={additionalStatesDraft}
+            onChange={(e) => setAdditionalStatesDraft(e.target.value)}
+            onBlur={commitAdditionalStates}
+            spellCheck={false}
+            className="mt-1 w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 font-mono text-sm dark:border-zinc-700 dark:bg-zinc-900"
+            placeholder="OR"
+          />
+        </label>
       </Section>
 
       <Section title="Email addresses">
-        <p className="mb-2 text-xs text-zinc-500">Separate addresses with commas or put one per line.</p>
+        <p className="mb-2 text-xs text-zinc-500">One address per line.</p>
         <textarea
           rows={4}
           value={emailDraft}
@@ -318,8 +369,8 @@ export function ProfileForm({
         <div className="mt-4 border-t border-zinc-100 pt-4 dark:border-zinc-800">
           <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">Data breaches</p>
           <p className="mt-1 text-xs leading-relaxed text-zinc-500">
-            List breach names you know apply to you — comma or line between each. Matching is flexible (spacing and
-            capitalization). When you leave the email field above, names returned from{" "}
+            List breach names you know apply to you — one per line. (Commas still work if you paste that way.) Matching
+            is flexible for spacing and capitalization. When you leave the email field above, names returned from{" "}
             <a
               href="https://haveibeenpwned.com"
               target="_blank"
@@ -328,9 +379,8 @@ export function ProfileForm({
             >
               Have I Been Pwned
             </a>{" "}
-            are merged into this list automatically when{" "}
-            <code className="rounded bg-zinc-100 px-1 text-[11px] dark:bg-zinc-800">HIBP_API_KEY</code> is set on the
-            server; otherwise add names by hand. You can edit or add more anytime.
+            can be merged into this list when the optional lookup succeeds; otherwise add names by hand. You can edit or
+            add more anytime.
           </p>
           <textarea
             rows={5}
@@ -425,8 +475,7 @@ export function ProfileForm({
 
       <Section title="Retail, brands & other">
         <p className="mb-2 text-xs leading-relaxed text-zinc-500">
-          Phone/internet carriers, big retailers, brands you shop with, and anything else that did not fit above. Matching
-          ignores small spelling differences (e.g. &quot;T Mobile&quot; vs &quot;T-Mobile&quot;).
+          Phone/internet carriers, big retailers, brands you shop with, and anything else that did not fit above.
         </p>
         <SmartQuickAddRow
           label="Recommended active settlements"

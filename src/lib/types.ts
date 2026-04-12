@@ -56,6 +56,8 @@ export type ProfileVehicle = {
 export type UserProfile = {
   name?: string;
   state: string;
+  /** Extra states for matching (e.g. previous residence). Two-letter codes; excludes duplicate of `state`. */
+  additional_states?: string[];
   zip?: string;
   emails: string[];
   /** @deprecated merged into retail_and_brands on load; still matched if present */

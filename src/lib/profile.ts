@@ -5,6 +5,7 @@ const STORAGE_KEY = "settlementscan_profile_v1";
 export function defaultProfile(): UserProfile {
   return {
     state: "",
+    additional_states: [],
     emails: [],
     services: [],
     companies_purchased_from: [],
@@ -79,6 +80,7 @@ export function loadProfile(): UserProfile | null {
       dismissed_settlements: parsed.dismissed_settlements ?? [],
       filed_settlements: parsed.filed_settlements ?? [],
       saved_settlement_ids: parsed.saved_settlement_ids ?? [],
+      additional_states: parsed.additional_states ?? [],
     };
     return normalizeProfile(merged);
   } catch {
@@ -110,10 +112,12 @@ export function importProfileJson(json: string): UserProfile {
     dismissed_settlements: parsed.dismissed_settlements ?? [],
     filed_settlements: parsed.filed_settlements ?? [],
     saved_settlement_ids: parsed.saved_settlement_ids ?? [],
+    additional_states: parsed.additional_states ?? [],
   };
   return normalizeProfile(merged);
 }
 
 export function hasMinimumProfile(profile: UserProfile): boolean {
-  return Boolean(profile.state?.trim());
+  if (profile.state?.trim()) return true;
+  return Boolean((profile.additional_states ?? []).some((s) => s?.trim()));
 }
