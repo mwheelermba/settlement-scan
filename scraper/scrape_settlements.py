@@ -1,55 +1,38 @@
 #!/usr/bin/env python3
 """
-Fetch ClassAction.org settlements and merge into data/settlements.json.
+SettlementScan web scraper — main entry point.
 
-Run from repo root: python scraper/scrape_settlements.py
+Fetches settlement data from two sources (ClassAction.org as primary,
+OpenClassActions.com as supplementary), deduplicates, enriches with
+type/criteria inference, merges into ``data/settlements.json``, and sends
+a notification email on partial or full failure.
 
-Phase 0: stub — implements fetch + merge skeleton. Extend parsing to match
-the live HTML (see SettlementScan_Project_Overview.md).
+Run from repo root:  python -m scraper.scrape_settlements
+              or:    python scraper/scrape_settlements.py
 """
-
 from __future__ import annotations
 
 import json
 import sys
-import time
+from datetime import datetime
 from pathlib import Path
 
-import requests
-from bs4 import BeautifulSoup
+# Allow running as both `python scraper/scrape_settlements.py` and
+# `python -m scraper.scrape_settlements` by adjusting sys.path.
+_SCRAPER_DIR = Path(__file__).resolve().parent
+_ROOT = _SCRAPER_DIR.parent
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
 
-ROOT = Path(__file__).resolve().parents[1]
-DATA_PATH = ROOT / "data" / "settlements.json"
-SOURCE = "https://www.classaction.org/settlements"
-USER_AGENT = (
-    "SettlementScanBot/0.1 (+https://github.com/your-org/settlementscan; contact: you@example.com)"
-)
-
-
-def fetch_html(url: str, retries: int = 3) -> str:
-    last: Exception | None = None
-    for attempt in range(retries):
-        try:
-            r = requests.get(
-                url,
-                headers={"User-Agent": USER_AGENT},
-                timeout=60,
-            )
-            r.raise_for_status()
-            return r.text
-        except Exception as e:  # noqa: BLE001
-            last = e
-            time.sleep(2**attempt)
-    raise RuntimeError(f"Failed to fetch {url}: {last}") from last
+from scraper.classify import enrich
+from scraper.config import DATA_PATH, MIN_PRIMARY_ROWS
+from scraper.dedup import deduplicate
+from scraper.notify import ScrapeReport, send_notification
+from scraper.sources.classaction_org import scrape as scrape_primary
+from scraper.sources.openclassactions import scrape as scrape_supplementary
 
 
-def parse_stub(html: str) -> list[dict]:
-    """Placeholder parser — replace with real card extraction."""
-    soup = BeautifulSoup(html, "html.parser")
-    _ = soup.title.string if soup.title else ""
-    # When implementing: iterate settlement cards, map fields to schema.
-    return []
-
+# ── File I/O ────────────────────────────────────────────────────────────────
 
 def load_existing() -> list[dict]:
     if not DATA_PATH.exists():
@@ -58,49 +41,167 @@ def load_existing() -> list[dict]:
         return json.load(f)
 
 
-def merge(existing: list[dict], incoming: list[dict]) -> tuple[list[dict], int, int, int]:
-    by_id = {x["id"]: x for x in existing}
+def save(settlements: list[dict]) -> None:
+    DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with DATA_PATH.open("w", encoding="utf-8") as f:
+        json.dump(settlements, f, indent=2, ensure_ascii=False)
+        f.write("\n")
+
+
+# ── Merge logic ─────────────────────────────────────────────────────────────
+
+def merge(
+    existing: list[dict],
+    incoming: list[dict],
+) -> tuple[list[dict], int, int, int]:
+    """Merge *incoming* enriched settlements into *existing*.
+
+    Returns ``(merged_list, new_count, updated_count, deactivated_count)``.
+
+    Rules:
+     - New IDs are added.
+     - Existing IDs are updated (``last_verified`` refreshed), but
+       hand-authored ``qualifying_questions`` are preserved.
+     - IDs present in *existing* but absent from *incoming* are marked
+       ``active=False`` (deactivated, not deleted).
+    """
+    by_id: dict[str, dict] = {s["id"]: s for s in existing}
+    incoming_ids: set[str] = set()
     new_n = upd_n = 0
+
     for row in incoming:
-        eid = row["id"]
-        if eid not in by_id:
-            by_id[eid] = row
+        rid = row["id"]
+        incoming_ids.add(rid)
+
+        if rid not in by_id:
+            by_id[rid] = row
             new_n += 1
             continue
-        old = by_id[eid]
-        preserved_q = (old.get("criteria") or {}).get("qualifying_questions") or []
-        crit = row.setdefault("criteria", {})
-        crit["qualifying_questions"] = preserved_q if preserved_q else crit.get("qualifying_questions", [])
+
+        old = by_id[rid]
+        # Preserve hand-authored qualifying questions
+        old_questions = (old.get("criteria") or {}).get("qualifying_questions", [])
+        incoming_questions = (row.get("criteria") or {}).get("qualifying_questions", [])
+        keep_questions = old_questions if old_questions else incoming_questions
+
+        # Preserve manually set fields that the scraper cannot reliably produce
+        preserved_type = old.get("type") if old.get("type") != "consumer" else row.get("type", "consumer")
+
         old.update(row)
+        old["type"] = preserved_type
+        old.setdefault("criteria", {})["qualifying_questions"] = keep_questions
+        old["active"] = True
         upd_n += 1
+
+    # Deactivate settlements no longer found on any source
     deactivated = 0
+    today = datetime.now().strftime("%Y-%m-%d")
+    for rid, settlement in by_id.items():
+        if rid not in incoming_ids and settlement.get("active", True):
+            settlement["active"] = False
+            settlement["last_verified"] = today
+            deactivated += 1
+
     merged = list(by_id.values())
     return merged, new_n, upd_n, deactivated
 
 
+# ── Main ────────────────────────────────────────────────────────────────────
+
 def main() -> int:
-    print(f"Fetching {SOURCE} …")
-    html = fetch_html(SOURCE)
-    incoming = parse_stub(html)
+    report = ScrapeReport()
+
+    # ── Step 1: Fetch primary source ────────────────────────────────────
+    primary_raw: list[dict] = []
+    try:
+        primary_raw = scrape_primary()
+        report.primary_count = len(primary_raw)
+        if len(primary_raw) < MIN_PRIMARY_ROWS:
+            report.primary_ok = False
+            report.primary_error = (
+                f"Only {len(primary_raw)} rows (minimum {MIN_PRIMARY_ROWS}). "
+                "HTML structure may have changed."
+            )
+            report.warnings.append(report.primary_error)
+    except Exception as exc:
+        report.primary_ok = False
+        report.primary_error = str(exc)
+        print(f"[ERROR] Primary source failed: {exc}")
+
+    # ── Step 2: Fetch supplementary source ──────────────────────────────
+    supplementary_raw: list[dict] = []
+    try:
+        supplementary_raw = scrape_supplementary()
+        report.supplementary_count = len(supplementary_raw)
+    except Exception as exc:
+        report.supplementary_ok = False
+        report.supplementary_error = str(exc)
+        print(f"[ERROR] Supplementary source failed: {exc}")
+
+    # ── Step 3: Bail if both sources failed ─────────────────────────────
+    if not primary_raw and not supplementary_raw:
+        report.warnings.append("Both sources returned 0 rows. settlements.json not updated.")
+        send_notification(report)
+        return 1
+
+    # ── Step 4: Deduplicate across sources ──────────────────────────────
+    if primary_raw and supplementary_raw:
+        deduped = deduplicate(primary_raw, supplementary_raw)
+    elif primary_raw:
+        deduped = primary_raw
+    else:
+        deduped = supplementary_raw
+        report.warnings.append(
+            "Running on supplementary source only -- primary failed."
+        )
+
+    # ── Step 5: Enrich with type/criteria inference ─────────────────────
+    print(f"\n[enrich] Processing {len(deduped)} settlements ...")
+    enriched: list[dict] = []
+    for row in deduped:
+        try:
+            enriched.append(enrich(row))
+        except Exception as exc:
+            title = row.get("title", "???")[:60]
+            print(f"  [warn] Enrichment failed for '{title}': {exc}")
+            report.warnings.append(f"Enrichment failed: {title}")
+
+    # ── Step 6: Merge into existing data ────────────────────────────────
     existing = load_existing()
-    if not incoming:
-        print("Stub parser returned 0 rows — not writing data/settlements.json. Implement parse_stub next.")
-        return 0
+    merged, new_n, upd_n, deact_n = merge(existing, enriched)
 
-    merged, new_n, upd_n, deactivated = merge(existing, incoming)
+    report.new_settlements = new_n
+    report.updated_settlements = upd_n
+    report.deactivated_settlements = deact_n
+    report.total_settlements = len(merged)
 
-    DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with DATA_PATH.open("w", encoding="utf-8") as f:
-        json.dump(merged, f, indent=2)
-        f.write("\n")
+    # ── Step 7: Write output ────────────────────────────────────────────
+    save(merged)
+    print(
+        f"\nDone: +{new_n} new, ~{upd_n} updated, "
+        f"-{deact_n} deactivated => {len(merged)} total."
+    )
 
-    print(f"Summary: +{new_n} new, ~{upd_n} updated, {deactivated} deactivated.")
+    # ── Step 8: Send notification ───────────────────────────────────────
+    send_notification(report)
+
+    # Exit 0 even on degraded runs so the GH Action creates the PR.
+    # Exit 1 only when both sources failed (no data written).
     return 0
 
 
 if __name__ == "__main__":
     try:
         raise SystemExit(main())
-    except Exception as e:  # noqa: BLE001
-        print(f"ERROR: {e}", file=sys.stderr)
+    except SystemExit:
+        raise
+    except Exception as exc:
+        print(f"FATAL: {exc}", file=sys.stderr)
+        report = ScrapeReport(
+            primary_ok=False,
+            primary_error=str(exc),
+            supplementary_ok=False,
+            supplementary_error="Not attempted (fatal error before supplementary fetch)",
+        )
+        send_notification(report)
         raise SystemExit(1)

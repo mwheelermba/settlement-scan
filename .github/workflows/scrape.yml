@@ -12,6 +12,15 @@ permissions:
 jobs:
   scrape:
     runs-on: ubuntu-latest
+
+    env:
+      # SMTP notification secrets (set in repo Settings → Secrets)
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      NOTIFY_EMAIL: ${{ secrets.NOTIFY_EMAIL }}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -23,14 +32,18 @@ jobs:
         run: pip install -r scraper/requirements.txt
 
       - name: Run scraper
+        id: scrape
         run: python scraper/scrape_settlements.py
 
       - name: Create pull request
+        if: success()
         uses: peter-evans/create-pull-request@v7
         with:
           commit-message: "chore(data): update settlements from scraper"
           title: "Automated settlements update"
           body: |
             Weekly scrape run. Please review `data/settlements.json` before merging.
+
+            Check the [Actions log](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for the full scrape report including source status and any warnings.
           branch: automated/settlements-update
           delete-branch: true
