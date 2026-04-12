@@ -60,7 +60,9 @@ Optional local testing: `vercel env pull .env.local` or paste vars into `.env.lo
 - `src/app` — Next.js App Router pages and API routes
 - `data/settlements.json` — Settlement database (committed, deployed with the app)
 - `scraper/` — Python scraper (primary: ClassAction.org, supplementary: OpenClassActions; dedupe + SMTP alert on failure)
-- `.github/workflows/scrape.yml` — Weekly cron (opens a PR when data changes)
+- `.github/workflows/scrape.yml` — Weekly cron (opens a PR when data changes, then **squash-merges** it so `main` updates without manual action)
+
+**Branch protection:** If `main` requires approving reviews, the merge step can fail. Either allow the workflow to merge without review (e.g. ruleset bypass for `github-actions[bot]`, or don’t require reviews for PRs from that branch), or merge failures will show in the Actions log.
 
 ## Contributing settlements
 

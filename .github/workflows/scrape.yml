@@ -36,14 +36,22 @@ jobs:
         run: python scraper/scrape_settlements.py
 
       - name: Create pull request
+        id: cpr
         if: success()
         uses: peter-evans/create-pull-request@v7
         with:
           commit-message: "chore(data): update settlements from scraper"
           title: "Automated settlements update"
           body: |
-            Weekly scrape run. Please review `data/settlements.json` before merging.
+            Weekly scrape run. This PR is **merged automatically** when the workflow succeeds (squash merge).
 
             Check the [Actions log](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for the full scrape report including source status and any warnings.
           branch: automated/settlements-update
           delete-branch: true
+
+      - name: Merge pull request
+        if: steps.cpr.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr merge "${{ steps.cpr.outputs.pull-request-number }}" --squash --delete-branch
