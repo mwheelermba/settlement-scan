@@ -35,6 +35,7 @@ export const metadata: Metadata = {
   },
   description:
     "Find class action settlements matched to your profile. Your data stays in your browser.",
+  manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({
