@@ -79,8 +79,9 @@ export function SettlementCard({
             </div>
           </div>
           <p className="text-xs text-zinc-500">
-            {result.matchCount} of {result.evaluableCount} criteria matched · {result.needsInputCount} need your input
-            · {result.mismatchCount} mismatches
+            {result.matchCount} strong
+            {result.weakMatchCount > 0 ? ` · ${result.weakMatchCount} partial (e.g. nationwide)` : ""} ·{" "}
+            {result.needsInputCount} unknown · {result.mismatchCount} mismatches (of {result.evaluableCount} dimensions)
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <button

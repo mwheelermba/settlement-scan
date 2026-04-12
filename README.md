@@ -21,7 +21,7 @@ Open [http://localhost:3000](http://localhost:3000).
 |--------|---------|
 | `npm run dev` | Next.js dev server |
 | `npm run build` / `npm start` | Production build and run |
-| `pip install -r scraper/requirements.txt` then `python scraper/scrape_settlements.py` | Scraper (stub parser until Phase 0 is finished) |
+| `pip install -r scraper/requirements.txt` then `python scraper/scrape_settlements.py` | Scraper (ClassAction.org + OpenClassActions; merges into `data/settlements.json`) |
 
 ## Environment variables
 
@@ -35,6 +35,8 @@ Open [http://localhost:3000](http://localhost:3000).
 | `RESEND_API_KEY` | No | [Resend](https://resend.com) API key for `POST /api/report` (problem reports). |
 | `REPORT_EMAIL_TO` | No | Where reports are delivered — **any** address works, including **Gmail** (`you@gmail.com`). This value is server-only and never exposed to the browser. |
 | `REPORT_EMAIL_FROM` | No | **From** address Resend will use. Free tier often requires a **verified domain** for production sends; until then you can use Resend’s onboarding sender for testing. Receiving at Gmail is fine; the usual constraint is *sending from* a verified domain, not *sending to* Gmail. |
+
+**Scraper email alerts (GitHub Actions):** add **repository secrets** `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, and `NOTIFY_EMAIL` (e.g. Gmail with an [App Password](https://support.google.com/accounts/answer/185833)). The weekly workflow emails you when a source fails partially or fully. Test locally after setting the same env vars: `python -m scraper.test_notify`.
 
 **Problem reports:** set `REPORT_EMAIL_TO` to your personal inbox. **Match-notification emails** (future feature) would need user opt-in, stored email (or a provider link), and a scheduled job — not implemented yet.
 
@@ -57,7 +59,7 @@ Optional local testing: `vercel env pull .env.local` or paste vars into `.env.lo
 
 - `src/app` — Next.js App Router pages and API routes
 - `data/settlements.json` — Settlement database (committed, deployed with the app)
-- `scraper/` — Python scraper for ClassAction.org (extend `parse_stub` per Phase 0)
+- `scraper/` — Python scraper (primary: ClassAction.org, supplementary: OpenClassActions; dedupe + SMTP alert on failure)
 - `.github/workflows/scrape.yml` — Weekly cron (opens a PR when data changes)
 
 ## Contributing settlements
@@ -67,3 +69,11 @@ Optional local testing: `vercel env pull .env.local` or paste vars into `.env.lo
 **Bulk data:** The long-term plan is to **grow `data/settlements.json` from the scraper** (and optionally merge multiple sources). Good public indexes to align with include [ClassAction.org settlements](https://www.classaction.org/settlements), [ClassAction.com settlements](https://www.classaction.com/settlements/), and [OpenClassActions.com](https://openclassactions.com/settlements.php) — each row you import should still point at an **official settlement administrator** or court-approved claim site for `claim_url`, not only a news aggregator page.
 
 Edit `data/settlements.json` and open a pull request. Use the schema in `SettlementScan_Project_Overview.md`.
+
+## Profile “Recommended active settlements” chips
+
+On the profile page, the teal chips are built from **current `settlements.json`**: **open** claim windows first, then **closed** windows among still-active rows; within each group, settlements are ordered by **largest parsed `estimated_payout`** (best-effort) so bigger funds surface first. Category filters (subscriptions, financial, etc.) still apply. Gray chips are **Suggested names** from `profile-suggestions.ts`.
+
+## Data retention in `settlements.json`
+
+The weekly scraper **merges** into the JSON: new rows are added, existing IDs are updated, and settlements that disappear from sources are set to **`active: false`** — they are **not deleted**, so the file grows slowly over time. That is why “include past deadlines” in Browse can show older rows that are still in the file. At a few hundred rows, size is negligible in the browser and repo; if the dataset ever grew very large, you could add pruning (e.g. drop inactive rows older than N years) in the scraper — not required today.

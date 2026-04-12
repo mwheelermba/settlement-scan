@@ -6,7 +6,7 @@ type Props = {
   onAdd: (value: string) => void;
 };
 
-/** One row of up to 8 cells — terms from the live settlement database only. */
+/** One row of up to 8 cells — terms from the live settlement DB (see `getSmartTermsFromDbOnly`). */
 export function SmartQuickAddRow({ label, terms, onAdd }: Props) {
   const cells = terms.slice(0, 8);
   if (cells.length === 0) return null;

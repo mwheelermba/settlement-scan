@@ -3,7 +3,7 @@
 import { SettlementCard } from "@/components/SettlementCard";
 import { getOpenSettlements } from "@/lib/settlements";
 import { hasMinimumProfile, loadProfile, saveProfile } from "@/lib/profile";
-import { rankMatches } from "@/lib/matcher";
+import { MIN_HOME_MATCH_SCORE, rankMatches } from "@/lib/matcher";
 import type { UserProfile } from "@/lib/types";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
@@ -30,7 +30,7 @@ export default function HomePage() {
     if (!profile || !hasMinimumProfile(profile)) return [];
     const dismissed = new Set(profile.dismissed_settlements);
     return rankMatches(settlements, profile).filter(
-      (r) => !dismissed.has(r.settlement.id) && r.score > 0
+      (r) => !dismissed.has(r.settlement.id) && r.score >= MIN_HOME_MATCH_SCORE
     );
   }, [profile]);
 
@@ -69,11 +69,15 @@ export default function HomePage() {
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Your matches</h1>
           <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-            Ranked by fit and deadline. Update your{" "}
+            Ranked by fit and deadline (home shows {MIN_HOME_MATCH_SCORE}%+; browse shows everything with scores). Update
+            your{" "}
             <Link href="/profile" className="font-medium text-teal-700 underline dark:text-teal-400">
               profile
             </Link>{" "}
             anytime.
+          </p>
+          <p className="mt-2 text-sm font-medium text-zinc-700 dark:text-zinc-300">
+            {ranked.length} match{ranked.length === 1 ? "" : "es"}
           </p>
         </div>
         <Link href="/browse" className="text-sm font-medium text-teal-700 dark:text-teal-400">
@@ -83,8 +87,8 @@ export default function HomePage() {
 
       {ranked.length === 0 ? (
         <p className="rounded-xl border border-zinc-200 bg-white p-6 text-sm text-zinc-600 dark:border-zinc-800 dark:bg-zinc-900/40 dark:text-zinc-400">
-          No strong matches yet. Try adding services, products, or breach names on your profile, or browse all active
-          settlements.
+          No matches at or above {MIN_HOME_MATCH_SCORE}% yet. Add or adjust details on your profile, or browse all
+          settlements with scores.
         </p>
       ) : (
         <ul className="space-y-4">

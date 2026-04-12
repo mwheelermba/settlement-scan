@@ -66,14 +66,18 @@ export default function BrowsePage() {
             <span className="font-normal text-zinc-500"> ({totalActive - all.length} past deadline hidden)</span>
           ) : null}
         </p>
-        <label className="mt-3 flex cursor-pointer items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
+        <label className="mt-3 flex cursor-pointer items-start gap-2 text-sm text-zinc-700 dark:text-zinc-300">
           <input
             type="checkbox"
             checked={includePastDeadlines}
             onChange={(e) => setIncludePastDeadlines(e.target.checked)}
-            className="rounded border-zinc-300"
+            className="mt-0.5 rounded border-zinc-300"
           />
-          Include settlements whose claim deadline has passed (history / research)
+          <span>
+            Include listings whose claim deadline has passed. Only what&apos;s still in this app&apos;s database (not a
+            full historical archive). Old rows stay in the JSON when the weekly scraper marks them inactive — they
+            don&apos;t disappear from the file.
+          </span>
         </label>
       </div>
 

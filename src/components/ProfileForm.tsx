@@ -342,12 +342,12 @@ export function ProfileForm({
             className="mt-2 w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
           />
           <SmartQuickAddRow
-            label="From settlement database (this section)"
+            label="Recommended active settlements"
             terms={smart.breach}
             onAdd={(s) => setBreachDraft((d) => appendLineIfNew(d, s))}
           />
           <StaticQuickAddDoubleRow
-            label="Suggested names (static list)"
+            label="Suggested names"
             suggestions={SUGGEST_BREACH}
             onAdd={(s) => setBreachDraft((d) => appendLineIfNew(d, s))}
           />
@@ -359,12 +359,12 @@ export function ProfileForm({
           Paid apps, streaming, cloud storage, gaming subscriptions, etc.
         </p>
         <SmartQuickAddRow
-          label="From settlement database (this section)"
+          label="Recommended active settlements"
           terms={smart.subscriptions}
           onAdd={(s) => setSubDraft((d) => appendLineIfNew(d, s))}
         />
         <StaticQuickAddDoubleRow
-          label="Suggested names (static list)"
+          label="Suggested names"
           suggestions={SUGGEST_SUBSCRIPTIONS}
           onAdd={(s) => setSubDraft((d) => appendLineIfNew(d, s))}
         />
@@ -382,12 +382,12 @@ export function ProfileForm({
           Banks, cards, fintech, credit bureaus, investment accounts you use or used.
         </p>
         <SmartQuickAddRow
-          label="From settlement database (this section)"
+          label="Recommended active settlements"
           terms={smart.financial}
           onAdd={(s) => setFinDraft((d) => appendLineIfNew(d, s))}
         />
         <StaticQuickAddDoubleRow
-          label="Suggested names (static list)"
+          label="Suggested names"
           suggestions={SUGGEST_FINANCIAL}
           onAdd={(s) => setFinDraft((d) => appendLineIfNew(d, s))}
         />
@@ -405,12 +405,12 @@ export function ProfileForm({
           Companies you worked for when a settlement might name the employer (delivery, retail, gig work, etc.).
         </p>
         <SmartQuickAddRow
-          label="From settlement database (this section)"
+          label="Recommended active settlements"
           terms={smart.employers}
           onAdd={(s) => setEmpDraft((d) => appendLineIfNew(d, s))}
         />
         <StaticQuickAddDoubleRow
-          label="Suggested names (static list)"
+          label="Suggested names"
           suggestions={SUGGEST_EMPLOYERS}
           onAdd={(s) => setEmpDraft((d) => appendLineIfNew(d, s))}
         />
@@ -429,12 +429,12 @@ export function ProfileForm({
           ignores small spelling differences (e.g. &quot;T Mobile&quot; vs &quot;T-Mobile&quot;).
         </p>
         <SmartQuickAddRow
-          label="From settlement database (this section)"
+          label="Recommended active settlements"
           terms={smart.retail}
           onAdd={(s) => setRetailDraft((d) => appendLineIfNew(d, s))}
         />
         <StaticQuickAddDoubleRow
-          label="Suggested names (static list)"
+          label="Suggested names"
           suggestions={SUGGEST_RETAIL_AND_BRANDS}
           onAdd={(s) => setRetailDraft((d) => appendLineIfNew(d, s))}
         />
@@ -453,12 +453,12 @@ export function ProfileForm({
           matching is flexible.
         </p>
         <SmartQuickAddRow
-          label="From settlement database (this section)"
+          label="Recommended active settlements"
           terms={smart.products}
           onAdd={(s) => setProductsDraft((d) => appendLineIfNew(d, s))}
         />
         <StaticQuickAddDoubleRow
-          label="Suggested names (static list)"
+          label="Suggested names"
           suggestions={SUGGEST_PRODUCTS}
           onAdd={(s) => setProductsDraft((d) => appendLineIfNew(d, s))}
         />
@@ -478,12 +478,12 @@ export function ProfileForm({
           flexible.
         </p>
         <SmartQuickAddRow
-          label="From settlement database (this section)"
+          label="Recommended active settlements"
           terms={smart.medical}
           onAdd={(s) => setMedicalDraft((d) => appendLineIfNew(d, s))}
         />
         <StaticQuickAddDoubleRow
-          label="Suggested names (static list)"
+          label="Suggested names"
           suggestions={SUGGEST_MEDICAL}
           onAdd={(s) => setMedicalDraft((d) => appendLineIfNew(d, s))}
         />
@@ -512,7 +512,12 @@ export function ProfileForm({
         />
       </Section>
 
-      <div className="flex flex-wrap gap-3 rounded-xl border border-dashed border-zinc-300 p-4 dark:border-zinc-700">
+      <div className="space-y-2 rounded-xl border border-dashed border-zinc-300 p-4 dark:border-zinc-700">
+        <p className="text-xs leading-relaxed text-zinc-500">
+          Export saves your profile as a JSON file on this device — use it as a backup or to move to another browser.
+          Import replaces the current profile in this browser only; nothing is uploaded.
+        </p>
+        <div className="flex flex-wrap gap-3">
         <button
           type="button"
           className="cursor-pointer text-sm font-medium text-teal-700 dark:text-teal-400"
@@ -548,6 +553,7 @@ export function ProfileForm({
             }}
           />
         </label>
+        </div>
       </div>
     </div>
   );

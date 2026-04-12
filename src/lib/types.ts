@@ -82,7 +82,10 @@ export type UserProfile = {
 export type MatchResult = {
   settlement: Settlement;
   score: number;
+  /** Strong criteria matches (explicit state overlap, service/product/breach/vehicle hit). */
   matchCount: number;
+  /** Nationwide / weak geographic signal only (not a strong match). */
+  weakMatchCount: number;
   evaluableCount: number;
   needsInputCount: number;
   mismatchCount: number;

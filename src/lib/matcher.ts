@@ -1,18 +1,39 @@
 import { matchesLoose } from "@/lib/string-match";
 import type { MatchResult, Settlement, UserProfile } from "./types";
 
-type FieldOutcome = "match" | "unknown" | "mismatch";
+/**
+ * Per-dimension outcome. `weak` is used for nationwide (no state filter) when the
+ * user has a state — geographic eligibility is assumed but not a strong signal.
+ */
+type FieldOutcome = "match" | "weak" | "unknown" | "mismatch";
+
+/** Minimum match % to show on the home "Your matches" list (browse shows all). */
+export const MIN_HOME_MATCH_SCORE = 10;
 
 function norm(s: string): string {
   return s.trim().toLowerCase();
 }
 
+/** Terms used to match settlement `criteria.services` (brands often land in products or retail too). */
 function servicePool(profile: UserProfile): string[] {
   return [
     ...(profile.subscriptions ?? []),
     ...(profile.financial_institutions ?? []),
     ...(profile.employers ?? []),
     ...(profile.retail_and_brands ?? []),
+    ...(profile.medical_and_health ?? []),
+    ...(profile.services ?? []),
+    ...(profile.companies_purchased_from ?? []),
+    ...profile.products,
+  ];
+}
+
+/** Terms used to match settlement `criteria.products` (not only the Products textarea). */
+function productMatchPool(profile: UserProfile): string[] {
+  return [
+    ...profile.products,
+    ...(profile.retail_and_brands ?? []),
+    ...(profile.subscriptions ?? []),
     ...(profile.medical_and_health ?? []),
     ...(profile.services ?? []),
     ...(profile.companies_purchased_from ?? []),
@@ -23,14 +44,17 @@ function hasOverlap(
   profileVals: string[],
   criteriaVals: string[] | null
 ): FieldOutcome {
-  if (criteriaVals === null || criteriaVals.length === 0) return "match";
+  if (criteriaVals === null || criteriaVals.length === 0) return "unknown";
   if (profileVals.length === 0) return "unknown";
   const overlap = criteriaVals.some((c) => profileVals.some((p) => matchesLoose(p, c)));
   return overlap ? "match" : "mismatch";
 }
 
 function matchStates(profileState: string, criteriaStates: string[] | null): FieldOutcome {
-  if (criteriaStates === null || criteriaStates.length === 0) return "match";
+  if (criteriaStates === null || criteriaStates.length === 0) {
+    if (!profileState?.trim()) return "unknown";
+    return "weak";
+  }
   if (!profileState?.trim()) return "unknown";
   return criteriaStates.includes(profileState.toUpperCase()) ? "match" : "mismatch";
 }
@@ -39,7 +63,7 @@ function matchBreach(
   profileBreaches: string[],
   criteriaBreach: string | null
 ): FieldOutcome {
-  if (criteriaBreach === null) return "match";
+  if (criteriaBreach === null) return "unknown";
   if (profileBreaches.length === 0) return "unknown";
   return profileBreaches.some((p) => matchesLoose(p, criteriaBreach)) ? "match" : "mismatch";
 }
@@ -49,7 +73,7 @@ function vehicleMatches(
   criteria: Settlement["criteria"]
 ): FieldOutcome {
   const cv = criteria.vehicles;
-  if (cv === null || cv.length === 0) return "match";
+  if (cv === null || cv.length === 0) return "unknown";
   if (profile.vehicles.length === 0) return "unknown";
   for (const req of cv) {
     const hit = profile.vehicles.some((pv) => {
@@ -76,7 +100,7 @@ function collectOutcomes(
 
   outcomes.push(hasOverlap(servicePool(profile), c.services));
 
-  outcomes.push(hasOverlap(profile.products, c.products));
+  outcomes.push(hasOverlap(productMatchPool(profile), c.products));
 
   outcomes.push(vehicleMatches(profile, c));
 
@@ -88,11 +112,15 @@ function collectOutcomes(
 function scoreFromOutcomes(outcomes: FieldOutcome[]): {
   score: number;
   matchCount: number;
+  weakMatchCount: number;
   evaluableCount: number;
   needsInputCount: number;
   mismatchCount: number;
 } {
+  const W = { match: 1, weak: 0.28, unknown: 0.32, mismatch: 0 } as const;
+
   let matchCount = 0;
+  let weakMatchCount = 0;
   let needsInputCount = 0;
   let mismatchCount = 0;
   let weighted = 0;
@@ -102,20 +130,23 @@ function scoreFromOutcomes(outcomes: FieldOutcome[]): {
     totalWeight += 1;
     if (o === "match") {
       matchCount += 1;
-      weighted += 1;
+      weighted += W.match;
+    } else if (o === "weak") {
+      weakMatchCount += 1;
+      weighted += W.weak;
     } else if (o === "unknown") {
       needsInputCount += 1;
-      weighted += 0.5;
+      weighted += W.unknown;
     } else {
       mismatchCount += 1;
-      weighted += 0;
+      weighted += W.mismatch;
     }
   }
 
   const evaluableCount = outcomes.length;
   const score = totalWeight > 0 ? Math.round((weighted / totalWeight) * 100) : 0;
 
-  return { score, matchCount, evaluableCount, needsInputCount, mismatchCount };
+  return { score, matchCount, weakMatchCount, evaluableCount, needsInputCount, mismatchCount };
 }
 
 function applyQualifyingQuestions(
@@ -151,6 +182,7 @@ export function matchSettlement(
     settlement,
     score,
     matchCount: base.matchCount,
+    weakMatchCount: base.weakMatchCount,
     evaluableCount: base.evaluableCount,
     needsInputCount: base.needsInputCount,
     mismatchCount: base.mismatchCount,

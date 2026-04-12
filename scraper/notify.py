@@ -93,6 +93,55 @@ class ScrapeReport:
         return "\n".join(lines)
 
 
+def _send_smtp(subject: str, body: str) -> None:
+    """Send a plain-text email using the configured SMTP settings."""
+    msg = MIMEText(body, "plain", "utf-8")
+    msg["Subject"] = subject
+    msg["From"] = SMTP_USER
+    msg["To"] = NOTIFY_EMAIL
+
+    with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=30) as server:
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        server.login(SMTP_USER, SMTP_PASSWORD)
+        server.send_message(msg)
+
+
+def send_test_email() -> int:
+    """Send a minimal test message.  Uses the same env vars as the weekly scrape.
+
+    Run from repo root::
+
+        python -m scraper.test_notify
+
+    Or set env vars inline (PowerShell)::
+
+        $env:SMTP_HOST=\"smtp.gmail.com\"; ...; python -m scraper.test_notify
+
+    Returns 0 on success, 1 on skip or failure.
+    """
+    if not all([SMTP_HOST, SMTP_USER, SMTP_PASSWORD, NOTIFY_EMAIL]):
+        print(
+            "[notify] Missing SMTP env vars. Set SMTP_HOST, SMTP_PORT, "
+            "SMTP_USER, SMTP_PASSWORD, NOTIFY_EMAIL (same as GitHub repository secrets)."
+        )
+        return 1
+
+    subject = "[SettlementScan] SMTP test"
+    body = (
+        "This is a test message from SettlementScan.\n\n"
+        "If you received this, SMTP notification is configured correctly.\n"
+    )
+    try:
+        _send_smtp(subject, body)
+        print(f"[notify] Test email sent to {NOTIFY_EMAIL}")
+        return 0
+    except Exception as exc:
+        print(f"[notify] Test email failed: {exc}")
+        return 1
+
+
 def send_notification(report: ScrapeReport) -> None:
     """Send (or print) the scrape report."""
     body = report.summary_text()
@@ -108,18 +157,8 @@ def send_notification(report: ScrapeReport) -> None:
     if report.severity != "SUCCESS":
         subject += " -- action needed"
 
-    msg = MIMEText(body, "plain", "utf-8")
-    msg["Subject"] = subject
-    msg["From"] = SMTP_USER
-    msg["To"] = NOTIFY_EMAIL
-
     try:
-        with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=30) as server:
-            server.ehlo()
-            server.starttls()
-            server.ehlo()
-            server.login(SMTP_USER, SMTP_PASSWORD)
-            server.send_message(msg)
+        _send_smtp(subject, body)
         print(f"[notify] Email sent to {NOTIFY_EMAIL}")
     except Exception as exc:
         print(f"[notify] Failed to send email: {exc}")

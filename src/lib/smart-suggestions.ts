@@ -1,3 +1,4 @@
+import { parseEstimatedPayoutUsd } from "./payout-parse";
 import type { Settlement } from "./types";
 import { isClaimDeadlineOpen } from "./settlements";
 
@@ -61,8 +62,21 @@ function matchesCategory(s: Settlement, cat: ProfileQuickCategory): boolean {
   }
 }
 
+/** Larger (parsed) estimated payouts first; unparseable / “Varies” last. */
+function sortByEstimatedPayoutDesc(list: Settlement[]): Settlement[] {
+  return [...list].sort((a, b) => {
+    const pa = parseEstimatedPayoutUsd(a.estimated_payout);
+    const pb = parseEstimatedPayoutUsd(b.estimated_payout);
+    if (pb !== pa) return pb - pa;
+    return (a.title || "").localeCompare(b.title || "");
+  });
+}
+
 /**
  * Terms from settlements only (open first, then closed) — no static merge. Used for the “smart” quick-add row.
+ *
+ * Ordering: **open** claims first, then **closed** claim windows; within each bucket, settlements are sorted by
+ * **largest parsed `estimated_payout`** (best-effort) so recognizable brands from large funds surface first.
  */
 export function getSmartTermsFromDbOnly(
   cat: ProfileQuickCategory,
@@ -71,8 +85,8 @@ export function getSmartTermsFromDbOnly(
 ): string[] {
   const limit = opts?.limit ?? 8;
   const active = settlements.filter((s) => s.active);
-  const open = active.filter((s) => isClaimDeadlineOpen(s));
-  const closed = active.filter((s) => !isClaimDeadlineOpen(s));
+  const open = sortByEstimatedPayoutDesc(active.filter((s) => isClaimDeadlineOpen(s)));
+  const closed = sortByEstimatedPayoutDesc(active.filter((s) => !isClaimDeadlineOpen(s)));
 
   const seen = new Set<string>();
   const out: string[] = [];

@@ -19,6 +19,8 @@ export function matchesLoose(profileTerm: string, criteriaTerm: string): boolean
   const c = criteriaTerm.trim();
   if (!p || !c) return false;
   if (p.toLowerCase() === c.toLowerCase()) return true;
+  // Avoid spurious hits on very short tokens (e.g. carrier abbreviations vs unrelated words).
+  if (p.length < 3 || c.length < 3) return false;
 
   // Fuzzy: spacing, hyphens, case, and many partial overlaps (e.g. "Citi" vs "Citibank" via substring / token overlap).
   const pf = fold(p);
