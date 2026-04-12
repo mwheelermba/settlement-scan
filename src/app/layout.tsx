@@ -1,6 +1,8 @@
 import { Layout } from "@/components/Layout";
+import { isDarkFromCookie, THEME_COOKIE } from "@/lib/theme";
 import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -36,20 +38,26 @@ export const metadata: Metadata = {
   description:
     "Find class action settlements matched to your profile. Your data stays in your browser.",
   manifest: "/site.webmanifest",
+  themeColor: "#09090b",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const theme = cookieStore.get(THEME_COOKIE)?.value;
+  const isDark = isDarkFromCookie(theme);
+
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased ${isDark ? "dark" : ""}`}
     >
-      <body className="min-h-full flex flex-col bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50">
-        <Layout>{children}</Layout>
+      <body className="min-h-full flex flex-col bg-background text-foreground">
+        <Layout initialThemeDark={isDark}>{children}</Layout>
         <Analytics />
       </body>
     </html>

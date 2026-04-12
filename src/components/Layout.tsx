@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 import { ProfileBackupAutoWriter, ProfileBackupProvider } from "./ProfileBackupContext";
 import { ProfileBackupFloatingBar } from "./ProfileBackupFloatingBar";
 import { PrivacyBadge } from "./PrivacyBadge";
+import { ThemeToggle } from "./ThemeToggle";
 import { VisitorPing } from "./VisitorPing";
 
 const nav = [
@@ -17,7 +18,13 @@ const nav = [
   { href: "/report", label: "Report" },
 ];
 
-export function Layout({ children }: { children: ReactNode }) {
+export function Layout({
+  children,
+  initialThemeDark,
+}: {
+  children: ReactNode;
+  initialThemeDark: boolean;
+}) {
   const pathname = usePathname();
 
   function isActive(href: string) {
@@ -74,6 +81,7 @@ export function Layout({ children }: { children: ReactNode }) {
             </a>
             . Totally optional — the app stays free either way.
           </p>
+          <ThemeToggle initialDark={initialThemeDark} />
         </div>
       </footer>
     </div>

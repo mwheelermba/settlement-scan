@@ -611,7 +611,8 @@ export function ProfileForm({
           SettlementScan.
         </p>
         <p className="text-xs leading-relaxed text-zinc-500">
-          <span className="font-medium text-zinc-700 dark:text-zinc-300">Tip:</span> In Chrome or Edge you can save to a
+          <span className="font-medium text-zinc-700 dark:text-zinc-300">Tip:</span>{" "}
+          In Chrome or Edge you can save to a
           file once — we&apos;ll keep updating that same file automatically for the rest of this browsing session when
           your profile changes (after a short delay). Other browsers get a normal download each time you tap Save backup.
         </p>
