@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { PrivacyBadge } from "./PrivacyBadge";
 
@@ -12,6 +15,13 @@ const nav = [
 ];
 
 export function Layout({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+
+  function isActive(href: string) {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  }
+
   return (
     <div className="flex min-h-full flex-col">
       <header className="border-b border-zinc-200 bg-white/80 backdrop-blur dark:border-zinc-800 dark:bg-zinc-950/80">
@@ -19,12 +29,16 @@ export function Layout({ children }: { children: ReactNode }) {
           <Link href="/" className="text-lg font-semibold tracking-tight text-zinc-900 dark:text-zinc-50">
             SettlementScan
           </Link>
-          <nav className="flex flex-wrap gap-4 text-sm font-medium text-zinc-600 dark:text-zinc-400">
+          <nav className="flex flex-wrap gap-4 text-sm font-medium">
             {nav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="hover:text-teal-600 dark:hover:text-teal-400"
+                className={
+                  isActive(item.href)
+                    ? "text-teal-700 dark:text-teal-400"
+                    : "text-zinc-600 hover:text-teal-600 dark:text-zinc-400 dark:hover:text-teal-400"
+                }
               >
                 {item.label}
               </Link>

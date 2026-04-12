@@ -78,10 +78,6 @@ export default function HomePage() {
           <p className="mt-2 text-sm font-medium text-zinc-700 dark:text-zinc-300">
             {ranked.length} match{ranked.length === 1 ? "" : "es"}
           </p>
-          <p className="mt-1 max-w-xl text-xs text-zinc-500 dark:text-zinc-400">
-            Use <span className="font-medium text-zinc-600 dark:text-zinc-300">Remove from matches</span> on a card to
-            clear it from this list. It remains in Browse; your profile stores the choice on this device only.
-          </p>
         </div>
         <Link href="/browse" className="text-sm font-medium text-teal-700 dark:text-teal-400">
           Browse all settlements →

@@ -64,17 +64,15 @@ export default async function ShareSettlementPage({ params }: Props) {
       </header>
       <p className="leading-relaxed text-zinc-700 dark:text-zinc-300">{s.description}</p>
       <SettlementDetailActions settlement={s} />
-      <div className="flex flex-wrap gap-3">
-        <a
-          href={s.claim_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex rounded-xl bg-teal-600 px-5 py-3 text-sm font-semibold text-white hover:bg-teal-700"
-        >
-          Open claim site
-        </a>
-        <ShareButton settlementId={s.id} title={s.title} />
-      </div>
+      <a
+        href={s.claim_url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex cursor-pointer rounded-xl bg-teal-600 px-5 py-3 text-sm font-semibold text-white hover:bg-teal-700"
+      >
+        Open claim site
+      </a>
+      <ShareButton settlementId={s.id} title={s.title} />
     </div>
   );
 }

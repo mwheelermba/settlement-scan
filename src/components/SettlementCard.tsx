@@ -212,9 +212,8 @@ export function SettlementCard({
               onChange={onProfileChange}
             />
             <p className="text-xs text-zinc-500 dark:text-zinc-400">
-              <span className="font-medium text-zinc-700 dark:text-zinc-300">Mark as filed</span> is only a reminder for
-              you on this device — it does not file a claim or notify anyone. Click again to unmark if you tapped it by
-              mistake.
+              <span className="font-medium text-zinc-700 dark:text-zinc-300">Mark as filed</span> is a personal reminder
+              on this device only — it does not file a claim or notify anyone.
             </p>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
               <a

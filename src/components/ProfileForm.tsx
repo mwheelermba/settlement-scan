@@ -340,7 +340,7 @@ export function ProfileForm({
           Other states (optional)
           <span className="font-normal text-zinc-500">
             One two-letter code per line (e.g. OR) — used for matching when a settlement is limited to certain states,
-            such as a previous home state. Comma-separated codes still work if you paste them.
+            such as a previous home state.
           </span>
           <textarea
             rows={2}
@@ -561,47 +561,47 @@ export function ProfileForm({
         />
       </Section>
 
-      <div className="space-y-2 rounded-xl border border-dashed border-zinc-300 p-4 dark:border-zinc-700">
+      <div className="space-y-3 rounded-xl border border-dashed border-zinc-300 p-4 text-center dark:border-zinc-700">
         <p className="text-xs leading-relaxed text-zinc-500">
-          Export saves your profile as a JSON file on this device — use it as a backup or to move to another browser.
-          Import replaces the current profile in this browser only; nothing is uploaded.
+          Export saves your profile as a JSON file — use it as a backup or to move to another browser.
+          Import replaces the current profile in this browser; nothing is uploaded.
         </p>
-        <div className="flex flex-wrap gap-3">
-        <button
-          type="button"
-          className="cursor-pointer text-sm font-medium text-teal-700 dark:text-teal-400"
-          onClick={() => {
-            const blob = new Blob([JSON.stringify(profile, null, 2)], { type: "application/json" });
-            const a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            a.download = "settlementscan-profile.json";
-            a.click();
-            URL.revokeObjectURL(a.href);
-          }}
-        >
-          Export JSON
-        </button>
-        <label className="cursor-pointer text-sm font-medium text-teal-700 dark:text-teal-400">
-          Import JSON
-          <input
-            type="file"
-            accept="application/json"
-            className="hidden"
-            onChange={(e) => {
-              const f = e.target.files?.[0];
-              if (!f) return;
-              const r = new FileReader();
-              r.onload = () => {
-                try {
-                  onChange(importProfileJson(String(r.result)));
-                } catch {
-                  /* ignore */
-                }
-              };
-              r.readAsText(f);
+        <div className="inline-flex gap-4">
+          <button
+            type="button"
+            className="cursor-pointer text-sm font-medium text-teal-700 hover:underline dark:text-teal-400"
+            onClick={() => {
+              const blob = new Blob([JSON.stringify(profile, null, 2)], { type: "application/json" });
+              const a = document.createElement("a");
+              a.href = URL.createObjectURL(blob);
+              a.download = "settlementscan-profile.json";
+              a.click();
+              URL.revokeObjectURL(a.href);
             }}
-          />
-        </label>
+          >
+            Export JSON
+          </button>
+          <label className="cursor-pointer text-sm font-medium text-teal-700 hover:underline dark:text-teal-400">
+            Import JSON
+            <input
+              type="file"
+              accept="application/json"
+              className="hidden"
+              onChange={(e) => {
+                const f = e.target.files?.[0];
+                if (!f) return;
+                const r = new FileReader();
+                r.onload = () => {
+                  try {
+                    onChange(importProfileJson(String(r.result)));
+                  } catch {
+                    /* ignore */
+                  }
+                };
+                r.readAsText(f);
+              }}
+            />
+          </label>
         </div>
       </div>
     </div>

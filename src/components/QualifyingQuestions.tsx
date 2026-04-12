@@ -27,10 +27,10 @@ export function QualifyingQuestions({
               <div className="flex gap-2">
                 <button
                   type="button"
-                  className={`rounded-lg px-3 py-1.5 text-sm font-medium ${
+                  className={`cursor-pointer rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
                     val === true
                       ? "bg-emerald-600 text-white"
-                      : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-200"
+                      : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700"
                   }`}
                   onClick={() =>
                     onChange({
@@ -43,10 +43,10 @@ export function QualifyingQuestions({
                 </button>
                 <button
                   type="button"
-                  className={`rounded-lg px-3 py-1.5 text-sm font-medium ${
+                  className={`cursor-pointer rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
                     val === false
                       ? "bg-zinc-700 text-white dark:bg-zinc-600"
-                      : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-200"
+                      : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700"
                   }`}
                   onClick={() =>
                     onChange({

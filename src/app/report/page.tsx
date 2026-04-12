@@ -80,7 +80,7 @@ export default function ReportPage() {
 
       {status === "ok" && (
         <p className="text-sm font-medium text-teal-800 dark:text-teal-300" role="status">
-          Thanks — if email is configured on the server, the maintainer was notified.
+          Thanks — your report has been submitted.
         </p>
       )}
       {status === "err" && (

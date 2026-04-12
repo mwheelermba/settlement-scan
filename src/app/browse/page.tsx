@@ -57,8 +57,7 @@ export default function BrowsePage() {
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Browse settlements</h1>
         <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-          By default only listings with a claim deadline that has not passed (or unknown) are shown — the full set can be
-          large. Match scores use your saved profile when available.
+          All open settlements with upcoming or unknown deadlines. Match scores reflect your profile when available.
         </p>
         <p className="mt-2 text-sm font-medium text-zinc-700 dark:text-zinc-300">
           Showing {filtered.length} of {all.length} listings
@@ -73,10 +72,7 @@ export default function BrowsePage() {
             onChange={(e) => setIncludePastDeadlines(e.target.checked)}
             className="mt-0.5 rounded border-zinc-300"
           />
-          <span>
-            Include archived settlements whose claim deadline has passed. Archived settlements will be removed from
-            history after 1 year.
-          </span>
+          <span>Include archived settlements (past deadline, removed after 1 year)</span>
         </label>
       </div>
 
