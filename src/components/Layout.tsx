@@ -9,7 +9,7 @@ const nav = [
   { href: "/", label: "Matches" },
   { href: "/profile", label: "Profile" },
   { href: "/browse", label: "Browse" },
-  { href: "/saved", label: "Saved" },
+  { href: "/saved", label: "Filed & saved" },
   { href: "/dashboard", label: "Community" },
   { href: "/report", label: "Report" },
 ];

@@ -8,7 +8,6 @@ import { DeadlineBadge } from "./DeadlineBadge";
 import { MatchScoreRing } from "./MatchScoreRing";
 import { ProofBadge } from "./ProofBadge";
 import { QualifyingQuestions } from "./QualifyingQuestions";
-import { ShareButton } from "./ShareButton";
 import { useEffect, useState } from "react";
 
 function OutcomePill({ outcome }: { outcome: MatchDimensionOutcome }) {
@@ -211,25 +210,25 @@ export function SettlementCard({
               profile={profile}
               onChange={onProfileChange}
             />
-            <p className="text-xs text-zinc-500 dark:text-zinc-400">
-              <span className="font-medium text-zinc-700 dark:text-zinc-300">Mark as filed</span> is a personal reminder
-              on this device only — it does not file a claim or notify anyone.
-            </p>
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-              <a
-                href={s.claim_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => void trackEvent({ type: "claim_click", settlementId: s.id })}
-                className="inline-flex min-h-[44px] cursor-pointer items-center justify-center rounded-xl bg-teal-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-teal-700"
-              >
-                File claim
-              </a>
+
+            {/* Primary CTA */}
+            <a
+              href={s.claim_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => void trackEvent({ type: "claim_click", settlementId: s.id })}
+              className="inline-flex w-full cursor-pointer items-center justify-center rounded-xl bg-teal-600 px-5 py-3 text-sm font-semibold text-white hover:bg-teal-700 sm:w-auto sm:min-w-[200px]"
+            >
+              File claim
+            </a>
+
+            {/* Secondary actions row */}
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
               <button
                 type="button"
                 onClick={toggleFiled}
                 title={filed ? "Remove this reminder" : "Remember that you submitted a claim"}
-                className="min-h-[44px] cursor-pointer rounded-xl border border-zinc-200 px-4 py-2.5 text-sm font-medium text-zinc-800 hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-800/80"
+                className="cursor-pointer text-xs font-medium text-zinc-600 hover:text-zinc-900 hover:underline dark:text-zinc-400 dark:hover:text-zinc-200"
               >
                 {filed ? "Unmark as filed" : "Mark as filed"}
               </button>
@@ -237,13 +236,43 @@ export function SettlementCard({
                 <button
                   type="button"
                   onClick={dismiss}
-                  className="min-h-[44px] cursor-pointer rounded-xl px-4 py-2.5 text-sm text-zinc-500 hover:bg-zinc-100/80 hover:text-zinc-800 dark:hover:bg-zinc-800/60 dark:hover:text-zinc-200 sm:col-span-2"
+                  className="cursor-pointer text-xs text-zinc-500 hover:text-zinc-800 hover:underline dark:hover:text-zinc-200"
                 >
                   Dismiss
                 </button>
               )}
             </div>
-            <ShareButton settlementId={s.id} title={s.title} variant="compact" />
+
+            {/* Share row — visually separated */}
+            <div className="flex flex-wrap items-center gap-2 border-t border-zinc-200/80 pt-3 dark:border-zinc-700/80">
+              <span className="text-[11px] text-zinc-500 dark:text-zinc-400">Share this page</span>
+              <button
+                type="button"
+                onClick={() => {
+                  const url = typeof window !== "undefined" ? `${window.location.origin}/s/${s.id}` : `/s/${s.id}`;
+                  void navigator.clipboard.writeText(url);
+                  void trackEvent({ type: "share", settlementId: s.id });
+                }}
+                className="cursor-pointer rounded-md border border-zinc-200 bg-white px-2 py-0.5 text-[11px] font-medium text-zinc-600 hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800"
+              >
+                Copy link
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  void trackEvent({ type: "share", settlementId: s.id });
+                  const url = typeof window !== "undefined" ? `${window.location.origin}/s/${s.id}` : `/s/${s.id}`;
+                  if (navigator.share) {
+                    void navigator.share({ title: s.title, text: s.title, url });
+                  } else {
+                    void navigator.clipboard.writeText(url);
+                  }
+                }}
+                className="cursor-pointer rounded-md border border-teal-300/80 bg-teal-50/80 px-2 py-0.5 text-[11px] font-medium text-teal-800 hover:bg-teal-100 dark:border-teal-800/80 dark:bg-teal-950/40 dark:text-teal-300 dark:hover:bg-teal-900/50"
+              >
+                Share
+              </button>
+            </div>
           </div>
         </div>
       )}

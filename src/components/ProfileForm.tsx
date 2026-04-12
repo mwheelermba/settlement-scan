@@ -286,6 +286,42 @@ export function ProfileForm({
     save({ ...profile, additional_states: parseAdditionalStateCodes(additionalStatesDraft, profile.state) });
   }
 
+  function addBreachAndSave(term: string) {
+    const next = appendLineIfNew(breachDraft, term);
+    setBreachDraft(next);
+    save({ ...profile, breach_names: parseListFlexible(next) });
+  }
+  function addSubAndSave(term: string) {
+    const next = appendLineIfNew(subDraft, term);
+    setSubDraft(next);
+    save({ ...profile, subscriptions: parseListFlexible(next) });
+  }
+  function addFinAndSave(term: string) {
+    const next = appendLineIfNew(finDraft, term);
+    setFinDraft(next);
+    save({ ...profile, financial_institutions: parseListFlexible(next) });
+  }
+  function addEmpAndSave(term: string) {
+    const next = appendLineIfNew(empDraft, term);
+    setEmpDraft(next);
+    save({ ...profile, employers: parseListFlexible(next) });
+  }
+  function addRetailAndSave(term: string) {
+    const next = appendLineIfNew(retailDraft, term);
+    setRetailDraft(next);
+    save({ ...profile, retail_and_brands: parseListFlexible(next), services: [], companies_purchased_from: [] });
+  }
+  function addProductAndSave(term: string) {
+    const next = appendLineIfNew(productsDraft, term);
+    setProductsDraft(next);
+    save({ ...profile, products: parseListFlexible(next) });
+  }
+  function addMedicalAndSave(term: string) {
+    const next = appendLineIfNew(medicalDraft, term);
+    setMedicalDraft(next);
+    save({ ...profile, medical_and_health: parseListFlexible(next) });
+  }
+
   return (
     <div className="space-y-4">
       <div className="min-h-[2.25rem]">
@@ -394,12 +430,12 @@ export function ProfileForm({
           <SmartQuickAddRow
             label="Recommended active settlements"
             terms={smart.breach}
-            onAdd={(s) => setBreachDraft((d) => appendLineIfNew(d, s))}
+            onAdd={addBreachAndSave}
           />
           <StaticQuickAddDoubleRow
             label="Suggested names"
             suggestions={SUGGEST_BREACH}
-            onAdd={(s) => setBreachDraft((d) => appendLineIfNew(d, s))}
+            onAdd={addBreachAndSave}
           />
         </div>
       </Section>
@@ -411,12 +447,12 @@ export function ProfileForm({
         <SmartQuickAddRow
           label="Recommended active settlements"
           terms={smart.subscriptions}
-          onAdd={(s) => setSubDraft((d) => appendLineIfNew(d, s))}
+          onAdd={addSubAndSave}
         />
         <StaticQuickAddDoubleRow
           label="Suggested names"
           suggestions={SUGGEST_SUBSCRIPTIONS}
-          onAdd={(s) => setSubDraft((d) => appendLineIfNew(d, s))}
+          onAdd={addSubAndSave}
         />
         <textarea
           rows={3}
@@ -434,12 +470,12 @@ export function ProfileForm({
         <SmartQuickAddRow
           label="Recommended active settlements"
           terms={smart.financial}
-          onAdd={(s) => setFinDraft((d) => appendLineIfNew(d, s))}
+          onAdd={addFinAndSave}
         />
         <StaticQuickAddDoubleRow
           label="Suggested names"
           suggestions={SUGGEST_FINANCIAL}
-          onAdd={(s) => setFinDraft((d) => appendLineIfNew(d, s))}
+          onAdd={addFinAndSave}
         />
         <textarea
           rows={3}
@@ -457,12 +493,12 @@ export function ProfileForm({
         <SmartQuickAddRow
           label="Recommended active settlements"
           terms={smart.employers}
-          onAdd={(s) => setEmpDraft((d) => appendLineIfNew(d, s))}
+          onAdd={addEmpAndSave}
         />
         <StaticQuickAddDoubleRow
           label="Suggested names"
           suggestions={SUGGEST_EMPLOYERS}
-          onAdd={(s) => setEmpDraft((d) => appendLineIfNew(d, s))}
+          onAdd={addEmpAndSave}
         />
         <textarea
           rows={3}
@@ -480,12 +516,12 @@ export function ProfileForm({
         <SmartQuickAddRow
           label="Recommended active settlements"
           terms={smart.retail}
-          onAdd={(s) => setRetailDraft((d) => appendLineIfNew(d, s))}
+          onAdd={addRetailAndSave}
         />
         <StaticQuickAddDoubleRow
           label="Suggested names"
           suggestions={SUGGEST_RETAIL_AND_BRANDS}
-          onAdd={(s) => setRetailDraft((d) => appendLineIfNew(d, s))}
+          onAdd={addRetailAndSave}
         />
         <textarea
           rows={3}
@@ -504,12 +540,12 @@ export function ProfileForm({
         <SmartQuickAddRow
           label="Recommended active settlements"
           terms={smart.products}
-          onAdd={(s) => setProductsDraft((d) => appendLineIfNew(d, s))}
+          onAdd={addProductAndSave}
         />
         <StaticQuickAddDoubleRow
           label="Suggested names"
           suggestions={SUGGEST_PRODUCTS}
-          onAdd={(s) => setProductsDraft((d) => appendLineIfNew(d, s))}
+          onAdd={addProductAndSave}
         />
         <textarea
           rows={3}
@@ -529,12 +565,12 @@ export function ProfileForm({
         <SmartQuickAddRow
           label="Recommended active settlements"
           terms={smart.medical}
-          onAdd={(s) => setMedicalDraft((d) => appendLineIfNew(d, s))}
+          onAdd={addMedicalAndSave}
         />
         <StaticQuickAddDoubleRow
           label="Suggested names"
           suggestions={SUGGEST_MEDICAL}
-          onAdd={(s) => setMedicalDraft((d) => appendLineIfNew(d, s))}
+          onAdd={addMedicalAndSave}
         />
         <textarea
           rows={3}
