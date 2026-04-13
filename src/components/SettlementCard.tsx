@@ -4,7 +4,7 @@ import type { ProfileUpdater } from "@/lib/profile";
 import type { MatchDimensionOutcome, MatchResult, UserProfile } from "@/lib/types";
 import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
-import { mergeSettlementIntoProfile } from "@/lib/settlement-to-profile";
+import { mergeSettlementIntoProfile, settlementAddsProfileTerms } from "@/lib/settlement-to-profile";
 import { DeadlineBadge } from "./DeadlineBadge";
 import { MatchScoreRing } from "./MatchScoreRing";
 import { ProofBadge } from "./ProofBadge";
@@ -48,6 +48,7 @@ export function SettlementCard({
   const [open, setOpen] = useState(false);
   const [breakdownOpen, setBreakdownOpen] = useState(false);
   const [termsAddedFlash, setTermsAddedFlash] = useState(false);
+  const [termsFlashText, setTermsFlashText] = useState("Match terms merged into your profile.");
   const filed = profile.filed_settlements.includes(s.id);
   const saved = (profile.saved_settlement_ids ?? []).includes(s.id);
   const detailHref = linkFrom ? `/s/${s.id}?from=${linkFrom}` : `/s/${s.id}`;
@@ -89,7 +90,13 @@ export function SettlementCard({
   }
 
   function addTermsToProfile() {
+    const added = settlementAddsProfileTerms(profile, s);
     onProfileChange((prev) => mergeSettlementIntoProfile(prev, s));
+    setTermsFlashText(
+      added
+        ? "Match terms merged into your profile."
+        : "No new specific terms were available to add for this settlement."
+    );
     setTermsAddedFlash(true);
   }
 
@@ -197,7 +204,7 @@ export function SettlementCard({
               }`}
               aria-live="polite"
             >
-              Match terms merged into your profile — open Your profile to review or edit.
+              {termsFlashText} Open Your profile to review or edit.
             </p>
           </div>
         </div>

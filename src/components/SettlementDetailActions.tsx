@@ -1,7 +1,7 @@
 "use client";
 
 import { applyProfileUpdate, defaultProfile, loadProfile, saveProfile, type ProfileUpdater } from "@/lib/profile";
-import { mergeSettlementIntoProfile } from "@/lib/settlement-to-profile";
+import { mergeSettlementIntoProfile, settlementAddsProfileTerms } from "@/lib/settlement-to-profile";
 import type { Settlement, UserProfile } from "@/lib/types";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -41,7 +41,11 @@ export function SettlementDetailActions({ settlement: s }: { settlement: Settlem
   }
 
   function addTerms() {
-    persist((prev) => mergeSettlementIntoProfile(prev, s), "Match terms merged into your profile.");
+    const added = settlementAddsProfileTerms(profile, s);
+    persist(
+      (prev) => mergeSettlementIntoProfile(prev, s),
+      added ? "Match terms merged into your profile." : "No new specific terms were available to add."
+    );
   }
 
   if (!ready) return null;

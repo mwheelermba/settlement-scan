@@ -61,3 +61,25 @@ export function mergeSettlementIntoProfile(profile: UserProfile, s: Settlement):
     medical_and_health: [...medical],
   };
 }
+
+function sameStringSet(a: string[] | undefined, b: string[] | undefined): boolean {
+  const as = new Set((a ?? []).map((x) => x.trim()).filter(Boolean));
+  const bs = new Set((b ?? []).map((x) => x.trim()).filter(Boolean));
+  if (as.size !== bs.size) return false;
+  for (const v of as) {
+    if (!bs.has(v)) return false;
+  }
+  return true;
+}
+
+/** Whether a merge would add at least one new profile term. */
+export function settlementAddsProfileTerms(profile: UserProfile, s: Settlement): boolean {
+  const next = mergeSettlementIntoProfile(profile, s);
+  if (!sameStringSet(profile.retail_and_brands, next.retail_and_brands)) return true;
+  if (!sameStringSet(profile.financial_institutions, next.financial_institutions)) return true;
+  if (!sameStringSet(profile.employers, next.employers)) return true;
+  if (!sameStringSet(profile.breach_names, next.breach_names)) return true;
+  if (!sameStringSet(profile.products, next.products)) return true;
+  if (!sameStringSet(profile.medical_and_health, next.medical_and_health)) return true;
+  return false;
+}

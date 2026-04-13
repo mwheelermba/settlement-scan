@@ -8,6 +8,10 @@ type FileHandleWithPermissions = FileSystemFileHandle & {
 };
 
 type PickerSaveResult = "saved" | "cancelled" | "unsupported";
+const HANDLE_DB_NAME = "settlementscan-file-handles";
+const HANDLE_STORE_NAME = "handles";
+const HANDLE_KEY = "profile";
+let restoreHandlePromise: Promise<void> | null = null;
 
 /** Store on globalThis so HMR / duplicate module instances do not drop the chosen file handle. */
 type G = typeof globalThis & { __settlementscanBackupFileHandle?: FileSystemFileHandle | null };
@@ -26,12 +30,88 @@ function setHandle(h: FileSystemFileHandle | null): void {
   }
 }
 
+function canUseIndexedDb(): boolean {
+  return typeof indexedDB !== "undefined";
+}
+
+function openHandleDb(): Promise<IDBDatabase> {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(HANDLE_DB_NAME, 1);
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains(HANDLE_STORE_NAME)) {
+        db.createObjectStore(HANDLE_STORE_NAME);
+      }
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error ?? new Error("Could not open IndexedDB for backup handles"));
+  });
+}
+
+async function savePersistedHandle(handle: FileSystemFileHandle | null): Promise<void> {
+  if (!canUseIndexedDb()) return;
+  try {
+    const db = await openHandleDb();
+    await new Promise<void>((resolve, reject) => {
+      const tx = db.transaction(HANDLE_STORE_NAME, "readwrite");
+      const store = tx.objectStore(HANDLE_STORE_NAME);
+      if (handle) {
+        store.put(handle, HANDLE_KEY);
+      } else {
+        store.delete(HANDLE_KEY);
+      }
+      tx.oncomplete = () => resolve();
+      tx.onerror = () => reject(tx.error ?? new Error("Could not persist backup file handle"));
+      tx.onabort = () => reject(tx.error ?? new Error("Could not persist backup file handle"));
+    });
+    db.close();
+  } catch {
+    // Ignore persistence errors; session-only handle still works.
+  }
+}
+
+async function loadPersistedHandle(): Promise<FileSystemFileHandle | null> {
+  if (!canUseIndexedDb()) return null;
+  try {
+    const db = await openHandleDb();
+    const handle = await new Promise<FileSystemFileHandle | null>((resolve, reject) => {
+      const tx = db.transaction(HANDLE_STORE_NAME, "readonly");
+      const store = tx.objectStore(HANDLE_STORE_NAME);
+      const req = store.get(HANDLE_KEY);
+      req.onsuccess = () => {
+        const value = req.result;
+        const hasFileHandleClass = typeof FileSystemFileHandle !== "undefined";
+        resolve(hasFileHandleClass && value instanceof FileSystemFileHandle ? value : null);
+      };
+      req.onerror = () => reject(req.error ?? new Error("Could not read backup file handle"));
+    });
+    db.close();
+    return handle;
+  } catch {
+    return null;
+  }
+}
+
+async function ensureRestoredHandle(): Promise<void> {
+  if (getHandle()) return;
+  if (!restoreHandlePromise) {
+    restoreHandlePromise = (async () => {
+      const persisted = await loadPersistedHandle();
+      if (persisted) setHandle(persisted);
+    })().finally(() => {
+      restoreHandlePromise = null;
+    });
+  }
+  await restoreHandlePromise;
+}
+
 export function getSessionBackupFileHandle(): FileSystemFileHandle | null {
   return getHandle();
 }
 
 export function clearSessionBackupFileHandle(): void {
   setHandle(null);
+  void savePersistedHandle(null);
 }
 
 type ShowSaveFilePickerFn = (options: {
@@ -60,6 +140,7 @@ async function writeToHandle(handle: FileSystemFileHandle, profile: UserProfile)
 
 /** Try to sync profile to the in-session file handle (user chose a file earlier this session). */
 export async function writeProfileToSessionHandle(profile: UserProfile): Promise<boolean> {
+  await ensureRestoredHandle();
   const handle = getHandle();
   if (!handle) return false;
   const h = handle as FileHandleWithPermissions;
@@ -73,13 +154,18 @@ export async function writeProfileToSessionHandle(profile: UserProfile): Promise
     }
     if (perm !== "granted") {
       setHandle(null);
+      void savePersistedHandle(null);
       return false;
     }
     await writeToHandle(handle, profile);
     return true;
   } catch (e) {
-    if (e instanceof DOMException && (e.name === "NotAllowedError" || e.name === "SecurityError")) {
+    if (
+      e instanceof DOMException &&
+      (e.name === "NotAllowedError" || e.name === "SecurityError" || e.name === "NotFoundError")
+    ) {
       setHandle(null);
+      void savePersistedHandle(null);
     }
     return false;
   }
@@ -101,6 +187,7 @@ export async function pickFileAndSaveProfile(profile: UserProfile): Promise<Pick
     });
     await writeToHandle(handle, profile);
     setHandle(handle);
+    void savePersistedHandle(handle);
     return "saved";
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError") {
