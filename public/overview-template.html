@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SettlementScan - Product Overview</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: #e8eaed;
+      color: #1a1a2e;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /*
+      Six separate sheets. Block layout (no flex column + flex:1) so print engines
+      do not split footers oddly. One main screenshot per page = large and readable.
+    */
+    .sheet {
+      width: 8.5in;
+      margin: 0 auto 0.45in;
+      background: #fff;
+      box-shadow: 0 4px 32px rgba(0,0,0,.14);
+      page-break-after: always;
+      break-after: page;
+    }
+    .sheet:last-child {
+      page-break-after: auto;
+      break-after: auto;
+    }
+
+    .page-header {
+      background: #0d1117;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-dot {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: linear-gradient(135deg, #0d9488, #14b8a6);
+    }
+    .brand-name { font-size: 18px; font-weight: 700; color: #f1f5f9; }
+    .brand-sub  { font-size: 11px; color: #64748b; margin-top: 1px; }
+    .header-badge {
+      background: #0d9488; color: #fff;
+      font-size: 10px; font-weight: 700;
+      padding: 5px 12px; border-radius: 20px;
+      text-transform: uppercase; letter-spacing: .5px;
+    }
+
+    .hero {
+      background: linear-gradient(160deg, #0d1117 0%, #0f2027 55%, #0d3a33 100%);
+      padding: 26px 40px 24px;
+      border-bottom: 3px solid #0d9488;
+    }
+    .hero h1 {
+      font-size: 26px; font-weight: 800; color: #f1f5f9;
+      line-height: 1.2; letter-spacing: -.4px; margin-bottom: 10px;
+    }
+    .hero h1 span { color: #2dd4bf; }
+    .hero p {
+      font-size: 13px; color: #94a3b8; line-height: 1.6;
+      max-width: 640px; margin-bottom: 14px;
+    }
+    .hero-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill {
+      background: rgba(13,148,136,.15);
+      border: 1px solid rgba(13,148,136,.35);
+      color: #2dd4bf; font-size: 11px; font-weight: 500;
+      padding: 5px 12px; border-radius: 20px;
+    }
+
+    .sub-hero {
+      background: #0d1117;
+      padding: 16px 40px;
+      border-bottom: 3px solid #0d9488;
+    }
+    .sub-hero h2 { font-size: 17px; font-weight: 700; color: #f1f5f9; }
+    .sub-hero p  { font-size: 12px; color: #64748b; margin-top: 4px; line-height: 1.5; }
+
+    .sheet-body {
+      padding: 20px 40px 18px;
+    }
+
+    .section-label {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: #0d9488; margin-bottom: 12px;
+    }
+
+    .feature-block {
+      padding: 16px;
+      background: #f8fafc;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .feature-img {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 2px solid #1e293b;
+      box-shadow: 0 6px 20px rgba(0,0,0,.2);
+      background: #0d1117;
+      margin-bottom: 12px;
+    }
+    .feature-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      object-position: top center;
+    }
+    /* Page 1 shares space with hero - slightly smaller shot */
+    .sheet--intro .feature-img img { max-height: 3.35in; }
+    /* All other pages: one feature = use most of the sheet for the screenshot */
+    .sheet--feature .feature-img img { max-height: 4.55in; }
+
+    .feature-num {
+      width: 26px; height: 26px; border-radius: 7px;
+      background: #0d9488; color: #fff;
+      font-size: 13px; font-weight: 700;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-bottom: 8px;
+    }
+    .feature-title {
+      font-size: 15px; font-weight: 700; color: #0f172a;
+      line-height: 1.3; margin-bottom: 6px;
+    }
+    .feature-desc {
+      font-size: 12px; color: #475569; line-height: 1.6; margin-bottom: 8px;
+    }
+    .feature-bullets { list-style: none; }
+    .feature-bullets li {
+      font-size: 11.5px; color: #475569;
+      display: flex; align-items: flex-start; gap: 7px;
+      line-height: 1.45;
+      margin-bottom: 4px;
+    }
+    .feature-bullets li .ck {
+      color: #0d9488; font-weight: 700; flex-shrink: 0;
+    }
+
+    .page-footer {
+      background: #0d1117;
+      padding: 14px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .page-footer--final {
+      flex-direction: column;
+      align-items: stretch;
+      text-align: center;
+    }
+    .page-footer--final .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-url  { font-size: 14px; font-weight: 700; color: #2dd4bf; }
+    .footer-sub  { font-size: 10.5px; color: #475569; margin-top: 2px; }
+    .footer-tags { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+    .ftag {
+      font-size: 10px; font-weight: 600; padding: 4px 10px;
+      border-radius: 20px; border: 1px solid;
+    }
+    .ftag-teal   { background: rgba(13,148,136,.15); border-color: #0d9488; color: #2dd4bf; }
+    .ftag-indigo { background: rgba(99,102,241,.15);  border-color: #6366f1; color: #a5b4fc; }
+    .ftag-amber  { background: rgba(245,158,11,.12);  border-color: #d97706; color: #fbbf24; }
+    .footer-page { font-size: 10px; color: #64748b; }
+    .footer-legal {
+      font-size: 10px; color: #64748b;
+      line-height: 1.5;
+      max-width: 520px;
+      margin: 8px auto 0;
+    }
+
+    .print-hint {
+      font-size: 11px;
+      color: #64748b;
+      padding: 12px 40px;
+      line-height: 1.45;
+      max-width: 8.5in;
+      margin: 0 auto;
+    }
+    .print-hint strong { color: #334155; }
+
+    @media print {
+      body { background: #fff; }
+      .sheet {
+        margin: 0;
+        box-shadow: none;
+      }
+      .print-hint { display: none; }
+      .feature-img img {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+    @page { size: letter; margin: 0.45in; }
+  </style>
+</head>
+<body>
+
+<p class="print-hint"><strong>PDF tip:</strong> Print or Save as PDF at <strong>100% scale</strong>. This document is <strong>6 pages</strong> (one section per page) so screenshots stay large and nothing is cut off.</p>
+
+<!-- SHEET 1 -->
+<div class="sheet sheet--intro">
+  <div class="page-header">
+    <div class="brand">
+      <div class="brand-dot"></div>
+      <div>
+        <div class="brand-name">SettlementScan</div>
+        <div class="brand-sub">settlementscan.app</div>
+      </div>
+    </div>
+    <div class="header-badge">Free &amp; Open Source</div>
+  </div>
+
+  <div class="hero">
+    <h1>Discover class action settlements<br><span>you may qualify for - automatically.</span></h1>
+    <p>
+      Millions of dollars in class action settlement money go unclaimed every year because people do not know they qualify.
+      SettlementScan matches your background to open settlements - no account, no upload, free.
+    </p>
+    <div class="hero-pills">
+      <span class="pill">Your data stays on your device</span>
+      <span class="pill">Instant match scores</span>
+      <span class="pill">200+ settlements tracked</span>
+      <span class="pill">Free forever</span>
+    </div>
+  </div>
+
+  <div class="sheet-body">
+    <div class="section-label">Step 1 of 6</div>
+    <div class="feature-block">
+      <div class="feature-img"><img src="PLACEHOLDER_PROFILE" alt="Profile setup" /></div>
+      <div class="feature-text">
+        <div class="feature-num">1</div>
+        <div class="feature-title">Build your profile in minutes</div>
+        <div class="feature-desc">
+          State, emails, companies, subscriptions, breaches, and more. Stored only in this browser - not on our servers.
+        </div>
+        <ul class="feature-bullets">
+          <li><span class="ck">+</span>No sign-up</li>
+          <li><span class="ck">+</span>Optional Have I Been Pwned merge for breach names</li>
+          <li><span class="ck">+</span>Suggestions from active settlements</li>
+          <li><span class="ck">+</span>JSON backup anytime</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>
+      <div class="footer-url">settlementscan.app</div>
+      <div class="footer-sub">Free - No account - Local storage only</div>
+    </div>
+    <div class="footer-tags">
+      <span class="ftag ftag-teal">100% Free</span>
+      <span class="ftag ftag-indigo">Open Source</span>
+      <span class="ftag ftag-amber">Privacy First</span>
+    </div>
+    <div class="footer-page">1 / 6</div>
+  </div>
+</div>
+
+
+<!-- SHEET 2 -->
+<div class="sheet sheet--feature">
+  <div class="page-header">
+    <div class="brand">
+      <div class="brand-dot"></div>
+      <div>
+        <div class="brand-name">SettlementScan</div>
+        <div class="brand-sub">settlementscan.app</div>
+      </div>
+    </div>
+    <div class="header-badge">Free &amp; Open Source</div>
+  </div>
+
+  <div class="sheet-body">
+    <div class="section-label">Step 2 of 6</div>
+    <div class="feature-block">
+      <div class="feature-img"><img src="PLACEHOLDER_MATCHES" alt="Matches list" /></div>
+      <div class="feature-text">
+        <div class="feature-num">2</div>
+        <div class="feature-title">Your matches - ranked by fit and deadline</div>
+        <div class="feature-desc">
+          See percentage match, payout range, proof rules, and due dates in one list.
+        </div>
+        <ul class="feature-bullets">
+          <li><span class="ck">+</span>Match rings and match line (strong / partial / unknown)</li>
+          <li><span class="ck">+</span>Hide or save for later</li>
+          <li><span class="ck">+</span>Add terms to your profile in one tap</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>
+      <div class="footer-url">settlementscan.app</div>
+      <div class="footer-sub">Free - No account - Local storage only</div>
+    </div>
+    <div class="footer-tags">
+      <span class="ftag ftag-teal">100% Free</span>
+      <span class="ftag ftag-indigo">Open Source</span>
+      <span class="ftag ftag-amber">Privacy First</span>
+    </div>
+    <div class="footer-page">2 / 6</div>
+  </div>
+</div>
+
+
+<!-- SHEET 3 -->
+<div class="sheet sheet--feature">
+  <div class="page-header">
+    <div class="brand">
+      <div class="brand-dot"></div>
+      <div>
+        <div class="brand-name">SettlementScan</div>
+        <div class="brand-sub">settlementscan.app</div>
+      </div>
+    </div>
+    <div class="header-badge">Free &amp; Open Source</div>
+  </div>
+
+  <div class="sheet-body">
+    <div class="section-label">Step 3 of 6</div>
+    <div class="feature-block">
+      <div class="feature-img"><img src="PLACEHOLDER_BROWSE" alt="Browse settlements" /></div>
+      <div class="feature-text">
+        <div class="feature-num">3</div>
+        <div class="feature-title">Browse and search everything</div>
+        <div class="feature-desc">
+          All open listings with search, filters, and sort - explore even before you finish your profile.
+        </div>
+        <ul class="feature-bullets">
+          <li><span class="ck">+</span>Search by title, defendant, description</li>
+          <li><span class="ck">+</span>Filter by type, state, easy claims</li>
+          <li><span class="ck">+</span>Sort by payout, deadline, match</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>
+      <div class="footer-url">settlementscan.app</div>
+      <div class="footer-sub">Free - No account - Local storage only</div>
+    </div>
+    <div class="footer-tags">
+      <span class="ftag ftag-teal">100% Free</span>
+      <span class="ftag ftag-indigo">Open Source</span>
+      <span class="ftag ftag-amber">Privacy First</span>
+    </div>
+    <div class="footer-page">3 / 6</div>
+  </div>
+</div>
+
+
+<!-- SHEET 4 -->
+<div class="sheet sheet--feature">
+  <div class="page-header">
+    <div class="brand">
+      <div class="brand-dot"></div>
+      <div>
+        <div class="brand-name">SettlementScan</div>
+        <div class="brand-sub">settlementscan.app</div>
+      </div>
+    </div>
+    <div class="header-badge">Free &amp; Open Source</div>
+  </div>
+
+  <div class="sub-hero">
+    <h2>From match to filed</h2>
+    <p>Open the official claim site, track what you filed, and bookmark the rest.</p>
+  </div>
+
+  <div class="sheet-body">
+    <div class="section-label">Step 4 of 6</div>
+    <div class="feature-block">
+      <div class="feature-img"><img src="PLACEHOLDER_DETAILS" alt="Match details" /></div>
+      <div class="feature-text">
+        <div class="feature-num">4</div>
+        <div class="feature-title">Why you match - then file</div>
+        <div class="feature-desc">
+          Expand criteria (state, products, breaches, etc.), read the plain-English blurb, then use File claim.
+        </div>
+        <ul class="feature-bullets">
+          <li><span class="ck">+</span>Strong / unknown / mismatch per dimension</li>
+          <li><span class="ck">+</span>Direct link to the real claim form</li>
+          <li><span class="ck">+</span>Mark as filed when you are done</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>
+      <div class="footer-url">settlementscan.app</div>
+      <div class="footer-sub">Free - No account - Local storage only</div>
+    </div>
+    <div class="footer-tags">
+      <span class="ftag ftag-teal">100% Free</span>
+      <span class="ftag ftag-indigo">Open Source</span>
+      <span class="ftag ftag-amber">Privacy First</span>
+    </div>
+    <div class="footer-page">4 / 6</div>
+  </div>
+</div>
+
+
+<!-- SHEET 5 -->
+<div class="sheet sheet--feature">
+  <div class="page-header">
+    <div class="brand">
+      <div class="brand-dot"></div>
+      <div>
+        <div class="brand-name">SettlementScan</div>
+        <div class="brand-sub">settlementscan.app</div>
+      </div>
+    </div>
+    <div class="header-badge">Free &amp; Open Source</div>
+  </div>
+
+  <div class="sheet-body">
+    <div class="section-label">Step 5 of 6</div>
+    <div class="feature-block">
+      <div class="feature-img"><img src="PLACEHOLDER_SETTLEMENT" alt="Settlement detail page" /></div>
+      <div class="feature-text">
+        <div class="feature-num">5</div>
+        <div class="feature-title">Settlement page you can share</div>
+        <div class="feature-desc">
+          One page per case: deadline, payout, proof, Open claim site, save for later, share link.
+        </div>
+        <ul class="feature-bullets">
+          <li><span class="ck">+</span>Share with Copy link or Share</li>
+          <li><span class="ck">+</span>Edit profile to improve future matches</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div>
+      <div class="footer-url">settlementscan.app</div>
+      <div class="footer-sub">Free - No account - Local storage only</div>
+    </div>
+    <div class="footer-tags">
+      <span class="ftag ftag-teal">100% Free</span>
+      <span class="ftag ftag-indigo">Open Source</span>
+      <span class="ftag ftag-amber">Privacy First</span>
+    </div>
+    <div class="footer-page">5 / 6</div>
+  </div>
+</div>
+
+
+<!-- SHEET 6 -->
+<div class="sheet sheet--feature">
+  <div class="page-header">
+    <div class="brand">
+      <div class="brand-dot"></div>
+      <div>
+        <div class="brand-name">SettlementScan</div>
+        <div class="brand-sub">settlementscan.app</div>
+      </div>
+    </div>
+    <div class="header-badge">Free &amp; Open Source</div>
+  </div>
+
+  <div class="sheet-body">
+    <div class="section-label">Step 6 of 6</div>
+    <div class="feature-block">
+      <div class="feature-img"><img src="PLACEHOLDER_SAVED" alt="Filed and saved" /></div>
+      <div class="feature-text">
+        <div class="feature-num">6</div>
+        <div class="feature-title">Filed claims and saved for later</div>
+        <div class="feature-desc">
+          Filed: reopen the claim site anytime. Saved: your shortlist. Same storage as your profile - back it up from Profile.
+        </div>
+        <ul class="feature-bullets">
+          <li><span class="ck">+</span>Claim site button for filed items</li>
+          <li><span class="ck">+</span>Remove or move items as your plans change</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer page-footer--final">
+    <div class="footer-row">
+      <div>
+        <div class="footer-url">settlementscan.app</div>
+        <div class="footer-sub">Open source - github.com/mwheelermba/settlement-scan</div>
+      </div>
+      <div class="footer-page">6 / 6</div>
+    </div>
+    <div class="footer-tags">
+      <span class="ftag ftag-teal">100% Free</span>
+      <span class="ftag ftag-indigo">Open Source</span>
+      <span class="ftag ftag-amber">Privacy First</span>
+    </div>
+    <p class="footer-legal">
+      Not legal advice. Eligibility depends on each settlement's rules - always confirm on the official claim site.
+    </p>
+  </div>
+</div>
+
+</body>
+</html>

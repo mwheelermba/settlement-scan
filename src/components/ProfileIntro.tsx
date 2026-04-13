@@ -9,16 +9,7 @@ export function ProfileIntro() {
         <Link href="/browse" className="font-medium text-teal-800 underline dark:text-teal-400">
           browse every active settlement
         </Link>{" "}
-        with search and filters, even with a minimal profile. Optional email breach suggestions use{" "}
-        <a
-          href="https://haveibeenpwned.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-medium text-teal-800 underline dark:text-teal-400"
-        >
-          Have I Been Pwned
-        </a>{" "}
-        (details below).
+        with search and filters, even with a minimal profile.
       </p>
       <p>
         Your profile is stored only in <span className="font-medium text-zinc-900 dark:text-zinc-100">this browser</span>{" "}
@@ -38,17 +29,22 @@ export function ProfileIntro() {
         regularly so you don&apos;t lose your progress.
       </p>
       <p>
-        If you add an email address, you can optionally run a one-time lookup to{" "}
-        <span className="font-medium text-zinc-900 dark:text-zinc-100">Have I Been Pwned</span> to suggest breach names;
-        that address is not stored on our servers. You can skip that and type breach names yourself.
+        Many settlements involve <span className="font-medium text-zinc-900 dark:text-zinc-100">data breaches</span>.
+        Breach names help match those claims. If you add an email address, you can optionally run a one-time lookup to{" "}
+        <a
+          href="https://haveibeenpwned.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium text-teal-800 underline dark:text-teal-400"
+        >
+          Have I Been Pwned
+        </a>{" "}
+        to suggest breach names; that address is not stored on our servers. You can skip that and type breach names
+        yourself.
       </p>
       <p>
         <span className="font-medium text-zinc-900 dark:text-zinc-100">Saving:</span> text boxes update your profile when
-        you leave the field (Tab or click elsewhere). State and ZIP save immediately when you change them.
-      </p>
-      <p>
-        Many settlements involve <span className="font-medium text-zinc-900 dark:text-zinc-100">data breaches</span>.
-        Breach names help match those claims; you can type them yourself or use the optional lookup above.
+        you leave the field (Tab or click elsewhere).
       </p>
     </div>
   );
