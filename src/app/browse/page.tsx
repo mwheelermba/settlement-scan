@@ -4,7 +4,7 @@ import { FilterBar } from "@/components/FilterBar";
 import { SearchBar } from "@/components/SearchBar";
 import { SettlementCard } from "@/components/SettlementCard";
 import { matchSettlement } from "@/lib/matcher";
-import { defaultProfile, loadProfile, saveProfile } from "@/lib/profile";
+import { applyProfileUpdate, defaultProfile, loadProfile, saveProfile, type ProfileUpdater } from "@/lib/profile";
 import {
   filterSettlements,
   getActiveSettlements,
@@ -111,9 +111,13 @@ export default function BrowsePage() {
             <SettlementCard
               result={r}
               profile={profile ?? defaultProfile()}
-              onProfileChange={(p) => {
-                setProfile(p);
-                saveProfile(p);
+              onProfileChange={(update: ProfileUpdater) => {
+                setProfile((prev) => {
+                  const base = prev ?? defaultProfile();
+                  const next = applyProfileUpdate(base, update);
+                  saveProfile(next);
+                  return next;
+                });
               }}
               linkFrom="browse"
             />

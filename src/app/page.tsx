@@ -2,7 +2,7 @@
 
 import { SettlementCard } from "@/components/SettlementCard";
 import { getOpenSettlements } from "@/lib/settlements";
-import { hasMinimumProfile, loadProfile, saveProfile } from "@/lib/profile";
+import { applyProfileUpdate, hasMinimumProfile, loadProfile, saveProfile, type ProfileUpdater } from "@/lib/profile";
 import { MIN_HOME_MATCH_SCORE, rankMatches } from "@/lib/matcher";
 import type { UserProfile } from "@/lib/types";
 import { trackEvent } from "@/lib/analytics";
@@ -22,9 +22,13 @@ export default function HomePage() {
     });
   }, []);
 
-  function persist(p: UserProfile) {
-    setProfile(p);
-    saveProfile(p);
+  function persist(update: ProfileUpdater) {
+    setProfile((prev) => {
+      if (!prev) return prev;
+      const next = applyProfileUpdate(prev, update);
+      saveProfile(next);
+      return next;
+    });
   }
 
   const ranked = useMemo(() => {

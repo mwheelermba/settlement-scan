@@ -4,12 +4,15 @@ import { ProfileBackupGuard } from "@/components/ProfileBackupGuard";
 import { ProfileBackupOnProfileBanner } from "@/components/ProfileBackupFloatingBar";
 import { ProfileIntro } from "@/components/ProfileIntro";
 import { ProfileForm } from "@/components/ProfileForm";
-import { defaultProfile, loadProfile, saveProfile } from "@/lib/profile";
+import { applyProfileUpdate, defaultProfile, loadProfile, saveProfile, type ProfileUpdater } from "@/lib/profile";
 import type { UserProfile } from "@/lib/types";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 export default function ProfilePage() {
+  const pathname = usePathname();
+  const prevPathRef = useRef<string | null>(null);
   const [profile, setProfile] = useState<UserProfile>(defaultProfile);
   const [ready, setReady] = useState(false);
 
@@ -21,9 +24,21 @@ export default function ProfilePage() {
     });
   }, []);
 
-  function persist(p: UserProfile) {
-    setProfile(p);
-    saveProfile(p);
+  useEffect(() => {
+    const prev = prevPathRef.current;
+    prevPathRef.current = pathname;
+    if (pathname === "/profile" && prev !== null && prev !== "/profile") {
+      const p = loadProfile();
+      setProfile(p ?? defaultProfile());
+    }
+  }, [pathname]);
+
+  function persist(update: ProfileUpdater) {
+    setProfile((prev) => {
+      const next = applyProfileUpdate(prev, update);
+      saveProfile(next);
+      return next;
+    });
   }
 
   if (!ready) {

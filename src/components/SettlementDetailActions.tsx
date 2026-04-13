@@ -1,6 +1,6 @@
 "use client";
 
-import { defaultProfile, loadProfile, saveProfile } from "@/lib/profile";
+import { applyProfileUpdate, defaultProfile, loadProfile, saveProfile, type ProfileUpdater } from "@/lib/profile";
 import { mergeSettlementIntoProfile } from "@/lib/settlement-to-profile";
 import type { Settlement, UserProfile } from "@/lib/types";
 import Link from "next/link";
@@ -20,26 +20,28 @@ export function SettlementDetailActions({ settlement: s }: { settlement: Settlem
 
   const saved = (profile.saved_settlement_ids ?? []).includes(s.id);
 
-  function persist(p: UserProfile, msg?: string) {
-    setProfile(p);
-    saveProfile(p);
+  function persist(update: ProfileUpdater, msg?: string) {
+    setProfile((prev) => {
+      const next = applyProfileUpdate(prev, update);
+      saveProfile(next);
+      return next;
+    });
     setFlash(msg ?? "Saved to this browser.");
     window.setTimeout(() => setFlash(null), 2400);
   }
 
   function toggleSaved() {
-    const cur = new Set(profile.saved_settlement_ids ?? []);
-    if (cur.has(s.id)) {
-      cur.delete(s.id);
-      persist({ ...profile, saved_settlement_ids: [...cur] }, "Removed from saved.");
-    } else {
-      cur.add(s.id);
-      persist({ ...profile, saved_settlement_ids: [...cur] });
-    }
+    const wasSaved = (profile.saved_settlement_ids ?? []).includes(s.id);
+    persist((prev) => {
+      const cur = new Set(prev.saved_settlement_ids ?? []);
+      if (cur.has(s.id)) cur.delete(s.id);
+      else cur.add(s.id);
+      return { ...prev, saved_settlement_ids: [...cur] };
+    }, wasSaved ? "Removed from saved." : undefined);
   }
 
   function addTerms() {
-    persist(mergeSettlementIntoProfile(profile, s), "Match terms merged into your profile.");
+    persist((prev) => mergeSettlementIntoProfile(prev, s), "Match terms merged into your profile.");
   }
 
   if (!ready) return null;

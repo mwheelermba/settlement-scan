@@ -1,5 +1,6 @@
 "use client";
 
+import type { ProfileUpdater } from "@/lib/profile";
 import type { QualifyingQuestion, UserProfile } from "@/lib/types";
 
 export function QualifyingQuestions({
@@ -11,7 +12,7 @@ export function QualifyingQuestions({
   settlementId: string;
   questions: QualifyingQuestion[];
   profile: UserProfile;
-  onChange: (next: UserProfile) => void;
+  onChange: (update: ProfileUpdater) => void;
 }) {
   if (!questions.length) return null;
 
@@ -33,10 +34,10 @@ export function QualifyingQuestions({
                       : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700"
                   }`}
                   onClick={() =>
-                    onChange({
-                      ...profile,
-                      qualifying_answers: { ...profile.qualifying_answers, [q.id]: true },
-                    })
+                    onChange((prev) => ({
+                      ...prev,
+                      qualifying_answers: { ...prev.qualifying_answers, [q.id]: true },
+                    }))
                   }
                 >
                   Yes
@@ -49,10 +50,10 @@ export function QualifyingQuestions({
                       : "bg-zinc-100 text-zinc-700 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-700"
                   }`}
                   onClick={() =>
-                    onChange({
-                      ...profile,
-                      qualifying_answers: { ...profile.qualifying_answers, [q.id]: false },
-                    })
+                    onChange((prev) => ({
+                      ...prev,
+                      qualifying_answers: { ...prev.qualifying_answers, [q.id]: false },
+                    }))
                   }
                 >
                   No

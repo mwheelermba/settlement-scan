@@ -3,7 +3,7 @@
 import { SettlementCard } from "@/components/SettlementCard";
 import { DeadlineBadge } from "@/components/DeadlineBadge";
 import { matchSettlement } from "@/lib/matcher";
-import { defaultProfile, loadProfile, saveProfile } from "@/lib/profile";
+import { applyProfileUpdate, defaultProfile, loadProfile, saveProfile, type ProfileUpdater } from "@/lib/profile";
 import { getSettlements } from "@/lib/settlements";
 import type { Settlement, UserProfile } from "@/lib/types";
 import Link from "next/link";
@@ -82,16 +82,19 @@ export default function SavedPage() {
     return <div className="h-40 animate-pulse rounded-xl bg-zinc-200 dark:bg-zinc-800" />;
   }
 
-  function persist(next: UserProfile) {
-    setProfile(next);
-    saveProfile(next);
+  function persist(update: ProfileUpdater) {
+    setProfile((prev) => {
+      const next = applyProfileUpdate(prev, update);
+      saveProfile(next);
+      return next;
+    });
   }
 
   function unmarkFiled(id: string) {
-    persist({
-      ...profile,
-      filed_settlements: profile.filed_settlements.filter((fid) => fid !== id),
-    });
+    persist((prev) => ({
+      ...prev,
+      filed_settlements: prev.filed_settlements.filter((fid) => fid !== id),
+    }));
   }
 
   return (

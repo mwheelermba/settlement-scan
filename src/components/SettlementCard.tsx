@@ -1,5 +1,6 @@
 "use client";
 
+import type { ProfileUpdater } from "@/lib/profile";
 import type { MatchDimensionOutcome, MatchResult, UserProfile } from "@/lib/types";
 import Link from "next/link";
 import { trackEvent } from "@/lib/analytics";
@@ -40,7 +41,7 @@ export function SettlementCard({
 }: {
   result: MatchResult;
   profile: UserProfile;
-  onProfileChange: (p: UserProfile) => void;
+  onProfileChange: (update: ProfileUpdater) => void;
   linkFrom?: "matches" | "browse";
 }) {
   const { settlement: s, score } = result;
@@ -59,34 +60,36 @@ export function SettlementCard({
 
   function toggleFiled() {
     if (filed) {
-      onProfileChange({
-        ...profile,
-        filed_settlements: profile.filed_settlements.filter((id) => id !== s.id),
-      });
+      onProfileChange((prev) => ({
+        ...prev,
+        filed_settlements: prev.filed_settlements.filter((id) => id !== s.id),
+      }));
     } else {
-      onProfileChange({
-        ...profile,
-        filed_settlements: [...profile.filed_settlements, s.id],
-      });
+      onProfileChange((prev) => ({
+        ...prev,
+        filed_settlements: [...prev.filed_settlements, s.id],
+      }));
     }
   }
 
   function dismiss() {
-    onProfileChange({
-      ...profile,
-      dismissed_settlements: [...new Set([...profile.dismissed_settlements, s.id])],
-    });
+    onProfileChange((prev) => ({
+      ...prev,
+      dismissed_settlements: [...new Set([...prev.dismissed_settlements, s.id])],
+    }));
   }
 
   function toggleSaved() {
-    const cur = new Set(profile.saved_settlement_ids ?? []);
-    if (cur.has(s.id)) cur.delete(s.id);
-    else cur.add(s.id);
-    onProfileChange({ ...profile, saved_settlement_ids: [...cur] });
+    onProfileChange((prev) => {
+      const cur = new Set(prev.saved_settlement_ids ?? []);
+      if (cur.has(s.id)) cur.delete(s.id);
+      else cur.add(s.id);
+      return { ...prev, saved_settlement_ids: [...cur] };
+    });
   }
 
   function addTermsToProfile() {
-    onProfileChange(mergeSettlementIntoProfile(profile, s));
+    onProfileChange((prev) => mergeSettlementIntoProfile(prev, s));
     setTermsAddedFlash(true);
   }
 

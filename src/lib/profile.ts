@@ -2,6 +2,13 @@ import type { UserProfile } from "./types";
 
 const STORAGE_KEY = "settlementscan_profile_v1";
 
+/** Use a function when the next profile must be derived from the latest state (avoids stale merges). */
+export type ProfileUpdater = UserProfile | ((prev: UserProfile) => UserProfile);
+
+export function applyProfileUpdate(prev: UserProfile, update: ProfileUpdater): UserProfile {
+  return typeof update === "function" ? update(prev) : update;
+}
+
 export function defaultProfile(): UserProfile {
   return {
     state: "",
