@@ -9,14 +9,29 @@ type FileHandleWithPermissions = FileSystemFileHandle & {
 
 type PickerSaveResult = "saved" | "cancelled" | "unsupported";
 
-let sessionBackupHandle: FileSystemFileHandle | null = null;
+/** Store on globalThis so HMR / duplicate module instances do not drop the chosen file handle. */
+type G = typeof globalThis & { __settlementscanBackupFileHandle?: FileSystemFileHandle | null };
+
+function getHandle(): FileSystemFileHandle | null {
+  const g = globalThis as G;
+  return g.__settlementscanBackupFileHandle ?? null;
+}
+
+function setHandle(h: FileSystemFileHandle | null): void {
+  const g = globalThis as G;
+  if (h === null) {
+    delete g.__settlementscanBackupFileHandle;
+  } else {
+    g.__settlementscanBackupFileHandle = h;
+  }
+}
 
 export function getSessionBackupFileHandle(): FileSystemFileHandle | null {
-  return sessionBackupHandle;
+  return getHandle();
 }
 
 export function clearSessionBackupFileHandle(): void {
-  sessionBackupHandle = null;
+  setHandle(null);
 }
 
 type ShowSaveFilePickerFn = (options: {
@@ -45,8 +60,9 @@ async function writeToHandle(handle: FileSystemFileHandle, profile: UserProfile)
 
 /** Try to sync profile to the in-session file handle (user chose a file earlier this session). */
 export async function writeProfileToSessionHandle(profile: UserProfile): Promise<boolean> {
-  if (!sessionBackupHandle) return false;
-  const h = sessionBackupHandle as FileHandleWithPermissions;
+  const handle = getHandle();
+  if (!handle) return false;
+  const h = handle as FileHandleWithPermissions;
   try {
     let perm: PermissionState = "granted";
     if (h.queryPermission) {
@@ -56,13 +72,15 @@ export async function writeProfileToSessionHandle(profile: UserProfile): Promise
       perm = await h.requestPermission({ mode: "readwrite" });
     }
     if (perm !== "granted") {
-      sessionBackupHandle = null;
+      setHandle(null);
       return false;
     }
-    await writeToHandle(sessionBackupHandle, profile);
+    await writeToHandle(handle, profile);
     return true;
-  } catch {
-    sessionBackupHandle = null;
+  } catch (e) {
+    if (e instanceof DOMException && (e.name === "NotAllowedError" || e.name === "SecurityError")) {
+      setHandle(null);
+    }
     return false;
   }
 }
@@ -82,7 +100,7 @@ export async function pickFileAndSaveProfile(profile: UserProfile): Promise<Pick
       ],
     });
     await writeToHandle(handle, profile);
-    sessionBackupHandle = handle;
+    setHandle(handle);
     return "saved";
   } catch (err) {
     if (err instanceof DOMException && err.name === "AbortError") {

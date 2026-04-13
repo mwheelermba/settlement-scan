@@ -112,6 +112,17 @@ function vehicleMatches(
   return "mismatch";
 }
 
+/** When JSON has no structured products/services, infer a brand from defendant for matching (not government-style names). */
+function effectiveProductCriteriaFromSettlement(s: Settlement): string[] | null {
+  const c = s.criteria;
+  if (c.products?.length) return c.products;
+  if (c.services?.length) return null;
+  const d = s.defendant?.trim();
+  if (!d || d.length > 72) return null;
+  if (/^(state of|commonwealth of|county of|city of|united states|u\.s\.|various)\b/i.test(d)) return null;
+  return [d];
+}
+
 function collectBreakdownRows(
   settlement: Settlement,
   profile: UserProfile
@@ -126,8 +137,9 @@ function collectBreakdownRows(
   const svcOutcome = hasOverlap(servicePool(profile), c.services);
   const svcSide = !c.services?.length ? "Not specified" : _shortenDetail(c.services.join(", "));
 
-  const prodOutcome = hasOverlap(productMatchPool(profile), c.products);
-  const prodSide = !c.products?.length ? "Not specified" : _shortenDetail(c.products.join(", "));
+  const productCriteria = effectiveProductCriteriaFromSettlement(settlement);
+  const prodOutcome = hasOverlap(productMatchPool(profile), productCriteria);
+  const prodSide = !productCriteria?.length ? "Not specified" : _shortenDetail(productCriteria.join(", "));
 
   const vehOutcome = vehicleMatches(profile, c);
   let vehSide = "Not specified";

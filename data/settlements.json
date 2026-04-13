@@ -3619,7 +3619,7 @@
     "criteria": {
       "states": null,
       "services": null,
-      "products": null,
+      "products": ["Juul", "Juul pods"],
       "vehicles": null,
       "breach_name": null,
       "date_range": {
