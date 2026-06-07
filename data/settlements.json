@@ -181,7 +181,7 @@
     "proof_required": null,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -204,7 +204,7 @@
     "proof_required": null,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -230,7 +230,7 @@
     "proof_required": true,
     "type": "housing",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -255,7 +255,7 @@
     "proof_required": true,
     "type": "housing",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -280,7 +280,7 @@
     "proof_required": true,
     "type": "vehicle",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -310,7 +310,7 @@
     "proof_required": true,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -336,7 +336,7 @@
     "proof_required": true,
     "type": "vehicle",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -366,7 +366,7 @@
     "proof_required": null,
     "type": "health",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -389,7 +389,7 @@
     "proof_required": null,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "CA"
@@ -417,7 +417,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "WA"
@@ -442,7 +442,7 @@
     "proof_required": true,
     "type": "vehicle",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -472,7 +472,7 @@
     "proof_required": false,
     "type": "housing",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -498,7 +498,7 @@
     "proof_required": true,
     "type": "housing",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -523,7 +523,7 @@
     "proof_required": true,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -548,7 +548,7 @@
     "proof_required": true,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "CA",
@@ -579,7 +579,7 @@
     "proof_required": true,
     "type": "health",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "CA"
@@ -606,7 +606,7 @@
     "proof_required": true,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "KY"
@@ -634,7 +634,7 @@
     "proof_required": true,
     "type": "vehicle",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -667,7 +667,7 @@
     "proof_required": null,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -690,7 +690,7 @@
     "proof_required": true,
     "type": "vehicle",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -723,7 +723,7 @@
     "proof_required": false,
     "type": "vehicle",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -749,7 +749,7 @@
     "proof_required": true,
     "type": "vehicle",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -779,7 +779,7 @@
     "proof_required": true,
     "type": "vehicle",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -815,7 +815,7 @@
     "proof_required": true,
     "type": "vehicle",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -847,7 +847,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "CA"
@@ -875,7 +875,7 @@
     "proof_required": true,
     "type": "vehicle",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -905,7 +905,7 @@
     "proof_required": true,
     "type": "employment",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "IL"
@@ -933,7 +933,7 @@
     "proof_required": true,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -961,7 +961,7 @@
     "proof_required": true,
     "type": "vehicle",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -993,7 +993,7 @@
     "proof_required": null,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "CA"
@@ -1023,7 +1023,7 @@
     "proof_required": true,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1046,7 +1046,7 @@
     "proof_required": false,
     "type": "financial",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1072,7 +1072,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1095,7 +1095,7 @@
     "proof_required": true,
     "type": "vehicle",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1120,7 +1120,7 @@
     "proof_required": null,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "CA",
@@ -1148,7 +1148,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": [
@@ -1177,7 +1177,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "CA"
@@ -1207,7 +1207,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": [
@@ -1235,7 +1235,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1258,7 +1258,7 @@
     "proof_required": false,
     "type": "health",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "ME"
@@ -1286,7 +1286,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": [
@@ -1311,7 +1311,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1334,7 +1334,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1360,7 +1360,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1386,7 +1386,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1412,7 +1412,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1435,7 +1435,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": [
@@ -1460,7 +1460,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1483,7 +1483,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": [
@@ -1508,7 +1508,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1531,7 +1531,7 @@
     "proof_required": null,
     "type": "financial",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "CA"
@@ -1556,7 +1556,7 @@
     "proof_required": false,
     "type": "employment",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "CA"
@@ -1586,7 +1586,7 @@
     "proof_required": true,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1609,7 +1609,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": [
@@ -1634,7 +1634,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1657,7 +1657,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1680,7 +1680,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1703,7 +1703,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "CA"
@@ -1728,7 +1728,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": [
@@ -1753,7 +1753,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1776,7 +1776,7 @@
     "proof_required": false,
     "type": "health",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "NY"
@@ -1806,7 +1806,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "CA"
@@ -1834,7 +1834,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": [
@@ -1859,7 +1859,7 @@
     "proof_required": null,
     "type": "employment",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1885,7 +1885,7 @@
     "proof_required": false,
     "type": "housing",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": [
@@ -1913,7 +1913,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1936,7 +1936,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1959,7 +1959,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -1985,7 +1985,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -2011,7 +2011,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -2034,7 +2034,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -2056,8 +2056,8 @@
     "estimated_payout": "$55 - $5,575",
     "proof_required": false,
     "type": "data_breach",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -2079,8 +2079,8 @@
     "estimated_payout": "$50 - $4,400",
     "proof_required": false,
     "type": "data_breach",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -2102,8 +2102,8 @@
     "estimated_payout": "$90 - $2,500",
     "proof_required": false,
     "type": "data_breach",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -2125,8 +2125,8 @@
     "estimated_payout": "Varies",
     "proof_required": true,
     "type": "housing",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "CA"
@@ -2150,8 +2150,8 @@
     "estimated_payout": "Varies",
     "proof_required": null,
     "type": "consumer",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "WA"
@@ -2178,8 +2178,8 @@
     "estimated_payout": "Varies",
     "proof_required": null,
     "type": "consumer",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "WA"
@@ -2206,8 +2206,8 @@
     "estimated_payout": "Varies",
     "proof_required": null,
     "type": "housing",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "WA"
@@ -2234,8 +2234,8 @@
     "estimated_payout": "Varies",
     "proof_required": null,
     "type": "consumer",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -2257,8 +2257,8 @@
     "estimated_payout": "Up to $599 - $5,000+",
     "proof_required": false,
     "type": "data_breach",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -2280,8 +2280,8 @@
     "estimated_payout": "$75 - $5,000",
     "proof_required": false,
     "type": "data_breach",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -2303,8 +2303,8 @@
     "estimated_payout": "Varies",
     "proof_required": null,
     "type": "consumer",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -2329,8 +2329,8 @@
     "estimated_payout": "$60 - $5,000",
     "proof_required": false,
     "type": "data_breach",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -2356,7 +2356,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -2381,8 +2381,8 @@
     "estimated_payout": "Varies",
     "proof_required": true,
     "type": "consumer",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "NJ"
@@ -2406,8 +2406,8 @@
     "estimated_payout": "Varies",
     "proof_required": null,
     "type": "consumer",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -2432,8 +2432,8 @@
     "estimated_payout": "Varies",
     "proof_required": false,
     "type": "data_breach",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -2455,8 +2455,8 @@
     "estimated_payout": "$50 - $7,000",
     "proof_required": false,
     "type": "data_breach",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -2478,8 +2478,8 @@
     "estimated_payout": "$35 - $3,000",
     "proof_required": false,
     "type": "data_breach",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -5309,8 +5309,8 @@
     "estimated_payout": "Varies",
     "proof_required": null,
     "type": "data_breach",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -5333,7 +5333,7 @@
     "proof_required": null,
     "type": "housing",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -5384,7 +5384,7 @@
     "proof_required": null,
     "type": "health",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -5480,7 +5480,7 @@
     "proof_required": null,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -5633,7 +5633,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -5659,7 +5659,7 @@
     "proof_required": null,
     "type": "employment",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -5685,7 +5685,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "AL"
@@ -5710,7 +5710,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -5733,7 +5733,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -5756,7 +5756,7 @@
     "proof_required": null,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "NJ"
@@ -5784,7 +5784,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "CA"
@@ -5813,8 +5813,8 @@
     "estimated_payout": "$417",
     "proof_required": null,
     "type": "consumer",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "IL"
@@ -5841,8 +5841,8 @@
     "estimated_payout": "Varies",
     "proof_required": true,
     "type": "consumer",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "NM"
@@ -5895,7 +5895,7 @@
     "proof_required": true,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -5918,7 +5918,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": [
@@ -5943,7 +5943,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -5969,7 +5969,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -5992,7 +5992,7 @@
     "proof_required": true,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "AL"
@@ -6020,7 +6020,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6046,7 +6046,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6069,7 +6069,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6092,7 +6092,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "CA"
@@ -6120,7 +6120,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6143,7 +6143,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "TX"
@@ -6168,7 +6168,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6191,7 +6191,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "NM"
@@ -6219,7 +6219,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "IL"
@@ -6244,7 +6244,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6270,7 +6270,7 @@
     "proof_required": false,
     "type": "health",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "IL"
@@ -6295,7 +6295,7 @@
     "proof_required": false,
     "type": "financial",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6321,7 +6321,7 @@
     "proof_required": null,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "FL"
@@ -6348,8 +6348,8 @@
     "estimated_payout": "Up to $2,500",
     "proof_required": false,
     "type": "data_breach",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6371,8 +6371,8 @@
     "estimated_payout": "$200",
     "proof_required": null,
     "type": "consumer",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6397,8 +6397,8 @@
     "estimated_payout": "Varies",
     "proof_required": null,
     "type": "consumer",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6472,7 +6472,7 @@
     "proof_required": null,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6541,7 +6541,7 @@
     "proof_required": null,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "CA",
@@ -6567,7 +6567,7 @@
     "proof_required": null,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6590,7 +6590,7 @@
     "proof_required": true,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "OK"
@@ -6615,7 +6615,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6638,7 +6638,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6661,7 +6661,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6684,7 +6684,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6707,7 +6707,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6730,7 +6730,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6753,7 +6753,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6776,7 +6776,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6802,7 +6802,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6825,7 +6825,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -6848,7 +6848,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "PA"
@@ -6875,8 +6875,8 @@
     "estimated_payout": "$1,255",
     "proof_required": null,
     "type": "employment",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "WA"
@@ -7049,7 +7049,7 @@
     "proof_required": true,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7075,7 +7075,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7098,7 +7098,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "MA"
@@ -7123,7 +7123,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7146,7 +7146,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7169,7 +7169,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7192,7 +7192,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7215,7 +7215,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7241,7 +7241,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7264,7 +7264,7 @@
     "proof_required": null,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7290,7 +7290,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7313,7 +7313,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "WA"
@@ -7341,7 +7341,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "WA"
@@ -7366,7 +7366,7 @@
     "proof_required": false,
     "type": "employment",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7392,7 +7392,7 @@
     "proof_required": null,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "IL"
@@ -7420,7 +7420,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "WA"
@@ -7520,7 +7520,7 @@
     "proof_required": null,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7569,7 +7569,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7592,7 +7592,7 @@
     "proof_required": true,
     "type": "vehicle",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7622,7 +7622,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7645,7 +7645,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "AL"
@@ -7670,7 +7670,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7693,7 +7693,7 @@
     "proof_required": true,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7719,7 +7719,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7742,7 +7742,7 @@
     "proof_required": true,
     "type": "vehicle",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7774,7 +7774,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7800,7 +7800,7 @@
     "proof_required": true,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7826,7 +7826,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "PA"
@@ -7851,7 +7851,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7874,7 +7874,7 @@
     "proof_required": false,
     "type": "financial",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7900,7 +7900,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7923,7 +7923,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -7946,7 +7946,7 @@
     "proof_required": null,
     "type": "vehicle",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "WI"
@@ -7974,7 +7974,7 @@
     "proof_required": null,
     "type": "financial",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8045,7 +8045,7 @@
     "proof_required": null,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8137,7 +8137,7 @@
     "proof_required": null,
     "type": "vehicle",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "TN"
@@ -8165,7 +8165,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8187,8 +8187,8 @@
     "estimated_payout": "$50",
     "proof_required": false,
     "type": "data_breach",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8211,7 +8211,7 @@
     "proof_required": null,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8237,7 +8237,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8260,7 +8260,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "WA"
@@ -8285,7 +8285,7 @@
     "proof_required": null,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8311,7 +8311,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8337,7 +8337,7 @@
     "proof_required": null,
     "type": "health",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "FL"
@@ -8365,7 +8365,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8391,7 +8391,7 @@
     "proof_required": null,
     "type": "health",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "IL"
@@ -8416,7 +8416,7 @@
     "proof_required": null,
     "type": "employment",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8439,7 +8439,7 @@
     "proof_required": false,
     "type": "financial",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "MD"
@@ -8464,7 +8464,7 @@
     "proof_required": null,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8487,7 +8487,7 @@
     "proof_required": true,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "IL"
@@ -8512,7 +8512,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "IL"
@@ -8540,7 +8540,7 @@
     "proof_required": null,
     "type": "housing",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8563,7 +8563,7 @@
     "proof_required": null,
     "type": "housing",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "CA",
@@ -8589,7 +8589,7 @@
     "proof_required": null,
     "type": "housing",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "MA"
@@ -8614,7 +8614,7 @@
     "proof_required": null,
     "type": "housing",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": [
@@ -8639,7 +8639,7 @@
     "proof_required": null,
     "type": "vehicle",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8662,7 +8662,7 @@
     "proof_required": null,
     "type": "housing",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8685,7 +8685,7 @@
     "proof_required": null,
     "type": "housing",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8711,7 +8711,7 @@
     "proof_required": null,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8734,7 +8734,7 @@
     "proof_required": null,
     "type": "housing",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8757,7 +8757,7 @@
     "proof_required": null,
     "type": "health",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8780,7 +8780,7 @@
     "proof_required": null,
     "type": "financial",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8803,7 +8803,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8826,7 +8826,7 @@
     "proof_required": false,
     "type": "health",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8852,7 +8852,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8875,7 +8875,7 @@
     "proof_required": null,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8898,7 +8898,7 @@
     "proof_required": null,
     "type": "employment",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8924,7 +8924,7 @@
     "proof_required": null,
     "type": "employment",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8950,7 +8950,7 @@
     "proof_required": false,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8976,7 +8976,7 @@
     "proof_required": true,
     "type": "health",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -8999,7 +8999,7 @@
     "proof_required": null,
     "type": "financial",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -9025,7 +9025,7 @@
     "proof_required": null,
     "type": "consumer",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "WA"
@@ -9053,7 +9053,7 @@
     "proof_required": false,
     "type": "data_breach",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -9076,7 +9076,7 @@
     "proof_required": null,
     "type": "housing",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -9098,8 +9098,8 @@
     "estimated_payout": "Varies",
     "proof_required": null,
     "type": "housing",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": [
@@ -9123,8 +9123,8 @@
     "estimated_payout": "Varies",
     "proof_required": null,
     "type": "housing",
-    "active": true,
-    "last_verified": "2026-05-31",
+    "active": false,
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -9150,7 +9150,7 @@
     "proof_required": null,
     "type": "employment",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -9173,7 +9173,7 @@
     "proof_required": null,
     "type": "housing",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -9196,7 +9196,7 @@
     "proof_required": null,
     "type": "housing",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -9219,7 +9219,7 @@
     "proof_required": null,
     "type": "financial",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": null,
       "services": null,
@@ -9242,7 +9242,7 @@
     "proof_required": null,
     "type": "housing",
     "active": true,
-    "last_verified": "2026-05-31",
+    "last_verified": "2026-06-07",
     "criteria": {
       "states": [
         "CA"
@@ -9251,6 +9251,950 @@
         "Tinder"
       ],
       "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "google-play-data-privacy-2026",
+    "title": "Google Play - Data Privacy Class Action Settlement",
+    "defendant": "Google Play",
+    "description": "This settlement covers those who downloaded or used an app from Google Play from April 1, 2015 to the present while under the age of 13.",
+    "deadline": "2026-09-14",
+    "claim_url": "https://www.coppaprivacyclassaction.com/",
+    "source_url": "https://www.classaction.org/settlements#google-play-data-privacy",
+    "estimated_payout": "Varies",
+    "proof_required": false,
+    "type": "consumer",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": [
+        "Google Play"
+      ],
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "illinois-institute-of-technology-covid-tuition-2026",
+    "title": "Illinois Institute of Technology - COVID Tuition Class Action Settlement",
+    "defendant": "Illinois Institute of Technology",
+    "description": "You may be included in this settlement if you were an Illinois Tech student who paid or were obligated to pay tuition, fees, or other costs to Illinois Tech for the Spring 2020 academic term.",
+    "deadline": "2026-09-10",
+    "claim_url": "https://iltech2020settlement.com/",
+    "source_url": "https://www.classaction.org/settlements#illinois-institute-of-technology-covid-tuition",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "consumer",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": [
+        "IL"
+      ],
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "fmc-services-data-breach-2026",
+    "title": "FMC Services - Data Breach Class Action Settlement",
+    "defendant": "FMC Services",
+    "description": "You may be included in this settlement if your private information was potentially compromised in the July 2022 FMC Services data breach.",
+    "deadline": "2026-08-31",
+    "claim_url": "https://www.fmcdatasettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#fmc-services-data-breach",
+    "estimated_payout": "$75 - $5,000",
+    "proof_required": false,
+    "type": "data_breach",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": "FMC Services",
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "fanatics-handling-fees-2026",
+    "title": "Fanatics - Handling Fees Class Action Settlement",
+    "defendant": "Fanatics",
+    "description": "If you purchased merchandise through the Fanatics websites between May 6, 2018 and March 30, 2026 and paid a handling fee, you may be covered by this settlement.",
+    "deadline": "2026-08-27",
+    "claim_url": "https://handlingfeesettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#fanatics-handling-fees",
+    "estimated_payout": "Two $5 Vouchers",
+    "proof_required": false,
+    "type": "consumer",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": {
+        "after": "2018-05-06",
+        "before": "2026-03-30"
+      },
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "walton-women-s-center-data-breach-2026",
+    "title": "Walton Women’s Center - Data Breach Class Action Settlement",
+    "defendant": "Walton Women’s Center",
+    "description": "This settlement covers those whose personal information was potentially compromised in the February 2022 Walton Women’s Center data breach.",
+    "deadline": "2026-08-27",
+    "claim_url": "https://www.hwwcdataincidentsettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#walton-womens-center-data-breach",
+    "estimated_payout": "Up to $2,500",
+    "proof_required": false,
+    "type": "data_breach",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": "s Center",
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "lakeview-health-systems-data-breach-2026",
+    "title": "Lakeview Health Systems - Data Breach Class Action Settlement",
+    "defendant": "Lakeview Health Systems",
+    "description": "You may be included in this settlement if your private information was compromised in the January 2024 Lakeview Health Systems data breach.",
+    "deadline": "2026-08-24",
+    "claim_url": "https://lakeviewhealthsettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#lakeview-health-systems-data-breach",
+    "estimated_payout": "$50 - $5,000",
+    "proof_required": false,
+    "type": "data_breach",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": "Lakeview Health Systems",
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "bestway-spa-pumps-2026",
+    "title": "Bestway Spa Pumps Class Action Settlement",
+    "defendant": "Bestway Spa Pumps",
+    "description": "You may be included in this settlement if you purchased certain Bestway AirJet or Bestway HydroJet spa pumps.",
+    "deadline": "2026-08-17",
+    "claim_url": "https://spapumpclassactionsettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#bestway-spa-pumps",
+    "estimated_payout": "Up to $75",
+    "proof_required": true,
+    "type": "consumer",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "emm-loans-data-breach-2026",
+    "title": "EMM Loans - Data Breach Class Action Settlement",
+    "defendant": "EMM Loans",
+    "description": "You may be included in this settlement if your private information was exposed in the February 2024 EMM Loans data breach.",
+    "deadline": "2026-08-17",
+    "claim_url": "https://emmloansdatasettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#emm-loans-data-breach",
+    "estimated_payout": "$50 - $4,000",
+    "proof_required": false,
+    "type": "data_breach",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": "EMM Loans",
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "deanco-healthcare-data-breach-2026",
+    "title": "Deanco Healthcare - Data Breach Class Action Settlement",
+    "defendant": "Deanco Healthcare",
+    "description": "You may be included in this settlement if your personal information was potentially exposed in the May 2023 Deanco Healthcare data breach.",
+    "deadline": "2026-08-12",
+    "claim_url": "https://deancodatabreachsettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#deanco-healthcare-data-breach",
+    "estimated_payout": "Up to $5,000",
+    "proof_required": false,
+    "type": "data_breach",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": "Deanco Healthcare",
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "onsite-mammography-data-breach-2026",
+    "title": "Onsite Mammography - Data Breach Class Action Settlement",
+    "defendant": "Onsite Mammography",
+    "description": "You may be included in this settlement if your personal information was exposed in the October 2024 Onsite Mammography data breach.",
+    "deadline": "2026-08-11",
+    "claim_url": "https://www.onsitesettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#onsite-mammography-data-breach",
+    "estimated_payout": "Up to $5,000",
+    "proof_required": false,
+    "type": "data_breach",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": "Onsite Mammography",
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "motility-software-solutions-data-breach-2026",
+    "title": "Motility Software Solutions - Data Breach Class Action Settlement",
+    "defendant": "Motility Software Solutions",
+    "description": "You may be included in this settlement if your personal information was exposed in the August 2025 Motility Software Solutions data breach.",
+    "deadline": "2026-08-07",
+    "claim_url": "https://motilitydatabreachlitigation.com/",
+    "source_url": "https://www.classaction.org/settlements#motility-software-solutions-data-breach",
+    "estimated_payout": "$75 - $5,000",
+    "proof_required": false,
+    "type": "data_breach",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": "Motility Software Solutions",
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "cook-county-sheriff-employment-discrimination-2026",
+    "title": "Cook County Sheriff - Employment Discrimination Class Action Settlement",
+    "defendant": "Cook County Sheriff",
+    "description": "You may be included in this settlement if you are Black, applied for a a position as a Cook County Correctional Officer and were denied the job because you did not pass one of the written tests or the physical abilities test.",
+    "deadline": "2026-08-05",
+    "claim_url": "https://www.simpsoncookcountysettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#cook-county-sheriff-employment-discrimination",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "consumer",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "robbie-d-wood-data-breach-2026",
+    "title": "Robbie D. Wood - Data Breach Class Action Settlement",
+    "defendant": "Robbie D. Wood",
+    "description": "If your personal information was compromised in the October 2024 data breach involving Robbie D. Wood, you may be able to claim a piece of this settlement.",
+    "deadline": "2026-08-05",
+    "claim_url": "https://www.rdwsettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#robbie-d.-wood-data-breach",
+    "estimated_payout": "$65 - $5,000",
+    "proof_required": false,
+    "type": "data_breach",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": "Robbie D. Wood",
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "studio-one-theaters-2026",
+    "title": "Studio One Theaters Class Action Settlement",
+    "defendant": "Studio One Theaters",
+    "description": "You may be included in this settlement if you worked for Studio One Theaters between 2018 and April 9, 2026.",
+    "deadline": "2026-07-21",
+    "claim_url": "https://studioonesettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#studio-one-theaters",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "consumer",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "thriveworks-administrative-services-data-privacy-2026",
+    "title": "Thriveworks Administrative Services - Data Privacy Class Action Settlement",
+    "defendant": "Thriveworks Administrative Services",
+    "description": "You may be included in this settlement if you used the www.thriveworks.com patient portal between April 25, 2023 and September 5, 2025.",
+    "deadline": "2026-07-21",
+    "claim_url": "https://thriveworksprivacysettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#thriveworks-administrative-services-data-privacy",
+    "estimated_payout": "Up to $10",
+    "proof_required": true,
+    "type": "consumer",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": {
+        "after": "2023-04-25",
+        "before": "2025-09-05"
+      },
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "willow-tv-data-privacy-2026",
+    "title": "Willow TV - Data Privacy Class Action Settlement",
+    "defendant": "Willow TV",
+    "description": "You may be included in this settlement if you subscribed to Willow TV and watched pre-recorded videos on Willow.tv between July 20, 2021 and September 22, 2023.",
+    "deadline": "2026-07-21",
+    "claim_url": "https://willowtvvppasettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#willow-tv-data-privacy",
+    "estimated_payout": "Varies",
+    "proof_required": false,
+    "type": "consumer",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": {
+        "after": "2021-07-20",
+        "before": "2023-09-22"
+      },
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "derick-dermatology-data-privacy-2026",
+    "title": "Derick Dermatology - Data Privacy Class Action Settlement",
+    "defendant": "Derick Dermatology",
+    "description": "You may be able to claim a piece if this settlement if you made an appointment on Derick Dermatology's website between November 21, 2023 and November 27, 2025.",
+    "deadline": "2026-07-21",
+    "claim_url": "https://dermatologypixelsettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#derick-dermatology-data-privacy",
+    "estimated_payout": "Up to $12.50",
+    "proof_required": false,
+    "type": "consumer",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": {
+        "after": "2023-11-21",
+        "before": "2025-11-27"
+      },
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "the-gill-corporation-data-breach-2026",
+    "title": "The Gill Corporation - Data Breach Class Action Settlement",
+    "defendant": "The Gill Corporation",
+    "description": "You may be included in this settlement if your personal information was potentially impacted by the data breach affecting The Gill Corporation that was disclosed in September 2024.",
+    "deadline": "2026-07-20",
+    "claim_url": "https://www.tgcsettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#the-gill-corporation-data-breach",
+    "estimated_payout": "$100 - $5,000",
+    "proof_required": false,
+    "type": "data_breach",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": "Gill Corporation",
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "elsie-rooftop-wages-new-york-2026",
+    "title": "Elsie Rooftop - Wages (New York) Class Action Settlement",
+    "defendant": "Elsie Rooftop",
+    "description": "If you worked for Elsie Rooftop in New York between July 3, 2018 and November 13, 2025 as a tipped worker, you may be included in this settlement.",
+    "deadline": "2026-07-20",
+    "claim_url": "https://elsierooftopsettlement.com/home",
+    "source_url": "https://www.classaction.org/settlements#elsie-rooftop-wages-new-york",
+    "estimated_payout": "Varies",
+    "proof_required": false,
+    "type": "employment",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": [
+        "NY"
+      ],
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": {
+        "after": "2018-07-03",
+        "before": "2025-11-13"
+      },
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "tuft-needle-mattress-prices-california-2026",
+    "title": "Tuft & Needle - Mattress Prices (California) Class Action Settlement",
+    "defendant": "Tuft & Needle",
+    "description": "You may be included in this settlement if you bought a mattress advertised at a discount from Tuft & Needle's website between January 1, 2020 and December 31, 2024 while in California.",
+    "deadline": "2026-07-14",
+    "claim_url": "https://www.tnpricesettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#tuft-and-needle-mattress-prices-california",
+    "estimated_payout": "$75 (approx.)",
+    "proof_required": false,
+    "type": "consumer",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": [
+        "CA"
+      ],
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": {
+        "after": "2020-01-01",
+        "before": "2024-12-31"
+      },
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "novant-health-employee-wages-2026",
+    "title": "Novant Health - Employee Wages Class Action Settlement",
+    "defendant": "Novant Health",
+    "description": "You may be included in this settlement if you worked for Novant Health between September 19, 2021 and February 11, 2023 and were subject to a timeclock rounding policy and worked at least one workweek of forty hours or more.",
+    "deadline": "2026-07-10",
+    "claim_url": "https://nhcollectivesettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#novant-health-employee-wages",
+    "estimated_payout": "Varies",
+    "proof_required": false,
+    "type": "employment",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": {
+        "after": "2021-09-19",
+        "before": "2023-02-11"
+      },
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "mcdonald-s-job-postings-washington-2026",
+    "title": "McDonald’s - Job Postings (Washington) Class Action Settlement",
+    "defendant": "McDonald’s",
+    "description": "You may be included in this settlement if you applied for a job at certain McDonald's locations in Washington between January 1, 2023 and March 13, 2025.",
+    "deadline": "2026-06-23",
+    "claim_url": "https://ktcsettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#mcdonalds-job-postings-washington",
+    "estimated_payout": "Est. $1,093.40",
+    "proof_required": null,
+    "type": "consumer",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": [
+        "WA"
+      ],
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": {
+        "after": "2023-01-01",
+        "before": "2025-03-13"
+      },
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "country-bank-for-savings-fees-2026",
+    "title": "Country Bank for Savings - Fees Class Action Settlement",
+    "defendant": "Country Bank for Savings",
+    "description": "You may be included in this settlement if Country Bank for Savings charged you certain fees between March 12, 2019 and December 31, 2025.",
+    "deadline": "2026-06-22",
+    "claim_url": "https://kimballfeessettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#country-bank-for-savings-fees",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "financial",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": {
+        "after": "2019-03-12",
+        "before": "2025-12-31"
+      },
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "club-one-comp-dollars-2026",
+    "title": "Club One - Comp Dollars Class Action Settlement",
+    "defendant": "Club One",
+    "description": "You may be included in this settlement if you were a member of the Club One player rewards program between October 23, 2020 and December 31, 2025 and you redeemed comp dollars at Circa, The D, and/or Golden Gate in exchange for food, meals, and/or nonalcoholic beverages.",
+    "deadline": "2026-06-21",
+    "claim_url": "https://chitwoodvcircasettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#club-one-comp-dollars",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "consumer",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": {
+        "after": "2020-10-23",
+        "before": "2025-12-31"
+      },
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "fca-employee-wages-2026",
+    "title": "FCA - Employee Wages Class Action Settlement",
+    "defendant": "FCA",
+    "description": "This settlement covers all current and former hourly employees who worked for FCA US, LLC in any United States facility any time between February 10, 2020, and May 12, 2025.",
+    "deadline": "2026-06-10",
+    "claim_url": "https://www.featherstonefcasettlement.com/",
+    "source_url": "https://www.classaction.org/settlements#fca-employee-wages",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "employment",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "million-fragrance-end-user-antitrust",
+    "title": "Million Fragrance End-User Antitrust Class Action Settlement",
+    "defendant": "Million Fragrance End",
+    "description": "BySteve LevinePublished: June 1, 2026TweetShareStatusRegister for Updatesclaims process has not opened yetSettlement Amount$11,000,000IFF only · case continues against other defendantsClaim DeadlineTBDno claim form available yetProof RequiredTBDIf you bought consumer products or household goods in the United States that contained certain fragrance products between January 1, 2018 and December 31, 2023, you may be a member of the Settlement Class in the Fragrance End-User Plaintiff Antitrust Liti",
+    "deadline": null,
+    "claim_url": "",
+    "source_url": "https://openclassactions.com/settlements/consumer-fragrances-class-action-settlement.php",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "housing",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": {
+        "after": "2018-01-01",
+        "before": "2023-12-31"
+      },
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "banana-republic-the-gap-1-95m-wage-and",
+    "title": "Banana Republic & The Gap $1.95M Wage and Hour Class Action Settlement",
+    "defendant": "Banana Republic & The Gap $1.95M Wage and Hour",
+    "description": "BySteve LevinePublished: June 3, 2026TweetShareStatusPending Final ApprovalNo claim form needed · final approval hearing November 9, 2026Settlement Fund$1,950,000Net fund estimated at least $1.13M, paid pro rata by pay periods workedClaim FormNot RequiredChecks mailed automatically to the address on your Class NoticeProof RequiredNoEligibility comes from Defendants' employment recordsOpt-Out / Object ByJuly 21, 2026Only if you want to exclude yourself or object — otherwise do nothingWhat Is the ",
+    "deadline": null,
+    "claim_url": "",
+    "source_url": "https://openclassactions.com/settlements/the-gap-banana-republic-wage-and-hour-class-action-settlement.php",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "housing",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "menard-bonded-abrasive-wheel-class-action-settlement-replacement",
+    "title": "Menard Bonded Abrasive Wheel Class Action Settlement — Replacement Wheels (No Proof) or Up to $50 Cash",
+    "defendant": "Menard Bonded Abrasive Wheel",
+    "description": "BySteve LevinePublished: June 4, 2026TweetShareStatusClaims Openpreliminarily approved · Final Approval Hearing August 17, 2026Claim DeadlineJuly 7, 2026exclusion and objection deadlines are also July 7, 2026Estimated PayoutReplacement Wheel(s) or Up to $50 Cashno proof: 1 wheel per unit, up to 5 (~$3 each) · with proof: cash equal to your spend, capped at $50Proof RequiredNo (Replacement Wheel) · Yes (Cash)no Claim ID or Notice ID needed for the wheel option; the $50 cash option needs a receipt",
+    "deadline": null,
+    "claim_url": "",
+    "source_url": "https://openclassactions.com/settlements/menard-bonded-abrasive-wheel-class-action-settlement.php",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "housing",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "e-benefit-solution-data-breach-class-action-settlement",
+    "title": "E Benefit Solution Data Breach Class Action Settlement — $40 Cash or Up to $5,000 for Documented Losses Plus Credit Monitoring",
+    "defendant": "E Benefit Solution Data Breach",
+    "description": "BySteve LevinePublished: June 2, 2026TweetShareStatusClaims OpenClaim DeadlineJuly 1, 2026final approval hearing June 23, 2026 at 8:30 a.m. ET · opt-out / objection deadline (June 1, 2026) has passedCash Payment$40 (No Proof) or Up to $5,000 (Documented Losses)choose one cash option · plus 2 years of CyEx credit monitoring with $1M fraud insurance for everyoneProof RequiredYes (Unique ID + PIN from Notice)$40 option needs no loss documentation · the up-to-$5,000 option requires receipts or state",
+    "deadline": null,
+    "claim_url": "",
+    "source_url": "https://openclassactions.com/settlements/ebenefit-data-incident-class-action-settlement.php",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "data_breach",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": "E Benefit Solution",
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "onsite-mammography-data-breach-settlement-up-to-5",
+    "title": "Onsite Mammography Data Breach Settlement: Up to $5,000 in Losses, a Pro Rata Cash Payment, and 3 Years of Credit & Medical Monitoring",
+    "defendant": "Onsite Mammography Data Breach",
+    "description": "BySteve LevinePublished: June 7, 2026TweetShareStatusClaims OpenClaim DeadlineAugust 11, 2026Estimated PayoutUp to $5,000 + pro rata cash$2,525,000 fund · plus 3 years of credit & medical data monitoringProof RequiredNoNone for the pro rata cash payment or monitoring; documentation only for the up-to-$5,000 out-of-pocket reimbursementWhat Is This Settlement About?Onsite Mammography, LLC, doing business as Onsite Women's Health, has agreed to a proposed $2,525,000 all-cash settlement to resolve a",
+    "deadline": null,
+    "claim_url": "",
+    "source_url": "https://openclassactions.com/settlements/onsite-mammography-data-breach-class-action-settlement.php",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "health",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "million-solaredge-technologies-securities-class-action-settlement-file",
+    "title": "Million SolarEdge Technologies Securities Class Action Settlement — File Your Claim by August 17, 2026",
+    "defendant": "Million SolarEdge Technologies Securities",
+    "description": "BySteve LevinePublished: June 1, 2026TweetShareStatusClaims OpenClaim DeadlineAugust 17, 2026settlement hearing August 24, 2026 at 2:30 p.m. ET · opt-out/object by August 3, 2026Estimated Payout~$1.49 net per damaged share (avg)$55,000,000 cash fund · pro rata by Recognized Loss · no payment under $10.00Proof RequiredYesbrokerage records of your SEDG purchases, sales & holdingsWhat Is the SolarEdge Securities Settlement About?Did you buy or otherwise acquire SolarEdge Technologies, Inc. common s",
+    "deadline": null,
+    "claim_url": "",
+    "source_url": "https://openclassactions.com/settlements/solaredge-technologies-securities-class-action-settlement.php",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "housing",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "willow-tv-vppa-privacy-class-action-settlement-cricket",
+    "title": "Willow TV VPPA Privacy Class Action Settlement — Cricket Streamers, Claim by July 21, 2026",
+    "defendant": "Willow TV VPPA Privacy",
+    "description": "BySteve LevinePublished: June 1, 2026TweetShareStatusClaims OpenFinal approval hearing February 25, 2027Claim DeadlineJuly 21, 2026opt-out / objection deadline also July 21, 2026Estimated PayoutPro Rata Share of $850,000cash; amount depends on how many of the ~75,830 class members file valid claimsProof RequiredNono Class Member ID, PIN, or receipts — just a Claim Form signed under penalty of perjury (sworn attestation)Who's CoveredWillow TV subscribers who watched videossubscribed to Willow TV ",
+    "deadline": null,
+    "claim_url": "",
+    "source_url": "https://openclassactions.com/settlements/willow-tv-prerecorded-videos-class-action-settlement.php",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "housing",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "gametime-hidden-ticket-fees-class-action-settlement-automatic",
+    "title": "Gametime Hidden Ticket Fees Class Action Settlement: Automatic Credit Vouchers, No Claim Form Required",
+    "defendant": "Gametime Hidden Ticket Fees",
+    "description": "BySteve LevinePublished: June 1, 2026TweetShareStatusPreliminarily ApprovedFinal approval hearing September 9, 2026What You GetGametime Credit Voucher15% of your Initial Fees Paid · $5.00 minimum · valid 60 months, non-transferableClaim FormNot Requiredvoucher sent automatically by email, or first-class mail if no email on fileOpt-Out / Objection DeadlineJuly 20, 2026do nothing to stay in the class and keep your voucherClass PeriodApr 18, 2018 – May 12, 2025California ticket purchases through th",
+    "deadline": null,
+    "claim_url": "",
+    "source_url": "https://openclassactions.com/settlements/gametime-class-action-settlement.php",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "consumer",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "2022-mitsubishi-outlander-hood-flutter-class-action-settlement",
+    "title": "2022 Mitsubishi Outlander Hood Flutter Class Action Settlement: Free Hood Repair & Repair Cost Reimbursement",
+    "defendant": "2022 Mitsubishi Outlander Hood Flutter",
+    "description": "BySteve LevinePublished: June 1, 2026TweetShareStatusPreliminarily ApprovedFinal fairness hearing August 3, 2026What You GetFree Hood Repair + Cost Reimbursement100% covered hood repair/replacement at an authorized dealer · reimbursement of past out-of-pocket repair & rental costs (non-dealer repairs capped at $4,595)Reimbursement Claim DeadlineJuly 30, 2026opt-out / objection deadline June 15, 2026Proof RequiredYes — for reimbursementrepair invoice + proof of payment to be reimbursed · the free",
+    "deadline": null,
+    "claim_url": "",
+    "source_url": "https://openclassactions.com/settlements/mitsubishi-outlander-class-action-settlement.php",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "housing",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "barefoot-dreams-website-privacy-tracking-class-action-settlement",
+    "title": "Barefoot Dreams Website Privacy Tracking Class Action Settlement — $8 Cash Payment for Online Shoppers",
+    "defendant": "Barefoot Dreams Website Privacy Tracking",
+    "description": "BySteve LevinePublished: June 3, 2026TweetShareStatusClaims OpenClaim DeadlineJuly 31, 2026exclusion / objection deadline July 31, 2026 · final approval hearing August 17, 2026Estimated Payout$8.00 cashflat amount per valid claim · paid by PayPal, Venmo, Zelle, or checkProof RequiredYesUnique ID + PIN from the emailed notice · no receipts neededWhat Is the Barefoot Dreams Privacy Settlement About?Did you buy a robe, blanket, or anything else from barefootdreams.com between\n            October 20",
+    "deadline": null,
+    "claim_url": "",
+    "source_url": "https://openclassactions.com/settlements/barefoot-dreams-website-privacy-tracking-class-action-settlement.php",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "housing",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "labcorp-amca-data-breach-class-action-settlement-50",
+    "title": "Labcorp AMCA Data Breach Class Action Settlement — $50 Cash or Up to $5,000 for Documented Losses, Plus 2 Years Medical Monitoring",
+    "defendant": "Labcorp AMCA Data Breach",
+    "description": "BySteve LevinePublished: June 4, 2026TweetShareStatusClaims OpenClaim DeadlineSeptember 3, 2026opt-out and objection deadline is earlier on July 27, 2026Estimated Payout~$50 Cash or Up to $5,000 Documentedchoose one cash option · both pro rata · plus 2 years free CyEx Medical Shield Pro monitoringProof RequiredYesClass Member ID from your emailed or mailed notice is required to file · receipts required only for the up-to-$5,000 documented losses optionWhat Is the Labcorp AMCA Data Breach Class A",
+    "deadline": null,
+    "claim_url": "",
+    "source_url": "https://openclassactions.com/settlements/labcorp-amca-data-breach-class-action-settlement.php",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "data_breach",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": "Labcorp AMCA",
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "motility-software-solutions-data-breach-settlement-75-cash",
+    "title": "Motility Software Solutions Data Breach Settlement: $75 Cash or Up to $5,000, Claims Due August 7, 2026",
+    "defendant": "Motility Software Solutions Data Breach",
+    "description": "BySteve LevinePublished: June 7, 2026TweetShare▼Preliminary Approval Granted · Final Approval Still RequiredThe court has granted preliminary approval and the claim period is open, but final approval is still required before payments can be issued. Settlement benefits, deadlines, and payment timing remain subject to the official settlement terms, claim review, and final court approval. This page is informational and is not legal advice.StatusClaims OpenClaim DeadlineAugust 7, 2026Estimated Payou",
+    "deadline": null,
+    "claim_url": "",
+    "source_url": "https://openclassactions.com/settlements/motility-software-solutions-data-breach-settlement.php",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "data_breach",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": null,
+      "vehicles": null,
+      "breach_name": "Motility Software Solutions",
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "aurobindo-irbesartan-class-action-settlement-2-million-for",
+    "title": "Aurobindo Irbesartan Class Action Settlement — $2 Million for Contaminated Blood Pressure Drug, Claim by June 2, 2026",
+    "defendant": "Aurobindo Irbesartan",
+    "description": "BySteve LevinePublished: April 6, 2026TweetShareStatusClaims Openfinal approval hearing scheduled June 30, 2026Claim DeadlineJune 2, 2026Settlement Fund$2,000,000economic loss only · pro rata refund · class period Jan 1, 2016 – presentProof RequiredNodocumentation encouraged but not strictly required · Aurobindo IC ROS irbesartanWhat Is This Settlement About?Aurobindo Pharma Ltd., Aurobindo Pharma USA Inc., and Aurolife Pharma LLC have agreed to a $2,000,000 class action settlement to resolve ec",
+    "deadline": null,
+    "claim_url": "",
+    "source_url": "https://openclassactions.com/settlements/aurobindo-irbesartan-contaminated-blood-pressure-drug-class-action-settlement.php",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "health",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": [
+        "Irbesartan"
+      ],
+      "vehicles": null,
+      "breach_name": null,
+      "date_range": null,
+      "qualifying_questions": []
+    }
+  },
+  {
+    "id": "vivimed-losartan-class-action-settlement-1-899-million",
+    "title": "Vivimed Losartan Class Action Settlement — $1.899 Million for Contaminated Blood Pressure Drug, Claim by June 2, 2026",
+    "defendant": "Vivimed Losartan",
+    "description": "BySteve LevinePublished: April 6, 2026TweetShareStatusClaims Openfinal approval hearing scheduled June 30, 2026Claim DeadlineJune 2, 2026Settlement Fund$1,899,000economic loss only · pro rata refund of purchase priceProof RequiredNodocumentation encouraged but not strictly required · covers 8 impacted Vivimed losartan NDCsWhat Is This Settlement About?Vivimed Life Sciences Pvt Ltd and Strides Pharma Science Limited (collectively, \"Vivimed\") have agreed to a $1,899,000 class action settlement to ",
+    "deadline": null,
+    "claim_url": "",
+    "source_url": "https://openclassactions.com/settlements/vivimed-losartan-contaminated-blood-pressure-drug-class-action-settlement.php",
+    "estimated_payout": "Varies",
+    "proof_required": null,
+    "type": "health",
+    "active": true,
+    "last_verified": "2026-06-07",
+    "criteria": {
+      "states": null,
+      "services": null,
+      "products": [
+        "Losartan"
+      ],
       "vehicles": null,
       "breach_name": null,
       "date_range": null,
